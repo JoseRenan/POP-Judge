@@ -11,7 +11,6 @@ import br.edu.popjudge.database.ConnectionFactory;
 
 public class ProblemDAO implements Dao<ProblemBean> {
 
-	private ArrayList<ProblemBean> lista;
 	private Connection connection;
 
 	@Override
