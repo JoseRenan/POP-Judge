@@ -24,10 +24,10 @@ public class Filtro implements Filter{
 	public void doFilter (ServletRequest request, ServletResponse response, FilterChain chain ) throws IOException , ServletException {
 		HttpServletRequest req = ( HttpServletRequest ) request ;
 		HttpSession session = req.getSession() ;
-		String usuario = (String) session.getAttribute("username");		
+		String user = (String) session.getAttribute("username");		
 		
-		if (session.getAttribute("username") != null &&
-				!usuario.equals("Admin") &&
+		if (user != null &&
+				!user.equals("Admin") &&
 		    	((TimerBean.validaHorario() 
 				&& !req.getRequestURI().endsWith("index.xhtml") 
 				&& !req.getRequestURI().endsWith("Judge/")
@@ -44,8 +44,8 @@ public class Filtro implements Filter{
 			chain.doFilter( request, response );
 		} else {
 			
-			if(session.getAttribute("username") != null &&
-					usuario.equals("Admin") &&
+			if(user != null &&
+					user.equals("Admin") &&
 					(!req.getRequestURI().endsWith("index.xhtml") 
 					&& !req.getRequestURI().endsWith("Judge/")
 					&& req.getRequestURI().contains("admin")
@@ -53,7 +53,7 @@ public class Filtro implements Filter{
 				chain.doFilter( request, response );
 			} else {
 				
-				if(session.getAttribute("username") == null &&
+				if(user == null &&
 						(req.getRequestURI().endsWith("index.xhtml")
 						|| req.getRequestURI().endsWith("Judge/")
 						|| req.getRequestURI().contains("javax.faces.resource"))){
@@ -61,11 +61,11 @@ public class Filtro implements Filter{
 				} else {
 					HttpServletResponse res = ( HttpServletResponse ) response ;
 					
-					if(session.getAttribute("username") == null)
+					if(user == null)
 						res.sendRedirect("/POP-Judge/");
-					if(session.getAttribute("username") != null && !usuario.equals("Admin"))
+					if(user != null && !user.equals("Admin"))
 			    		res.sendRedirect("/POP-Judge/webapp/user/indexUser.xhtml");
-					if(session.getAttribute("username") != null && usuario.equals("Admin"))
+					if(user != null && user.equals("Admin"))
 			    		res.sendRedirect("/POP-Judge/webapp/admin/indexAdmin.xhtml");
 				}
 
