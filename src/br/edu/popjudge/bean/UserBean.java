@@ -49,7 +49,7 @@ public class UserBean {
 		this.idUser = idUser;
 	}
 	
-	public String entrar() throws IOException, SQLException{
+	public String login() throws IOException, SQLException{
 		if(this.username.equals("Admin") && this.password.equals("admin123")){
 			FacesContext context = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);

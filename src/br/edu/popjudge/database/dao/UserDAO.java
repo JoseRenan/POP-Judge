@@ -8,17 +8,17 @@ import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
 
-import br.edu.popjudge.bean.UsuarioBean;
+import br.edu.popjudge.bean.UserBean;
 import br.edu.popjudge.database.ConnectionFactory;
 
 @ManagedBean
-public class UsuarioDAO implements Dao<UsuarioBean> {
+public class UserDAO implements Dao<UserBean> {
 	
-	private ArrayList<UsuarioBean> lista;
+	private ArrayList<UserBean> lista;
 	private Connection connection;
 	
 	@Override
-	public void insert(UsuarioBean value) throws SQLException {
+	public void insert(UserBean value) throws SQLException {
 		
 		connection = new ConnectionFactory().getConnection();
 		
@@ -36,16 +36,16 @@ public class UsuarioDAO implements Dao<UsuarioBean> {
 	
 
 	@Override
-	public ArrayList<UsuarioBean> getAll() throws SQLException {
+	public ArrayList<UserBean> getAll() throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		try {
-	         ArrayList<UsuarioBean> lista = new ArrayList<UsuarioBean>();
+	         ArrayList<UserBean> lista = new ArrayList<UserBean>();
 	         PreparedStatement stmt = this.connection.prepareStatement("select * from USER");
 	         ResultSet rs = stmt.executeQuery();
 	 
 	         while (rs.next()) {
 	             // criando o objeto Contato
-	             UsuarioBean usuario = new UsuarioBean();
+	        	 UserBean usuario = new UserBean();
 	             usuario.setIdUser(rs.getInt("id_user"));
 	             usuario.setUsername(rs.getString("username"));
 	             usuario.setPassword(rs.getString("password"));
@@ -66,7 +66,7 @@ public class UsuarioDAO implements Dao<UsuarioBean> {
 	}
 
 	@Override
-	public UsuarioBean get(int id) throws SQLException {
+	public UserBean get(int id) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		try {
 			 String sql = "select * from USER where id_user = ?";
@@ -74,7 +74,7 @@ public class UsuarioDAO implements Dao<UsuarioBean> {
 	         stmt.setInt(1, id);
 	         ResultSet rs = stmt.executeQuery();
 	
-	         UsuarioBean usuario = new UsuarioBean();
+	         UserBean usuario = new UserBean();
 	         if(rs.next()){
 	             usuario.setIdUser(rs.getInt("id_user"));
 	             usuario.setUsername(rs.getString("username"));
@@ -95,7 +95,7 @@ public class UsuarioDAO implements Dao<UsuarioBean> {
 	     }
 	}
 	
-	public UsuarioBean get(String username) throws SQLException {
+	public UserBean get(String username) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		try {
 			 String sql = "select * from USER where username = ?";
@@ -103,7 +103,7 @@ public class UsuarioDAO implements Dao<UsuarioBean> {
 	         stmt.setString(1, username);
 	         ResultSet rs = stmt.executeQuery();
 	
-	         UsuarioBean usuario = new UsuarioBean();
+	         UserBean usuario = new UserBean();
 	         if(rs.next()){
 	             usuario.setIdUser(rs.getInt("id_user"));
 	             usuario.setUsername(rs.getString("username"));
@@ -131,7 +131,7 @@ public class UsuarioDAO implements Dao<UsuarioBean> {
 	}
 
 	@Override
-	public void update(UsuarioBean value) throws SQLException {
+	public void update(UserBean value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		
 		String sql = "update tb_usuario set password=? where id_user=?";
@@ -151,7 +151,7 @@ public class UsuarioDAO implements Dao<UsuarioBean> {
 		
 	}
 
-	public ArrayList<UsuarioBean> getLista() {
+	public ArrayList<UserBean> getLista() {
 		return lista;
 	}
 
