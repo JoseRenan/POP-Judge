@@ -10,13 +10,13 @@ import javax.servlet.http.HttpSession;
 
 import br.edu.popjudge.database.dao.UserDAO;
 
-@ManagedBean(name="user")
+@ManagedBean(name = "user")
 public class UserBean {
 	private String password;
 	private String username;
 	private int idUser;
 	private String dir;
-	
+
 	public String getDir() {
 		return dir;
 	}
@@ -63,7 +63,7 @@ public class UserBean {
 		UserDAO ud = new UserDAO();
 		UserBean usuario = ud.get(this.username);
 	
-		if(usuario!= null && usuario.getUsername().equals(this.username) && usuario.getPassword().equals(this.password)){
+		if(usuario != null && usuario.getUsername().equals(this.username) && usuario.getPassword().equals(this.password)){
 			FacesContext context = FacesContext.getCurrentInstance();
 	        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 	        session.setAttribute("username", usuario.getUsername());
@@ -77,6 +77,7 @@ public class UserBean {
 			
 		this.username = null;
 		this.password = null;
+		
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", " Usuário ou senha incorretos"));	
 		return "";
 	}
@@ -121,8 +122,6 @@ public class UserBean {
 		u.setIdUser((Integer)session.getAttribute("idUser"));
 		UserDAO ud = new UserDAO();
 		ud.update(u);
-		System.out.println("AQUI");
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Senha modificada com sucesso", ""));
 	}
-
 }
