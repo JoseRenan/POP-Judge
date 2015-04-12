@@ -2,7 +2,6 @@ package br.edu.popjudge.bean;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -63,7 +62,8 @@ public class UsuarioBean {
 		
 		UsuarioDAO ud = new UsuarioDAO();
 		UsuarioBean usuario = ud.get(this.username);
-		if(usuario.getUsername().equals(this.username) && usuario.getPassword().equals(this.password)){
+	
+		if(usuario!= null && usuario.getUsername().equals(this.username) && usuario.getPassword().equals(this.password)){
 			FacesContext context = FacesContext.getCurrentInstance();
 	        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 	        session.setAttribute("login", usuario.getUsername());
@@ -84,6 +84,7 @@ public class UsuarioBean {
 	public void sair() throws IOException{
 		this.username = null;
 		this.password = null;
+		this.dir = null;
 		invalidateSession();
 		FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/");
 	}
@@ -100,8 +101,8 @@ public class UsuarioBean {
 			UsuarioBean u = new UsuarioBean();
 			u.setUsername(this.username);
 			u.setPassword(this.password);
-			u.setDir(this.dir);
-			u.setIdUser(this.idUser);
+			String home = System.getProperty("user.home");
+			u.setDir(home + this.username);
 			UsuarioDAO ud = new UsuarioDAO();
 			ud.insert(u);
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/webapp/admin/newUser.xhtml");
