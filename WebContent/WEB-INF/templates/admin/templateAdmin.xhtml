@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="title">II Maratona POP</ui:insert></title>
+	<link rel="stylesheet" type="text/css" href="/POP-Judge/css/header.css" />
+	<link rel="stylesheet" type="text/css"
+		href="/POP-Judge/css/problem.css" />
+	<link rel="stylesheet" type="text/css" href="/POP-Judge/css/footer.css" />
+	<link rel="stylesheet" type="text/css"
+		href="/POP-Judge/css/default.css" />
+	<link href="/POP-Judge/resources/img/icon.png" type="image/x-icon"
+		rel="shortcut icon" />
+</h:head>
+
+<h:body>
+
+	<ui:insert name="header">
+		<ui:include src="/WEB-INF/templates/admin/headerAdmin.xhtml" />
+	</ui:insert>
+
+
+
+	<ui:insert name="content">
+	</ui:insert>
+
+	<div class="footer">
+		<ui:insert name="footer">
+			<ui:include src="/WEB-INF/templates/admin/footerAdmin.xhtml" />
+		</ui:insert>
+	</div>
+
+</h:body>
+
+</html>

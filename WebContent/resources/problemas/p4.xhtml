@@ -1,0 +1,114 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="header">
+		<span>II Maratona POP | P4</span>
+		<h1>A biblioteca de tapiocas</h1>
+		<div>
+			<p>
+				Por José Renan, IFPB - Campina Grande <img
+					src='https://urionlinejudge.r.worldssl.net/gallery/images/flags/br.gif'
+					alt='BR' /> Brazil
+			</p>
+		</div>
+		<strong>Timelimit: 1</strong>
+	</div>
+
+	<div class="problem">
+
+		<div class="description">
+			<p>Gustavo é um garoto que gosta excessivamente de tapiocas,
+				gosta tanto que resolveu fazer uma espécie de biblioteca de
+				tapiocas, onde ele separaria os sabores de tapioca por grupos, no
+				entanto, Gustavo escolheu uma forma um tanto quanto peculiar para
+				organizar as tapiocas que consiste de escolher um sabor S de tapioca
+				qualquer e colocar naquele grupo apenas sabores que tiverem no
+				mínimo 3 letras em comum com o sabor S.</p>
+
+			<p>Sabendo disso, Gustavo precisa que você faça um programa no
+				qual ele diga qual o sabor S e uma lista de outros sabores e o
+				programa mostre quais sabores daquela lista podem ser colocados
+				naquele grupo.</p>
+
+		</div>
+
+		<h2>Entrada</h2>
+
+		<div class="input">
+			<p>A primeira linha da entrada terá o sabor S, com 50 caracteres
+				minusculos no máximo, e um inteiro (1 ≤ I ≤ 100) contendo o tamanho
+				da lista de sabores.</p>
+
+		</div>
+
+		<h2>Saída</h2>
+
+		<div class="output">
+			<p>Você deve mostrar na saída quais daqueles sabores da lista
+				entra para o grupo de sabores do sabor S. Caso não haja nenhum
+				imprima "Nenhum".</p>
+
+			<p>OBS: As letras repetidas só contam uma vez como letra em
+				comum.</p>
+
+		</div>
+
+		<div class="both"></div>
+
+		<table>
+			<thead>
+				<tr>
+					<td>Exemplos de Entrada</td>
+					<td>Exemplos de Saída</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="division">
+						<p>
+							carne 6<br /> pedacinho do ceu<br /> chocolate<br /> queijo<br />
+							romeu e julieta<br /> goiabada<br /> salsicha
+						</p>
+
+					</td>
+					<td>
+						<p>pedacinho do ceu</p>
+
+						<p>chocolate</p>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="both"></div>
+		<table>
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="division">
+						<p>
+							queijo 3<br /> pedacinho do ceu<br /> chocolate<br /> salsicha
+						</p>
+
+					</td>
+					<td>
+						<p>Nenhum</p>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="both"></div>
+
+
+		<p class="footer"></p>
+	</div>
+
+	<br />
+</ui:composition>

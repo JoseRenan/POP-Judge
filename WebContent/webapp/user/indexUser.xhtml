@@ -1,0 +1,17 @@
+<ui:composition template="/WEB-INF/templates/user/templateUser.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<div class="rules">
+			<div align="center">
+				<h1>#{contest.nome}</h1>
+			</div>
+			<h2>Informações</h2>
+			<p><h:outputText value="#{contest.info}" escape="false"/></p>
+		</div>
+	</ui:define>
+</ui:composition>

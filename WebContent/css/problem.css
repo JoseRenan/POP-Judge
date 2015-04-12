@@ -1,0 +1,102 @@
+@CHARSET "UTF-8";
+
+.margem {
+	margin-right: 100px;
+	margin-left: 100px;
+}
+
+.geral {
+	min-height: 100%;
+	position: relative;
+}
+
+.both {
+	clear: both;
+}
+
+.header {
+	border-bottom: #BBB solid 1px;
+	margin: 0 0 20px;
+	padding: 0 0 20px;
+	text-align: center;
+}
+
+.header span {
+	color: #777;
+	font-size: 12px;
+}
+
+.header h1 {
+	font-weight: bold;
+	margin: 5px 0;
+}
+
+.header div {
+	color: #777;
+	font-size: 12px;
+	margin: 0 0 5px;
+}
+
+.header strong {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.problem {
+	line-height: 20px;
+	width: 900px;
+}
+
+.description p, .input p, .output p {
+	margin: 0 0 10px 0;
+}
+
+.problem table {
+	border-bottom: #BBB solid 1px;
+	border-collapse: collapse;
+	border-top: #BBB solid 1px;
+	margin: 15px 0;
+	width: 100%;
+}
+
+.problem table thead {
+	font-weight: bold;
+	text-align: center;
+}
+
+.problem table tbody {
+	font-family: "Courier New", Courier, "Nimbus Mono L", monospace;
+	background: #EFEFEF;
+}
+
+.problem table tbody td {
+	border-bottom: #BBB solid 1px;
+	border-top: #BBB solid 1px;
+	padding: 5px;
+	vertical-align: text-top;
+	width: 50%;
+}
+
+.division {
+	border-right: #BBB solid 1px;
+}
+
+.problem b {
+	font-weight: bold;
+}
+
+.problem i {
+	font-style: italic;
+}
+
+.problem u {
+	text-decoration: underline;
+}
+
+.problem .center {
+	text-align: center;
+}
+
+.code {
+	font-family: "Courier New", Courier, "Nimbus Mono L", monospace;
+}

@@ -1,0 +1,42 @@
+<ui:composition template="/WEB-INF/templates/user/templateUser.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<div align="center">
+			<h:form enctype="multipart/form-data">
+				<p:growl id="growl" autoUpdate="true" />
+				<p:selectOneMenu id="problema" value="#{submit.problema}"
+					required="true" style="width:306px;">
+					<f:selectItem itemLabel="Problema 1" itemValue="p1" />
+					<f:selectItem itemLabel="Problema 2" itemValue="p2" />
+					<f:selectItem itemLabel="Problema 3" itemValue="p3" />
+					<f:selectItem itemLabel="Problema 4" itemValue="p4" />
+					<f:selectItem itemLabel="Problema 5" itemValue="p5" />
+				</p:selectOneMenu>
+				<h:panelGrid columns="2">
+					<p:outputLabel for="linguagem" value="Linguagem: " />
+					<p:selectOneRadio id="linguagem" value="#{submit.linguagem}"
+						layout="grid" columns="5" required="true">
+						<f:selectItem itemLabel="PASCAL" itemValue="PASCAL" />
+						<f:selectItem itemLabel="PYTHON" itemValue="PYTHON" />
+						<f:selectItem itemLabel="JAVA" itemValue="JAVA" />
+						<f:selectItem itemLabel="C++" itemValue="C++" />
+						<f:selectItem itemLabel="C" itemValue="C" />
+					</p:selectOneRadio>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:fileUpload value="#{submit.codigo}" label="Arquivo"
+						skinSimple="true" mode="simple" icon="ui-icon-plus"
+						required="true" />
+					<p:commandButton action="#{submit.submeter}" value="Enviar"
+						update="growl" ajax="false" icon="ui-icon-extlink"
+						style="width:106px;" />
+				</h:panelGrid>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

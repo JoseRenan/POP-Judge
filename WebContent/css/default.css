@@ -1,0 +1,53 @@
+@CHARSET "UTF-8";
+
+html {
+	height: 98.5%;
+}
+
+body {
+	background: #f0f7f7;
+	font-family: "Trebuchet MS", Helvetica, Jamrul, sans-serif;
+	font-size: 14px;
+	margin: 0 auto;
+	padding: 10px;
+	min-width: 1000px;
+	min-height:98.5%;
+	position: relative;
+}
+
+h1 {
+	font-size: 28px;
+}
+
+h2 {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 20px 0 10px;
+}
+
+p {
+	margin: 0;
+}
+
+sup, sub {
+	vertical-align: inherit;
+	font-size: 10px;
+	position: relative;
+}
+
+sup {
+	top: -3px;
+}
+
+sub {
+	bottom: -3px;
+}
+
+.rules {
+	margin-right: 150px;
+	margin-left: 150px;
+}
+
+.rules p{
+    margin: 0 0 10px 0;
+}

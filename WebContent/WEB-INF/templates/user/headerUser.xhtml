@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="place">
+		<div align="center">
+			<h1>
+				II <a href="/POP-Judge/webapp/user/indexUser.xhtml">Maratona de
+					Programação POP</a>
+			</h1>
+		</div>
+	</div>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Home" url="/webapp/user/indexUser.xhtml"
+				icon="ui-icon-home" />
+			<p:menuitem value="Problemas" url="/webapp/user/problems.xhtml"
+				icon="ui-icon-document" />
+			<p:menuitem value="Submeter" url="/webapp/user/submit.xhtml"
+				icon="ui-icon-extlink" />
+			<p:menuitem value="Ranking" url="/webapp/user/standings.xhtml"
+				icon="ui-icon-bookmark" />
+			<p:menuitem value="Dúvidas" url="/webapp/user/clarifications.xhtml"
+				icon="ui-icon-help" />
+			<p:menuitem value="Configurações" url="/webapp/user/config.xhtml"
+				icon="ui-icon-gear" />
+			<f:facet name="options">
+				<p:outputLabel value="#{login}" style="margin-right:10px" />
+				<p:commandButton value="Logout" action="#{usuario.sair}"
+					icon="ui-icon-power" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<p:separator />
+
+</ui:composition>

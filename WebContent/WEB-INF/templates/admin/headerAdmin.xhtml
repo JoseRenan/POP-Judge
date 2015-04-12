@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="place">
+		<div align="center">
+			<h1>
+				II <a href="/POP-Judge/webapp/admin/indexAdmin.xhtml">Maratona
+					de Programação POP</a>
+			</h1>
+		</div>
+	</div>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Tempo" url="/webapp/admin/indexAdmin.xhtml"
+				icon="ui-icon-clock" />
+			<p:menuitem value="Cadastrar usuário" url="/webapp/admin/newUser.xhtml"
+				icon="ui-icon-contact" />
+			<p:menuitem value="Responder Dúvidas" url="/webapp/admin/answers.xhtml"
+				icon="ui-icon-comment" />
+		    <p:menuitem value="Informações prévias" url="/webapp/admin/rules.xhtml"
+				icon="ui-icon-pencil" />
+			<f:facet name="options">
+				<p:outputLabel value="#{login}" style="margin-right:10px" />
+				<p:commandButton value="Logout" actionListener="#{usuario.sair}"
+					icon="ui-icon-power" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<p:separator />
+
+</ui:composition>

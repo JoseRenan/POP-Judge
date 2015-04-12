@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>II Maratona POP</title>
+	<link href="/POP_Judge/img/icon.png" type="image/x-icon"
+		rel="shortcut icon" />
+	<style>
+.center {
+	width: 520px;
+	height: 400px;
+	margin-left: -140px; /* metade da largura */
+	margin-top: -100px; /* metade da altura */
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+body {
+	background: #F8F8FF;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Ubuntu", Verdana,
+		sans-serif;
+	line-height: 1.6;
+}
+</style>
+</h:head>
+
+<h:body>
+	<h:form>
+
+		<p:messages id="messages" showDetail="true" autoUpdate="true"
+			closable="true" />
+		<div class="center">
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Login: " />
+				<p:inputText value="#{usuario.login}" id="login" required="true" />
+				<p:outputLabel value="Senha: " />
+				<p:password value="#{usuario.senha}" id="senha" required="true" />
+				<div align="center">
+					<p:commandButton value="Entrar" action="#{usuario.entrar}"
+						icon="ui-icon-check" ajax="false" />
+				</div>
+			</h:panelGrid>
+		</div>
+	</h:form>
+</h:body>
+</html>

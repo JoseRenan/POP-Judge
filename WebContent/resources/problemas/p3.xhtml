@@ -1,0 +1,146 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="header">
+		<span>II Maratona POP | P3</span>
+		<h1>Marcelo e seus Pixels</h1>
+		<div>
+			<p>
+				Editado por José Renan, IFPB - Campina Grande <img
+					src='https://urionlinejudge.r.worldssl.net/gallery/images/flags/br.gif'
+					alt='BR' /> Brazil
+			</p>
+		</div>
+		<strong>Timelimit: 2</strong>
+	</div>
+
+	<div class="problem">
+
+		<div class="description">
+			<p>Marcelo ama seu IPhone 6 e tambem ama seu Macbook... Mas o Mac
+				dele é irrelevante agora.</p>
+
+			<p>Marcelo instalou um novo jogo em seu celular. O objetivo do
+				jogo é o seguinte: existe uma área retangular consistindo de L
+				linhas com P pixels cada. Inicialmente, todos os pixels são
+				coloridos com branco. Com um movimento, Marcelo pode escolher
+				qualquer pixel e colorí-lo de preto, ele pode inclusive escolher um
+				pixel que já é preto, depois de um movimento como esse o pixel não
+				muda de cor. Marcelo perde o jogo quando for formado um quadrado 2 x
+				2 de pixels pretos.</p>
+
+			<p>Marcelo tem um plano de M movimentos, determinando qual pixel
+				ele vai escolher em cada um. A cada movimento, ele mostrará um par
+				de números I e J, denotando respectivamente a linha e a coluna do
+				pixel escolhido neste movimento.</p>
+
+			<p>Sua missão é determinar se Marcelo perderá com aqueles
+				movimentos e se sim dizer em qual deles o quadrado 2 x 2 de pixels
+				pretos foi formado.</p>
+
+			<br />
+
+		</div>
+
+		<h2>Entrada</h2>
+
+		<div class="input">
+			<p>
+				A primeira linha contém 3 inteiros L, C, M (1 ≤ L, C ≤ 1000, 1 ≤ M ≤
+				10<sup>5</sup>) o número de linhas do retângulo, colunas e
+				movimentos que Marcelo fará.
+			</p>
+
+			<p>As próximas M linhas terão os movimentos de que Marcelo fará.
+				Cada linha contem 2 inteiros I e J (1 ≤ I ≤ L, 1 ≤ J ≤ C),
+				representando o numero da linha e da coluna do pixel que Marcelo
+				escolheu para aquele movimento.</p>
+
+		</div>
+
+		<h2>Saída</h2>
+
+		<div class="output">
+			<p>Se Marcelo perder, imprima o numero do movimento em que o
+				quadrado 2 x 2 de pixels pretos foi formado.</p>
+
+			<p>Se Marcelo não formar o quadrado 2 x 2 de pixels pretos nos M
+				movimentos, imprima 0.</p>
+
+		</div>
+
+		<div class="both"></div>
+
+		<table>
+			<thead>
+				<tr>
+					<td>Exemplos de Entrada</td>
+					<td>Exemplos de Saída</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="division">
+						<p>
+							2 2 4<br /> 1 1<br /> 1 2<br /> 2 1<br /> 2 2
+						</p>
+
+					</td>
+					<td>
+						<p>4</p>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="both"></div>
+		<table>
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="division">
+						<p>
+							2 3 6<br /> 2 3<br /> 2 2<br /> 1 3<br /> 2 2<br /> 1 2<br />
+							1 1
+						</p>
+
+					</td>
+					<td>
+						<p>5</p>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="both"></div>
+
+		<table>
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="division">
+						<p>
+							5 3 7<br /> 2 3<br /> 1 2<br /> 1 1<br /> 4 1<br /> 3 1<br />
+							5 3<br /> 3 2
+						</p>
+
+					</td>
+					<td>
+						<p>0</p>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<p class="footer"></p>
+	</div>
+	<br />
+	<br />
+</ui:composition>

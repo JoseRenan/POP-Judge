@@ -1,0 +1,29 @@
+<ui:composition template="/WEB-INF/templates/admin/templateAdmin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<div align="center">
+			<h:form>
+				<p:growl id="growl" autoUpdate="true" />
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Nome completo: " for="nome" />
+					<p:inputText id="nome" value="#{usuario.nome}" required="true" />
+					<p:outputLabel value="Nome de login: " for="login" />
+					<p:inputText id="login" value="#{usuario.login}" required="true" />
+					<p:outputLabel for="senha" value="Digite sua senha: " />
+					<p:password id="senha" value="#{usuario.senha}" match="senha2"
+						required="true" />
+					<p:outputLabel for="senha2" value="Digite sua senha novamente: " />
+					<p:password id="senha2" value="#{usuario.senha}" required="true" />
+					<p:commandButton value="Adicionar"
+						actionListener="#{usuario.newUser}" icon="ui-icon-plus"
+						update="growl" />
+				</h:panelGrid>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

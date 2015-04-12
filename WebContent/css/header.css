@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+
+.place {
+	background-color: #FFFFFF;
+	border-color: #FFF #FFF #FFF #FFF;
+	border-bottom-left-radius: 5px 5px;
+	border-bottom-right-radius: 5px 5px;
+	border-top-left-radius: 5px 5px;
+	border-top-right-radius: 5px 5px;
+	border: 1px solid #FFF;
+	margin-bottom: 5px;
+	padding: 3px;
+}
+
+.place h1 {
+	background-color: #FFFFFF;
+	color: #FFC01F;
+}
+
+h1 a {
+	color: #62C0C7;
+	text-decoration: none;
+}

@@ -1,0 +1,20 @@
+<ui:composition template="/WEB-INF/templates/admin/templateAdmin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<div align="center">
+			<h:form>
+				<p:outputLabel value="Nome do contest: "/>
+				<p:inputText value="#{contest.nome}" />
+				<p:outputLabel value="Informações e instruções:" />
+				<p:editor id="editor" widgetVar="editorWidget"
+					value="#{contest.info}" width="600" />
+				<p:commandButton value="Enviar" actionListener="#{contest.salvar}"/>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

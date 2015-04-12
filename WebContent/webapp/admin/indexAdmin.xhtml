@@ -1,0 +1,29 @@
+<ui:composition template="/WEB-INF/templates/admin/templateAdmin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<p:growl id="growl" showDetail="false" />
+		<div align="center">
+			<h:form>
+				<h:panelGrid columns="2" cellpading="3">
+					<p:outputLabel for="time1" value="Horário de inicio:" />
+					<p:calendar id="time1" value="#{timer.inicioContestD}"
+						pattern="HH:mm a" timeOnly="true" />
+					<p:outputLabel for="time2" value="Horário de término:" />
+					<p:calendar id="time2" value="#{timer.fimContestD}"
+						pattern="HH:mm a" timeOnly="true" />
+					<br />
+					<br />
+					<div align="center">
+						<p:commandButton value="Definir" action="#{timer.criaContest}"
+							ajax="false" />
+					</div>
+				</h:panelGrid>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

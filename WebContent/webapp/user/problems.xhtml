@@ -1,0 +1,31 @@
+<ui:composition template="/WEB-INF/templates/user/templateUser.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:form>
+			<p:splitButton value="Selecione o Problema">
+				<p:menuitem value="Problema 1"
+					action="#{redirecionaProb.setProblema1}" update="prob" />
+				<p:menuitem value="Problema 2"
+					action="#{redirecionaProb.setProblema2}" update="prob" />
+				<p:menuitem value="Problema 3"
+					action="#{redirecionaProb.setProblema3}" update="prob" />
+				<p:menuitem value="Problema 4"
+					action="#{redirecionaProb.setProblema4}" update="prob" />
+				<p:menuitem value="Problema 5"
+					action="#{redirecionaProb.setProblema5}" update="prob" />
+			</p:splitButton>
+		</h:form>
+		<div align="center">
+			<ui:insert name="problema">
+				<h:panelGrid id="prob" columns="1">
+					<ui:include src="#{redirecionaProb.problema}"/>
+				</h:panelGrid>
+			</ui:insert>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,169 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="header">
+		<span>II Maratona POP | P1</span>
+		<h1>Juntos Somos Mais!</h1>
+		<div>
+			<p>
+				Por Gustavo Ribeiro, IFPB - Campina Grande <img
+					src='https://urionlinejudge.r.worldssl.net/gallery/images/flags/br.gif'
+					alt='BR' /> Brazil
+			</p>
+		</div>
+		<strong>Timelimit: 1</strong>
+	</div>
+
+	<div class="problem">
+
+		<div class="description">
+			<p>Seu Chico está se preparando para pregar um cartaz da campanha
+				para Reitor. Nele está escrito: "Juntos Somos Mais!" slogan que
+				ficou famoso no IFPB - CG mesmo após o período eleitoral.</p>
+
+			<p>Seu Chico já tinha pregado alguns pregos em outras ocasiões e
+				para não ter o trabalho novamente decidiu que iria colocar o cartaz
+				em uma parede que já tivesse alguns pregos. Ele percebeu que nem
+				todas as paredes que tinham pregos serviam para colocar o cartaz,
+				apenas as que a distância entre os pregos vizinhos fossem menores ou
+				iguais a razão entre a largura do cartaz sobre o número de pregos,
+				pois assim o cartaz estaria equilibrado e não correria riscos de
+				rasgar. Sua tarefa é bem simples, dadas as coordenadas de diversos
+				pontos (pregos) em um espaço Euclidiano de duas dimensões (parede) e
+				a largura do cartaz, diga se aquela parede é ideal para o cartaz ou
+				não.</p>
+
+		</div>
+
+		<h2>Entrada</h2>
+
+		<div class="input">
+			<p>A entrada conterá diversos casos de teste e terminará com EOF.</p>
+
+			<p>
+				Cada caso de teste começa com um inteiro 1 ≤ P ≤ 100 indicando o
+				número de pregos, cada umas das próximas P linhas conterá dois
+				inteiros -100 ≤ X, Y ≤ 100 representando as coordenadas dos pregos
+				na parede. Após isso haverá um inteiro 1 ≤ L ≤ 1000 indicando a
+				largura do cartaz (em centímetos) que deve ser colocado na parede.
+				Você deve assumir que os pregos vizinhos são determinados de acordo
+				com a entrada, e que o primeiro e último prego só possuem um vizinho
+				cada. Ou seja, o prego P<sub>1</sub> é vizinho do prego P<sub>2</sub>
+				que por sua vez é vizinho dos pregos P<sub>1</sub> e P<sub>3</sub> e
+				assim sucessivamente.
+			</p>
+
+		</div>
+
+		<h2>Saída</h2>
+
+		<div class="output">
+			<p>Para cada caso de teste imprima "SIM" se a disposição dos
+				pregos na parede é ideal para a fixação do cartaz, ou imprima "NAO"
+				caso contrário. (O uso das aspas é apenas para diferenciar a
+				descrição com o que deve ser escrito na saída do seu programa).</p>
+
+		</div>
+
+		<div class="both"></div>
+
+		<table>
+			<thead>
+				<tr>
+					<td>Exemplos de Entrada</td>
+					<td>Exemplos de Saída</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="division">
+						<p>5</p>
+
+						<p>1 2</p>
+
+						<p>-2 5</p>
+
+						<p>-1 4</p>
+
+						<p>4 -6</p>
+
+						<p>5 -8</p>
+
+						<p>60</p>
+
+						<p>
+							<br />
+						</p>
+
+						<p>
+							<br />
+						</p>
+
+					</td>
+					<td>
+						<p>SIM</p>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="both"></div>
+		<table>
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="division">
+						<p>4</p>
+
+						<p>0 0</p>
+
+						<p>2 2</p>
+
+						<p>4 4</p>
+
+						<p>6 6</p>
+
+						<p>8</p>
+
+					</td>
+					<td>
+						<p>NAO</p>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="both"></div>
+
+		<table>
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="division">
+						<p>2</p>
+
+						<p>-12 12</p>
+
+						<p>12 -12</p>
+
+						<p>68</p>
+
+					</td>
+					<td>
+						<p>SIM</p>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<br />
+</ui:composition>
