@@ -13,41 +13,41 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.UploadedFile;
 
-@ManagedBean(name="submit")
+@ManagedBean(name="submission")
 public class SubmissionBean {
-	private UploadedFile codigo;
-	private String problema;
-	private String linguagem;
+	private UploadedFile code;
+	private int problem;
+	private int language;
 	
-	public UploadedFile getCodigo() {
-		return codigo;
+	public UploadedFile getCode() {
+		return code;
 	}
 
-	public void setCodigo(UploadedFile codigo) {
-		this.codigo = codigo;
+	public void setCode(UploadedFile code) {
+		this.code = code;
 	}
 
-	public String getProblema() {
-		return problema;
+	public int getProblem() {
+		return problem;
 	}
 
-	public void setProblema(String problema) {
-		this.problema = problema;
+	public void setProblem(int problem) {
+		this.problem = problem;
 	}
 
-	public String getLinguagem() {
-		return linguagem;
+	public int getLanguage() {
+		return language;
 	}
 
-	public void setLinguagem(String linguagem) {
-		this.linguagem = linguagem;
+	public void setLanguage(int language) {
+		this.language = language;
 	}
 	
-	public void submeter() throws IOException{
-		if(this.codigo != null) {
-			System.out.println(this.codigo.getFileName());
-			System.out.println(this.linguagem);
-			System.out.println(this.problema);
+	public void submit() throws IOException{
+		if(this.code != null) {
+			System.out.println(this.code.getFileName());
+			System.out.println(this.language);
+			System.out.println(this.problem);
 			FacesMessage message = new FacesMessage("Enviado com sucesso","");
             FacesContext.getCurrentInstance().addMessage(null, message);
             
@@ -55,9 +55,9 @@ public class SubmissionBean {
     		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
     		String dir = (String) session.getAttribute("dir");
             
-            InputStream in = new BufferedInputStream(this.codigo.getInputstream());
+            InputStream in = new BufferedInputStream(this.code.getInputstream());
             
-            File file = new File (dir + "/" + this.codigo.getFileName());
+            File file = new File (dir + "/" + this.code.getFileName());
             if(!file.getParentFile().exists())
             	file.getParentFile().mkdirs();
             
