@@ -66,7 +66,7 @@ public class UserBean {
 		if(usuario!= null && usuario.getUsername().equals(this.username) && usuario.getPassword().equals(this.password)){
 			FacesContext context = FacesContext.getCurrentInstance();
 	        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-	        session.setAttribute("login", usuario.getUsername());
+	        session.setAttribute("username", usuario.getUsername());
 	        session.setAttribute("password", usuario.getPassword());
 	        session.setAttribute("idUser", usuario.getIdUser());
 	        session.setAttribute("dir", usuario.getDir());
