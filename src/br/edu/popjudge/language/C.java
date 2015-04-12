@@ -14,6 +14,10 @@ import br.edu.popjudge.exceptions.TimeLimitExceededException;
 
 public class C extends Language {
 
+	public C(int idLanguage, String name) {
+		super(idLanguage, name);
+	}
+
 	@Override
 	public boolean compile(Submission submission)
 			throws CompilationErrorException {
