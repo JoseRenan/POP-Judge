@@ -21,7 +21,7 @@ public class UserDAO implements Dao<UserBean> {
 
 		connection = new ConnectionFactory().getConnection();
 
-		String sql = "insert into USER (0, username, password, dir) values (?,?,?)";
+		String sql = "insert into USER (id_usuario, username, password, dir) values (0, ?,?,?)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		stmt.setString(1, value.getUsername());
