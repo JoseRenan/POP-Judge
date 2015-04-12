@@ -8,12 +8,15 @@
 	<ui:define name="content">
 		<div align="center">
 			<h:form>
-				<p:outputLabel value="Nome do contest: "/>
+				<p:outputLabel value="Nome do contest: " />
 				<p:inputText value="#{contest.nome}" />
-				<p:outputLabel value="Informações e instruções:" />
-				<p:editor id="editor" widgetVar="editorWidget"
-					value="#{contest.info}" width="600" />
-				<p:commandButton value="Enviar" actionListener="#{contest.salvar}"/>
+				<h:panelGrid columns="1"  cellspacing="30">
+					<p:outputLabel value="Informações e instruções:" />
+					<p:editor id="editor" widgetVar="editorWidget"
+						value="#{contest.info}" width="600" />
+				</h:panelGrid>
+				<p:commandButton value="Enviar" actionListener="#{contest.salvar}" />
+
 			</h:form>
 		</div>
 	</ui:define>
