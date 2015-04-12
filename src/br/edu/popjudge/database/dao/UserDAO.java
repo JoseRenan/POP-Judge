@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
@@ -127,20 +128,12 @@ public class UserDAO implements Dao<UserBean> {
 	public void update(UserBean value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 
-		String sql = "update tb_usuario set password=? where id_user=?";
-
-		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, value.getPassword());
-			stmt.setInt(2, value.getIdUser());
-			stmt.execute();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-
+		String sql = String.format("UPDATE USER SET password = '%s' WHERE id_user = %d", value.getPassword(), value.getIdUser());
+		Statement statement = connection.createStatement();
+		
+		statement.execute(sql);
+		
+		statement.close();
 		connection.close();
-
 	}
-
 }

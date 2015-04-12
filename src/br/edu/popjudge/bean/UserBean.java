@@ -121,6 +121,7 @@ public class UserBean {
 		u.setIdUser((Integer)session.getAttribute("idUser"));
 		UserDAO ud = new UserDAO();
 		ud.update(u);
+		System.out.println("AQUI");
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Senha modificada com sucesso", ""));
 	}
 
