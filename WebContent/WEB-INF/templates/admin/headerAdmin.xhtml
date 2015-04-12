@@ -23,8 +23,8 @@
 		    <p:menuitem value="Informações prévias" url="/webapp/admin/rules.xhtml"
 				icon="ui-icon-pencil" />
 			<f:facet name="options">
-				<p:outputLabel value="#{login}" style="margin-right:10px" />
-				<p:commandButton value="Logout" actionListener="#{usuario.sair}"
+				<p:outputLabel value="#{username}" style="margin-right:10px" />
+				<p:commandButton value="Logout" actionListener="#{user.logout}"
 					icon="ui-icon-power" />
 			</f:facet>
 		</p:menubar>

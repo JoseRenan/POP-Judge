@@ -81,7 +81,7 @@ public class UserBean {
 		return "";
 	}
 	
-	public void sair() throws IOException{
+	public void logout() throws IOException{
 		this.username = null;
 		this.password = null;
 		this.dir = null;
@@ -92,7 +92,7 @@ public class UserBean {
 	public static void invalidateSession() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
             .getExternalContext().getSession(false);
-        session.removeAttribute("usuario");
+        session.removeAttribute("username");
         session.invalidate();
 	}
 	
@@ -102,7 +102,7 @@ public class UserBean {
 			u.setUsername(this.username);
 			u.setPassword(this.password);
 			String home = System.getProperty("user.home");
-			u.setDir(home + this.username);
+			u.setDir(home + "/POPJudge/users/" + this.username);
 			UserDAO ud = new UserDAO();
 			ud.insert(u);
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/webapp/admin/newUser.xhtml");
