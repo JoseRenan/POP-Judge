@@ -17,11 +17,17 @@ public class ContestBean {
 	private String info;
 	
 	public String getNome() throws IOException {
-		
-		File f = new File("info.txt");
-		System.out.println(f.getAbsolutePath());
-		
-		BufferedReader buffRead = new BufferedReader(new FileReader("info.txt")); 
+		String home = System.getProperty("user.home");
+		File file = new File (home + "/POPJudge/config/info.txt");
+        file.getParentFile().mkdirs();
+        
+        
+		if (!file.exists()) {
+			FileWriter arq = new FileWriter(home + "/POPJudge/config/info.txt");
+			arq.close();
+		}
+        
+		BufferedReader buffRead = new BufferedReader(new FileReader(home + "/POPJudge/config/info.txt")); 
 		
 		String linha = "";
 		
@@ -43,8 +49,16 @@ public class ContestBean {
 	}
 	
 	public String getInfo() throws IOException {
+		String home = System.getProperty("user.home");
+		File file = new File (home + "/POPJudge/config/","info.txt");
+        file.getParentFile().mkdirs();
 		
-		BufferedReader buffRead = new BufferedReader(new FileReader("info.txt")); 
+        if (!file.exists()) {
+			FileWriter arq = new FileWriter(home + "/POPJudge/config/info.txt");
+			arq.close();
+		}
+        
+		BufferedReader buffRead = new BufferedReader(new FileReader(home + "/POPJudge/config/info.txt")); 
 		
 		this.info = "";
 		String linha = "";
@@ -68,7 +82,8 @@ public class ContestBean {
 	}
 	
 	public void salvar() throws IOException{
-		FileWriter arq = new FileWriter("info.txt");
+		String home = System.getProperty("user.home");
+		FileWriter arq = new FileWriter(home + "/POPJudge/config/info.txt");
 		PrintWriter gravarArq = new PrintWriter(arq);
 		
 		gravarArq.printf("%s\n", this.nome);
