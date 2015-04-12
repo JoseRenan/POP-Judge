@@ -4,11 +4,22 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean(name = "problem")
 public class ProblemBean {
+
 	private int idProblem;
 	long timeLimit;
 	String input;
 	String output;
 
+	public ProblemBean(int idProblem, long timeLimit, String input,
+			String output) {
+		super();
+		this.idProblem = idProblem;
+		this.timeLimit = timeLimit;
+		this.input = input;
+		this.output = output;
+	}
+	
+	
 	public int getIdProblem() {
 		return idProblem;
 	}
