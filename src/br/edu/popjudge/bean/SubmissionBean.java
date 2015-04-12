@@ -57,7 +57,7 @@ public class SubmissionBean {
             
             InputStream in = new BufferedInputStream(this.codigo.getInputstream());
             
-            File file = new File (dir + this.codigo.getFileName());
+            File file = new File (dir + "/" + this.codigo.getFileName());
             if(!file.getParentFile().exists())
             	file.getParentFile().mkdirs();
             
