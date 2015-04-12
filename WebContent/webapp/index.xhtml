@@ -38,11 +38,11 @@ body {
 		<div class="center">
 			<h:panelGrid columns="2">
 				<p:outputLabel value="Login: " />
-				<p:inputText value="#{usuario.login}" id="login" required="true" />
+				<p:inputText value="#{user.username}" id="login" required="true" />
 				<p:outputLabel value="Senha: " />
-				<p:password value="#{usuario.senha}" id="senha" required="true" />
+				<p:password value="#{user.password}" id="senha" required="true" />
 				<div align="center">
-					<p:commandButton value="Entrar" action="#{usuario.entrar}"
+					<p:commandButton value="Entrar" action="#{user.login}"
 						icon="ui-icon-check" ajax="false" />
 				</div>
 			</h:panelGrid>

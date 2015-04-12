@@ -10,11 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import br.edu.popjudge.database.dao.UsuarioDAO;
 
-@ManagedBean(name="usuario")
+@ManagedBean(name = "user")
 public class UsuarioBean {
+	private int idUser;
 	private String password;
 	private String username;
-	private int idUser;
 	private String dir;
 	
 	public String getDir() {
@@ -49,11 +49,11 @@ public class UsuarioBean {
 		this.idUser = idUser;
 	}
 	
-	public String entrar() throws IOException, SQLException{
+	public String login() throws IOException, SQLException{
 		if(this.username.equals("Admin") && this.password.equals("admin123")){
 			FacesContext context = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-            session.setAttribute("login", this.username);
+            session.setAttribute("username", this.username);
 	        session.setAttribute("password", this.password);
             this.username = null;
     		this.password = null;
@@ -63,10 +63,10 @@ public class UsuarioBean {
 		UsuarioDAO ud = new UsuarioDAO();
 		UsuarioBean usuario = ud.get(this.username);
 	
-		if(usuario!= null && usuario.getUsername().equals(this.username) && usuario.getPassword().equals(this.password)){
+		if(usuario != null && usuario.getUsername().equals(this.username) && usuario.getPassword().equals(this.password)){
 			FacesContext context = FacesContext.getCurrentInstance();
 	        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-	        session.setAttribute("login", usuario.getUsername());
+	        session.setAttribute("username", usuario.getUsername());
 	        session.setAttribute("password", usuario.getPassword());
 	        session.setAttribute("idUser", usuario.getIdUser());
 	        session.setAttribute("dir", usuario.getDir());

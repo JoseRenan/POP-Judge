@@ -9,7 +9,7 @@ public class ConnectionFactory {
 	public Connection getConnection() throws SQLException{
 		DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 		try {
-			return DriverManager.getConnection("jdbc:mysql://localhost:3306/pop_judge", "root", "admin123");
+			return DriverManager.getConnection("jdbc:mysql://localhost:3306/POP_JUDGE", "root", "");
 		} catch (SQLException exe){
 			System.out.println("Nao foi posivel conectar com o Banco de Dados, tente novamente mais tarde");
 			return null;
