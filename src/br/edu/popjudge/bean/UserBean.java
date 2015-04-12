@@ -113,7 +113,7 @@ public class UserBean {
 		}
 	}
 	
-	public void mudarSenha() throws SQLException{
+	public void changePassword() throws SQLException{
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		UserBean u = new UserBean();
