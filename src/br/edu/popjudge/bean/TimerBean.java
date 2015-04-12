@@ -29,7 +29,7 @@ public class TimerBean {
 	public void criaContest(){
 		fimContest.setTime(fimContestD);
 		inicioContest.setTime(inicioContestD);
-		FacesMessage message = new FacesMessage("Hor·rio inserido", "");
+		FacesMessage message = new FacesMessage("Hor√°rio inserido", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 	
