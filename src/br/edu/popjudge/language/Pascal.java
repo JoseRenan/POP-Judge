@@ -70,9 +70,9 @@ public class Pascal extends Language {
 			writer.write("chroot .\n");
 			writer.write("./"
 					+ new File(submission.getFileName().substring(0,
-							submission.getFileName().length() - 4)).getName() + " < "
-					+ pb.getInput()
-					+ " > "+ submission.getDir() +"/output.txt");
+							submission.getFileName().length() - 4)).getName()
+					+ " < " + pb.getInput() + " > " + submission.getDir()
+					+ "/output.txt");
 			writer.close();
 
 			Process process = runtime.exec("chmod +x " + submission.getDir()
