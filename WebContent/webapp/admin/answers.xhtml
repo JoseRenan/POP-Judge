@@ -4,8 +4,23 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<ui:define name="content">
-	  
+		<p:dataTable id="selectIssue" var="issue" value="#{issuedao.all}"
+			selection="#{clarification.selectedClarification}"  rowKey="#{issue.idClarification}">
+			<f:facet name="header">
+            Selecione a dúvida a ser respondida
+        </f:facet>
+			<p:column selectionMode="single" style="width:16px;text-align:center" />
+			<p:column headerText="ID" width="30">
+				<div align="center"><h:outputText value="#{issue.idClarification}" /></div>
+			</p:column>
+			<p:column headerText="Problema" width="100">
+				<div align="center"><h:outputText value="P#{issue.idProblem}" /></div>
+			</p:column>
+			<p:column headerText="Dúvida">
+				<h:outputText value="#{issue.issue}" />
+			</p:column>
+		</p:dataTable>
 	</ui:define>
 </ui:composition>

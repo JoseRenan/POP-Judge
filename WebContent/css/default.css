@@ -46,6 +46,8 @@ sub {
 .rules {
 	margin-right: 150px;
 	margin-left: 150px;
+	width: 900px;
+	min-width: 900px;
 }
 
 .rules p{

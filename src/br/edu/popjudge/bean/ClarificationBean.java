@@ -17,6 +17,7 @@ public class ClarificationBean {
 	private int idProblem;
 	private String issue;
 	private String answer;
+	private ClarificationBean selectedClarification;
 	
 	public ClarificationBean(int idClarification, int idUser, int idProblem,
 			String issue, String answer) {
@@ -93,5 +94,13 @@ public class ClarificationBean {
 	
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+
+	public ClarificationBean getSelectedClarification() {
+		return selectedClarification;
+	}
+
+	public void setSelectedClarification(ClarificationBean selectedClarification) {
+		this.selectedClarification = selectedClarification;
 	}
 }
