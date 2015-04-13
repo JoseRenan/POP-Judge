@@ -63,14 +63,14 @@ public class Java extends Language {
 	public boolean execute(SubmissionBean submission)
 			throws TimeLimitExceededException {
 		try {
-			ProblemBean pb = new ProblemDAO().get(submission.getIdProblem());
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
 					new FileOutputStream(submission.getDir() + "/run.sh")));
+			ProblemBean pb = new ProblemDAO().get(submission.getIdProblem());
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("chroot .\n");
 			writer.write("java "
-					+ new File(submission.getFileName().substring(0,
-							submission.getFileName().length() - 5)).getName() + " < "
+					+ (submission.getFileName().substring(0,
+							submission.getFileName().length() - 5)) + " < "
 					+ pb.getInput()
 					+ " > " + submission.getDir() + "/output.txt");
 			writer.close();
