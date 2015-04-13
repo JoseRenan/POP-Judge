@@ -52,8 +52,12 @@ public class ClarificationBean {
 		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Enviado!",""));
 	}
 	
-	public void replyIssue() {
-		
+	public void replyIssue() throws SQLException {
+		this.selectedClarification.answer = this.answer;
+		ClarificationDAO cd = new ClarificationDAO();
+		cd.update(this.selectedClarification);
+		this.answer = null;
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Respondido!",""));
 	}
 	
 	public int getIdClarification() {

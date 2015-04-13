@@ -16,6 +16,7 @@ public class ClarificationDAO implements Dao<ClarificationBean> {
 
 	private Connection connection;
 	private ArrayList<ClarificationBean> all;
+	private ArrayList<ClarificationBean> notReplied;
 	
 	@Override
 	public void insert(ClarificationBean value) throws SQLException {
@@ -35,7 +36,33 @@ public class ClarificationDAO implements Dao<ClarificationBean> {
 	public void setAll(ArrayList<ClarificationBean> all){
 		this.all = all;
 	}
-
+	
+	public ArrayList<ClarificationBean> getNotReplied() throws SQLException {
+		connection = new ConnectionFactory().getConnection();
+		
+		ArrayList<ClarificationBean> list = new ArrayList<ClarificationBean>();
+		
+		String sql = "SELECT * FROM CLARIFICATION WHERE answer IS NULL ORDER BY id_problem";
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(sql);
+		
+		while(resultSet.next()){
+			list.add(new ClarificationBean(resultSet.getInt("id_clarification"),
+										   resultSet.getInt("id_user"),
+										   resultSet.getInt("id_problem"),
+										   resultSet.getString("issue"),
+										   resultSet.getString("answer")));
+		}
+		
+		resultSet.close();
+		statement.close();
+		connection.close();
+		
+		this.notReplied = list;
+		
+		return notReplied;
+	}
+	
 	@Override
 	public ArrayList<ClarificationBean> getAll() throws SQLException {
 		connection = new ConnectionFactory().getConnection();
@@ -109,7 +136,7 @@ public class ClarificationDAO implements Dao<ClarificationBean> {
 	public void update(ClarificationBean value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		
-		String sql = String.format("UPFATE CLARIFICATION SET id_user = %d, id_problem = %d, issue = '%s', answer = '%s' "
+		String sql = String.format("UPDATE CLARIFICATION SET id_user = %d, id_problem = %d, issue = '%s', answer = '%s' "
 								 + "WHERE id_clarification = %d", value.getIdUser(), value.getIdProblem(), value.getIssue(), value.getAnswer(), value.getIdClarification());
 	
 		Statement statement = connection.createStatement();
