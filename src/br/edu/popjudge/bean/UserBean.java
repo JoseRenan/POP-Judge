@@ -49,30 +49,45 @@ public class UserBean {
 		this.idUser = idUser;
 	}
 	
-	public String login() throws IOException, SQLException{
-		if(this.username.equals("Admin") && this.password.equals("admin123")){
-			FacesContext context = FacesContext.getCurrentInstance();
-            HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-            session.setAttribute("username", this.username);
-	        session.setAttribute("password", this.password);
-            this.username = null;
-    		this.password = null;
-    		return "/webapp/admin/indexAdmin.xhtml?faces-redirect=true";
+	public String login() throws IOException{
+		UserDAO ud = new UserDAO();
+		
+		if(this.username.equals("Admin")){
+			try {
+				UserBean usuario = ud.get(this.username);
+				if(usuario.getPassword().equals(this.password)){
+					FacesContext context = FacesContext.getCurrentInstance();
+					HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+					session.setAttribute("username", this.username);
+					session.setAttribute("password", this.password);
+					this.username = null;
+					this.password = null;
+					return "/webapp/admin/indexAdmin.xhtml?faces-redirect=true";
+				}else{
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", " Usuário ou senha incorretos"));
+					return "";
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
-		UserDAO ud = new UserDAO();
-		UserBean usuario = ud.get(this.username);
+		try{
+			UserBean usuario = ud.get(this.username);
 	
-		if(usuario != null && usuario.getUsername().equals(this.username) && usuario.getPassword().equals(this.password)){
-			FacesContext context = FacesContext.getCurrentInstance();
-	        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-	        session.setAttribute("username", usuario.getUsername());
-	        session.setAttribute("password", usuario.getPassword());
-	        session.setAttribute("idUser", usuario.getIdUser());
-	        session.setAttribute("dir", usuario.getDir());
-	        this.username = null;
-			this.password = null;
-	        return "/webapp/user/indexUser.xhtml?faces-redirect=true";
+			if(usuario != null && usuario.getUsername().equals(this.username) && usuario.getPassword().equals(this.password)){
+				FacesContext context = FacesContext.getCurrentInstance();
+		        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		        session.setAttribute("username", usuario.getUsername());
+		        session.setAttribute("password", usuario.getPassword());
+		        session.setAttribute("idUser", usuario.getIdUser());
+		        session.setAttribute("dir", usuario.getDir());
+		        this.username = null;
+				this.password = null;
+		        return "/webapp/user/indexUser.xhtml?faces-redirect=true";
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
 		}
 			
 		this.username = null;
