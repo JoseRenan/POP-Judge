@@ -48,71 +48,77 @@ public class UserBean {
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
-	
-	public String login() throws IOException{
+
+	public String login() throws IOException {
 		UserDAO ud = new UserDAO();
+		UserBean usuario;
 		
-		if(this.username.equals("Admin")){
-			try {
-				UserBean usuario = ud.get(this.username);
-				if(usuario.getPassword().equals(this.password)){
+		try {
+			usuario = ud.get(this.username);
+
+			if (usuario != null && this.username.equals("Admin")) {
+
+				if (usuario.getPassword().equals(this.password)) {
 					FacesContext context = FacesContext.getCurrentInstance();
-					HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+					HttpSession session = (HttpSession) context
+							.getExternalContext().getSession(true);
 					session.setAttribute("username", this.username);
 					session.setAttribute("password", this.password);
 					this.username = null;
 					this.password = null;
 					return "/webapp/admin/indexAdmin.xhtml?faces-redirect=true";
-				}else{
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", " Usuário ou senha incorretos"));
+				} else {
+					FacesContext.getCurrentInstance().addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_ERROR,
+									"Erro!", " Login ou senha incorretos"));
 					return "";
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+
 			}
-		}
-		
-		try{
-			UserBean usuario = ud.get(this.username);
-	
-			if(usuario != null && usuario.getUsername().equals(this.username) && usuario.getPassword().equals(this.password)){
+
+			if (usuario != null && usuario.getUsername().equals(this.username)
+					&& usuario.getPassword().equals(this.password)) {
 				FacesContext context = FacesContext.getCurrentInstance();
-		        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		        session.setAttribute("username", usuario.getUsername());
-		        session.setAttribute("password", usuario.getPassword());
-		        session.setAttribute("idUser", usuario.getIdUser());
-		        session.setAttribute("dir", usuario.getDir());
-		        this.username = null;
+				HttpSession session = (HttpSession) context
+						.getExternalContext().getSession(true);
+				session.setAttribute("username", usuario.getUsername());
+				session.setAttribute("password", usuario.getPassword());
+				session.setAttribute("idUser", usuario.getIdUser());
+				session.setAttribute("dir", usuario.getDir());
+				this.username = null;
 				this.password = null;
-		        return "/webapp/user/indexUser.xhtml?faces-redirect=true";
+				return "/webapp/user/indexUser.xhtml?faces-redirect=true";
 			}
-		}catch(SQLException e){
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-			
+
 		this.username = null;
 		this.password = null;
-		
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", " Usuário ou senha incorretos"));	
+
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!"," Usuário ou senha incorretos"));
 		return "";
 	}
-	
-	public void logout() throws IOException{
+
+	public void logout() throws IOException {
 		this.username = null;
 		this.password = null;
 		this.dir = null;
 		invalidateSession();
-		FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/");
+		FacesContext.getCurrentInstance().getExternalContext()
+				.redirect("/POP-Judge/");
 	}
-	
+
 	public static void invalidateSession() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-            .getExternalContext().getSession(false);
-        session.removeAttribute("username");
-        session.invalidate();
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
+		session.removeAttribute("username");
+		session.invalidate();
 	}
-	
-	public void newUser() throws SQLException, IOException{
+
+	public void newUser() throws SQLException, IOException {
 		try {
 			UserBean u = new UserBean();
 			u.setUsername(this.username);
@@ -121,22 +127,33 @@ public class UserBean {
 			u.setDir(home + "/POPJudge/users/" + this.username);
 			UserDAO ud = new UserDAO();
 			ud.insert(u);
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/webapp/admin/newUser.xhtml");
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário criado com sucesso", ""));
-		} catch(SQLException e) {
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/POP-Judge/webapp/admin/newUser.xhtml");
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Usuário criado com sucesso", ""));
+		} catch (SQLException e) {
 			e.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome de login já utilizado", ""));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Nome de login já utilizado", ""));
 		}
 	}
-	
-	public void changePassword() throws SQLException{
+
+	public void changePassword() throws SQLException {
 		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		HttpSession session = (HttpSession) context.getExternalContext()
+				.getSession(true);
 		UserBean u = new UserBean();
 		u.setPassword(this.password);
-		u.setIdUser((Integer)session.getAttribute("idUser"));
+		u.setIdUser((Integer) session.getAttribute("idUser"));
 		UserDAO ud = new UserDAO();
 		ud.update(u);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Senha modificada com sucesso", ""));
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Senha modificada com sucesso", ""));
 	}
 }
