@@ -1,3 +1,4 @@
+DROP DATABASE POP_JUDGE;
 CREATE DATABASE POP_JUDGE;
 
 USE POP_JUDGE;
@@ -80,3 +81,5 @@ INSERT INTO PROBLEM (id_problem) VALUES (2);
 INSERT INTO PROBLEM (id_problem) VALUES (3);
 INSERT INTO PROBLEM (id_problem) VALUES (4);
 INSERT INTO PROBLEM (id_problem) VALUES (5);
+
+INSERT INTO USER(id_user, username, password, dir) VALUES(0, 'Admin', 'admin123', '');
