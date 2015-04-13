@@ -26,13 +26,13 @@
   <filter>
     <filter-name>primeUploadFilter</filter-name>
     <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
-  </filter> 
-  <filter-mapping> 
-    <filter-name>primeUploadFilter</filter-name> 
-    <servlet-name>Faces Servlet</servlet-name> 
+  </filter>
+  <filter-mapping>
+    <filter-name>primeUploadFilter</filter-name>
+    <servlet-name>Faces Servlet</servlet-name>
   </filter-mapping>
   <context-param>
-   <param-name>primefaces.UPLOADER</param-name>
-   <param-value>commons</param-value>
+    <param-name>primefaces.UPLOADER</param-name>
+    <param-value>commons</param-value>
   </context-param>
 </web-app>
