@@ -6,26 +6,34 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.faces.bean.ManagedBean;
+
 import br.edu.popjudge.bean.ClarificationBean;
 import br.edu.popjudge.database.ConnectionFactory;
 
+@ManagedBean(name="issuedao")
 public class ClarificationDAO implements Dao<ClarificationBean> {
 
 	private Connection connection;
+	private ArrayList<ClarificationBean> all;
 	
 	@Override
 	public void insert(ClarificationBean value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		
-		String sql = String.format("INSERT INTO CLARIFICATION (id_clarification, id_user, id_problem, issue, answer) "
-								 + "VALUES(0, %d, %d, '%s', '%s')", value.getIdUser(), value.getIdProblem(),
-								 									value.getIssue(), value.getAnswer());
+		String sql = String.format("INSERT INTO CLARIFICATION (id_clarification, id_user, id_problem, issue) "
+								 + "VALUES(0, %d, %d, '%s')", value.getIdUser(), value.getIdProblem(),
+								 									value.getIssue());
 		Statement statement = connection.createStatement();
 		
 		statement.execute(sql);
 		
 		statement.close();
 		connection.close();
+	}
+	
+	public void setAll(ArrayList<ClarificationBean> all){
+		this.all = all;
 	}
 
 	@Override
@@ -34,7 +42,7 @@ public class ClarificationDAO implements Dao<ClarificationBean> {
 		
 		ArrayList<ClarificationBean> list = new ArrayList<ClarificationBean>();
 		
-		String sql = "SELECT * FROM CLARIFICATION";
+		String sql = "SELECT * FROM CLARIFICATION ORDER BY id_problem";
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
 		
@@ -50,7 +58,9 @@ public class ClarificationDAO implements Dao<ClarificationBean> {
 		statement.close();
 		connection.close();
 		
-		return list;
+		this.all = list;
+		
+		return all;
 	}
 
 	@Override

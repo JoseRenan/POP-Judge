@@ -1,8 +1,16 @@
 package br.edu.popjudge.bean;
 
-import javax.annotation.ManagedBean;
+import java.io.IOException;
+import java.sql.SQLException;
 
-@ManagedBean(value = "clarification")
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
+import br.edu.popjudge.database.dao.ClarificationDAO;
+
+@ManagedBean(name = "clarification")
 public class ClarificationBean {
 	private int idClarification;
 	private int idUser;
@@ -23,8 +31,24 @@ public class ClarificationBean {
 	public ClarificationBean() {
 	}
 
-	public void doIssue() {
+	public void doIssue() throws SQLException, IOException {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		int id = (Integer) session.getAttribute("idUser");
 		
+		ClarificationBean c = new ClarificationBean();
+		c.setIssue(this.issue);
+		c.setIdProblem(this.idProblem);
+		c.setIdUser(id);
+		
+		ClarificationDAO cd = new ClarificationDAO();
+		
+		cd.insert(c);
+		
+		this.issue = null;
+		this.idProblem = 0;
+		
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Enviado!",""));
 	}
 	
 	public void replyIssue() {

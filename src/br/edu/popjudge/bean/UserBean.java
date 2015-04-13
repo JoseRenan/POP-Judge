@@ -127,8 +127,10 @@ public class UserBean {
 			u.setDir(home + "/POPJudge/users/" + this.username);
 			UserDAO ud = new UserDAO();
 			ud.insert(u);
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/POP-Judge/webapp/admin/newUser.xhtml");
+			
+			this.username = null;
+			this.password = null;
+			
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO,

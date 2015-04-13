@@ -7,7 +7,7 @@
 
 	<ui:define name="content">
 		<div align="center">
-			<h:form>
+			<h:form id="form">
 				<p:growl id="growl" autoUpdate="true" />
 				<h:panelGrid columns="2">
 					<p:outputLabel value="Nome de login: " for="login" />
@@ -19,7 +19,7 @@
 					<p:password id="senha2" value="#{user.password}" required="true" />
 					<p:commandButton value="Adicionar"
 						actionListener="#{user.newUser}" icon="ui-icon-plus"
-						update="growl" />
+						update="form" />
 				</h:panelGrid>
 			</h:form>
 		</div>
