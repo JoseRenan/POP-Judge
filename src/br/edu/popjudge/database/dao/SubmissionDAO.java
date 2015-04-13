@@ -17,7 +17,7 @@ public class SubmissionDAO implements Dao<SubmissionBean> {
 		connection = new ConnectionFactory().getConnection();
 		
 		String sql = String.format("INSERT INTO SUBMISSION(id_submission, id_user, id_problem, id_language, file_name, time_submission, veredict) "
-				+ "VALUES(%d, %d, %d, %d, '%s', '%s')", value.getIdSubmission(), value.getIdUser(), value.getIdProblem(), value.getIdLanguage(), value.getSourceCode().getFileName(), value.getTimeSubmission().toString(), value.getVeredict());
+				+ "VALUES(%d, %d, %d, %d, '%s', '%s')", value.getIdSubmission(), value.getIdUser(), value.getProblem(), value.getLanguage(), value.getCode().getFileName(), value.getTimeSubmission().toString(), value.getVeredict());
 		
 		Statement statement = connection.createStatement();
 				

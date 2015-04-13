@@ -72,6 +72,8 @@ public class UserDAO implements Dao<UserBean> {
 			userBean.setUsername(resultSet.getString("username"));
 			userBean.setPassword(resultSet.getString("password"));
 			userBean.setDir(resultSet.getString("dir"));
+		} else {
+			userBean = null;
 		}
 		
 		resultSet.close();
@@ -95,6 +97,8 @@ public class UserDAO implements Dao<UserBean> {
 			userBean.setUsername(resultSet.getString("username"));
 			userBean.setPassword(resultSet.getString("password"));
 			userBean.setDir(resultSet.getString("dir"));
+		} else {
+			userBean = null;
 		}
 		
 		resultSet.close();
