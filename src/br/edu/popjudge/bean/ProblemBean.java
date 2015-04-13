@@ -19,6 +19,9 @@ public class ProblemBean {
 		this.output = output;
 	}
 	
+	public ProblemBean() {
+	}
+	
 	
 	public int getIdProblem() {
 		return idProblem;

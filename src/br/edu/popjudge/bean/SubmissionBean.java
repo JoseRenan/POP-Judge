@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Timestamp;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -18,7 +19,24 @@ public class SubmissionBean {
 	private UploadedFile code;
 	private int problem;
 	private int language;
+	private int id_submission;
+	private int id_user;
+	private Timestamp time_submission;
+	private String veredict;
 	
+	public SubmissionBean(int id_submission, int id_user, int problem, int language,
+			Timestamp time_submission, String veredict) {
+		this.problem = problem;
+		this.language = language;
+		this.id_submission = id_submission;
+		this.id_user = id_user;
+		this.time_submission = time_submission;
+		this.veredict = veredict;		
+	}
+	
+	public SubmissionBean() {	
+	}
+
 	public UploadedFile getCode() {
 		return code;
 	}
@@ -43,6 +61,38 @@ public class SubmissionBean {
 		this.language = language;
 	}
 	
+	public int getId_submission() {
+		return id_submission;
+	}
+
+	public void setId_submission(int id_submission) {
+		this.id_submission = id_submission;
+	}
+
+	public int getId_user() {
+		return id_user;
+	}
+
+	public void setId_user(int id_user) {
+		this.id_user = id_user;
+	}
+	
+	public Timestamp getTime_submission() {
+		return time_submission;
+	}
+
+	public void setTime_submission(Timestamp time_submission) {
+		this.time_submission = time_submission;
+	}
+
+	public String getVeredict() {
+		return veredict;
+	}
+
+	public void setVeredict(String veredict) {
+		this.veredict = veredict;
+	}
+
 	public void submit() throws IOException{
 		if(this.code != null) {
 			System.out.println(this.code.getFileName());
@@ -71,4 +121,5 @@ public class SubmissionBean {
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
 	}
+
 }

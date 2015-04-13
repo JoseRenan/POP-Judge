@@ -98,7 +98,7 @@ public class UserBean {
 		this.username = null;
 		this.password = null;
 
-		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!"," Usuário ou senha incorretos"));
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha incorretos",""));
 		return "";
 	}
 

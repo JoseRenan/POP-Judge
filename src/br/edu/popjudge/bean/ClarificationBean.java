@@ -19,6 +19,9 @@ public class ClarificationBean {
 		this.issue = issue;
 		this.answer = answer;
 	}
+	
+	public ClarificationBean() {
+	}
 
 	public void doIssue() {
 		
