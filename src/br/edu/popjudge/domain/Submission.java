@@ -16,7 +16,6 @@ public class Submission {
 	private String veredict;
 	private String dir;
 	private String sourceName;
-
 	private User user;
 	private Problem problem;
 	private Language language;

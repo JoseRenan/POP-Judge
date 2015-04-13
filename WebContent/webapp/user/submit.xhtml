@@ -9,7 +9,7 @@
 		<div align="center">
 			<h:form enctype="multipart/form-data">
 				<p:growl id="growl" autoUpdate="true" />
-				<p:selectOneMenu id="problema" value="#{submission.problem}"
+				<p:selectOneMenu id="problema" value="#{submission.idProblem}"
 					required="true" style="width:306px;">
 					<f:selectItem itemLabel="Problema 1" itemValue="1" />
 					<f:selectItem itemLabel="Problema 2" itemValue="2" />
@@ -19,7 +19,7 @@
 				</p:selectOneMenu>
 				<h:panelGrid columns="2">
 					<p:outputLabel for="linguagem" value="Linguagem: " />
-					<p:selectOneRadio id="linguagem" value="#{submission.language}"
+					<p:selectOneRadio id="linguagem" value="#{submission.idLanguage}"
 						layout="grid" columns="5" required="true">
 						<f:selectItem itemLabel="PASCAL" itemValue="4" />
 						<f:selectItem itemLabel="PYTHON" itemValue="5" />

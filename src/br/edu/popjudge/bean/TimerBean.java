@@ -8,6 +8,8 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import br.edu.popjudge.control.SubmissionIdGenerator;
+
 @ManagedBean(name="timer")
 @ApplicationScoped
 public class TimerBean {
@@ -30,6 +32,7 @@ public class TimerBean {
 		fimContest.setTime(fimContestD);
 		inicioContest.setTime(inicioContestD);
 		FacesMessage message = new FacesMessage("Horário inserido", "");
+		SubmissionIdGenerator.setNum(1);
         FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 	

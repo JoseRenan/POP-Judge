@@ -1,6 +1,6 @@
 package br.edu.popjudge.language;
 
-import br.edu.popjudge.domain.Submission;
+import br.edu.popjudge.bean.SubmissionBean;
 import br.edu.popjudge.exceptions.CompilationErrorException;
 import br.edu.popjudge.exceptions.TimeLimitExceededException;
 
@@ -21,10 +21,10 @@ public abstract class Language {
 		return this.name + " " + this.idLanguage;
 	}
 
-	public abstract boolean compile(Submission submission)
+	public abstract boolean compile(SubmissionBean submission)
 			throws CompilationErrorException;
 
-	public abstract boolean execute(Submission submission)
+	public abstract boolean execute(SubmissionBean submission)
 			throws TimeLimitExceededException;
 
 	public int getIdLanguage() {

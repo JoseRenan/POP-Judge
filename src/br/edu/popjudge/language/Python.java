@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import br.edu.popjudge.control.TimedShell;
-import br.edu.popjudge.domain.Submission;
+import br.edu.popjudge.domain.SubmissionBean;
 import br.edu.popjudge.exceptions.CompilationErrorException;
 import br.edu.popjudge.exceptions.TimeLimitExceededException;
 
@@ -18,13 +18,13 @@ public class Python extends Language {
 	}
 
 	@Override
-	public boolean compile(Submission submission)
+	public boolean compile(SubmissionBean submission)
 			throws CompilationErrorException {
 		return true;
 	}
 
 	@Override
-	public boolean execute(Submission submission)
+	public boolean execute(SubmissionBean submission)
 			throws TimeLimitExceededException {
 		try {
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
