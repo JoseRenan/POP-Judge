@@ -50,7 +50,7 @@ CREATE TABLE SUBMISSION (
 	id_user INT, 
 	id_problem INT,
 	id_language INT,
-	file_name VARCHAR(50) NOT NULL,
+	file_name VARCHAR(250) NOT NULL,
 	time_submission TIMESTAMP NOT NULL,
 	veredict VARCHAR(45) NOT NULL,
  
