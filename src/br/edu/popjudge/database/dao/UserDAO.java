@@ -14,6 +14,7 @@ import br.edu.popjudge.database.ConnectionFactory;
 @ManagedBean
 public class UserDAO implements Dao<UserBean> {
 	private Connection connection;
+	private ArrayList<UserBean> all;
 	
 	@Override
 	public void insert(UserBean value) throws SQLException {
@@ -54,7 +55,9 @@ public class UserDAO implements Dao<UserBean> {
 		statement.close();
 		connection.close();
 		
-		return list;
+		this.all = list;
+		
+		return this.all;
 	}
 
 	@Override

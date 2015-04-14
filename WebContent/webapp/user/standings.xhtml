@@ -6,6 +6,33 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		
+		<div align="center">
+		<p:dataTable var="position" value="#{userDAO.all}" id="table" style="width:930px;" rowIndexVar="rowIndex">
+			<p:column headerText="#" width="30">
+				<div align="center">#{rowIndex+1}</div>
+			</p:column>
+			<p:column headerText="Usuário" width="300">
+				<h:outputText value="#{position.username}"/>
+			</p:column>
+			<p:column headerText="Pontuação" width="100">
+				<div align="center"><h:outputText value="0"/></div>
+			</p:column>
+			<p:column headerText="P1" width="60" styleClass="#{rowIndex eq 0 ? 'red' : 'green'}">
+				<div align="center"><h:outputText value="0 / --"/></div>
+			</p:column>
+			<p:column headerText="P2" width="60" styleClass="#{rowIndex eq 2 ? 'darkGreen' : 'green'}">
+				<div align="center"><h:outputText value="0 / --" /></div>
+			</p:column>
+			<p:column headerText="P3" width="60" styleClass="#{rowIndex eq 0 ? 'red' : 'green'}">
+				<div align="center"><h:outputText value="0 / --" /></div>
+			</p:column>
+			<p:column headerText="P4" width="60" styleClass="#{rowIndex eq 1 ? 'red' : 'darkGreen'}">
+				<div align="center"><h:outputText value="0 / --" /></div>
+			</p:column>
+			<p:column headerText="P5" width="60" styleClass="#{rowIndex eq 2 ? 'green' : 'darkGreen'}">
+				<div align="center"><h:outputText value="0 / --" /></div>
+			</p:column>
+		</p:dataTable>
+		</div>
 	</ui:define>
 </ui:composition>
