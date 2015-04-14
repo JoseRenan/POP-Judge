@@ -16,7 +16,7 @@ import br.edu.popjudge.exceptions.CompilationErrorException;
 import br.edu.popjudge.exceptions.TimeLimitExceededException;
 
 public class Java extends Language {
-
+	
 	public Java(int idLanguage, String name) {
 		super(idLanguage, name);
 	}
@@ -46,7 +46,9 @@ public class Java extends Language {
 			if (!file.exists()) {
 				throw new CompilationErrorException("Compilation Error");
 			}
-
+			
+			System.out.println(submission.getDir());
+			
 			return true;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -69,10 +71,10 @@ public class Java extends Language {
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("chroot .\n");
 			writer.write("java "
-					+ (submission.getFileName().substring(0,
-							submission.getFileName().length() - 5)) + " < "
-					+ pb.getInput()
-					+ " > " + submission.getDir() + "/output.txt");
+					+ (submission.getFileName().substring(0, submission
+							.getFileName().length() - 5)) + " < "
+					+ pb.getInput() + " > " + submission.getDir()
+					+ "/output.txt");
 			writer.close();
 
 			Process process = runtime.exec("chmod +x " + submission.getDir()
