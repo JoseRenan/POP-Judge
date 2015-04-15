@@ -10,7 +10,7 @@
 			<h:form enctype="multipart/form-data">
 				<p:growl id="growl" autoUpdate="true" />
 				<p:selectOneMenu id="problema" value="#{submission.idProblem}"
-					required="true"  style="width:306px;">
+					required="true" style="width:306px;">
 					<f:selectItem itemLabel="Problema 1" itemValue="1" />
 					<f:selectItem itemLabel="Problema 2" itemValue="2" />
 					<f:selectItem itemLabel="Problema 3" itemValue="3" />
@@ -37,6 +37,36 @@
 						style="width:106px;" />
 				</h:panelGrid>
 			</h:form>
+			<p:separator />
+			<div align="center">
+				<p:dataTable var="mySubmission"
+					value="#{submissionDAO.mySubmissions}" id="table"
+					style="width:850px;" rowIndexVar="rowIndex">
+					<p:column headerText="#" width="10">
+						<div align="center">#{rowIndex+1}</div>
+					</p:column>
+					<p:column headerText="Problema" width="70">
+						<div align="center">
+							<h:outputText value="P#{mySubmission.idProblem}" />
+						</div>
+					</p:column>
+					<p:column headerText="Linguagem" width="70">
+						<div align="center">
+							<h:outputText value="0 / --" />
+						</div>
+					</p:column>
+					<p:column headerText="Veredito" width="70">
+						<div align="center">
+							<h:outputText value="0 / --" />
+						</div>
+					</p:column>
+					<p:column headerText="Hora" width="70">
+						<h:outputText value="#{contato.dataNascimento.time}">
+							<f:convertDateTime pattern="hh:mm:ss" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</div>
 		</div>
 	</ui:define>
 </ui:composition>

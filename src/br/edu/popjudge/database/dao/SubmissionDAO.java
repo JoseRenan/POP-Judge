@@ -10,8 +10,10 @@ import br.edu.popjudge.bean.SubmissionBean;
 import br.edu.popjudge.database.ConnectionFactory;
 
 public class SubmissionDAO implements Dao<SubmissionBean> {
+	
 	Connection connection;
-
+	private ArrayList<SubmissionBean> mySubmissions;
+	
 	@Override
 	public void insert(SubmissionBean value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
@@ -60,7 +62,7 @@ public class SubmissionDAO implements Dao<SubmissionBean> {
 		return list;
 	}
 
-	public ArrayList<SubmissionBean> getAll(int idUser) throws SQLException {
+	public ArrayList<SubmissionBean> getMySubmissions(int idUser) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 
 		String sql = String.format(
@@ -69,10 +71,10 @@ public class SubmissionDAO implements Dao<SubmissionBean> {
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
 
-		ArrayList<SubmissionBean> list = new ArrayList<SubmissionBean>();
+		this.mySubmissions = new ArrayList<SubmissionBean>();
 
 		while (resultSet.next()) {
-			list.add(new SubmissionBean(resultSet.getInt("id_submission"),
+			this.mySubmissions.add(new SubmissionBean(resultSet.getInt("id_submission"),
 					resultSet.getInt("id_user"),
 					resultSet.getInt("id_problem"), resultSet
 							.getInt("id_language"), resultSet
@@ -85,7 +87,7 @@ public class SubmissionDAO implements Dao<SubmissionBean> {
 		statement.close();
 		connection.close();
 
-		return list;
+		return this.mySubmissions;
 	}
 
 	@Override
