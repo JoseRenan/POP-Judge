@@ -76,7 +76,7 @@ public class SubmissionDAO implements Dao<SubmissionBean> {
 		int idUser = (Integer) session.getAttribute("idUser");
 		
 		String sql = String.format(
-				"SELECT * FROM SUBMISSION WHERE id_user = %d", idUser);
+				"SELECT * FROM SUBMISSION WHERE id_user = %d ORDER BY time_submission DESC", idUser);
 
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);

@@ -48,7 +48,6 @@ public class TimedShell extends Thread {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
 		}
 	}
 	
