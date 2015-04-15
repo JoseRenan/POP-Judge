@@ -72,7 +72,7 @@ CREATE TABLE SUBMISSION (
 );
 
 CREATE TABLE RANKING (
-	id_user INT,
+	username VARCHAR(45),
 	score INT DEFAULT 0,
 	problem_1 INT DEFAULT 0,
 	problem_2 INT DEFAULT 0,
