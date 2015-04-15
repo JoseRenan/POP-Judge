@@ -13,7 +13,7 @@ public class ProcessKiller {
 			Object pidObject = field.get(process);
 			Integer pid = (Integer) pidObject;
 			System.out.println(pidObject);
-			String command = "kill -9 " + pid;//Por algum motivo ele não pega o número correto.
+			String command = "kill -9 " + (pid + 3);//Por algum motivo ele não pega o número correto.
 			System.out.println(command);
 			Runtime.getRuntime().exec(command);
 		} else {
