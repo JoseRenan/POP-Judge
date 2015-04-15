@@ -7,7 +7,7 @@
 
 	<ui:define name="content">
 		<div align="center">
-		<p:dataTable var="position" value="#{userDAO.all}" id="table" style="width:930px;" rowIndexVar="rowIndex">
+		<p:dataTable var="position" value="#{rankDAO.all}" id="table" style="width:930px;" rowIndexVar="rowIndex">
 			<p:column headerText="#" width="30">
 				<div align="center">#{rowIndex+1}</div>
 			</p:column>
@@ -15,22 +15,22 @@
 				<h:outputText value="#{position.username}"/>
 			</p:column>
 			<p:column headerText="Pontuação" width="100">
-				<div align="center"><h:outputText value="0"/></div>
+				<div align="center"><h:outputText value="#{position.points}"/></div>
 			</p:column>
-			<p:column headerText="P1" width="60" styleClass="#{rowIndex eq 0 ? 'red' : 'green'}">
-				<div align="center"><h:outputText value="0 / --"/></div>
+			<p:column headerText="P1" width="60" styleClass="#{position.problem1 lt '0' ? 'red' : (position.problem1 gt '0' ? 'green' : null)}">
+				<div align="center"><h:outputText value="#{position.problem1}"/></div>
 			</p:column>
-			<p:column headerText="P2" width="60" styleClass="#{rowIndex eq 2 ? 'darkGreen' : 'green'}">
-				<div align="center"><h:outputText value="0 / --" /></div>
+			<p:column headerText="P2" width="60" styleClass="#{position.problem2 lt '0' ? 'red' : (position.problem2 gt '0' ? 'green' : null)}">
+				<div align="center"><h:outputText value="#{position.problem2}" /></div>
 			</p:column>
-			<p:column headerText="P3" width="60" styleClass="#{rowIndex eq 0 ? 'red' : 'green'}">
-				<div align="center"><h:outputText value="0 / --" /></div>
+			<p:column headerText="P3" width="60" styleClass="#{position.problem3 lt '0' ? 'red' : (position.problem3 gt '0' ? 'green' : null)}">
+				<div align="center"><h:outputText value="#{position.problem3}" /></div>
 			</p:column>
-			<p:column headerText="P4" width="60" styleClass="#{rowIndex eq 1 ? 'red' : 'darkGreen'}">
-				<div align="center"><h:outputText value="0 / --" /></div>
+			<p:column headerText="P4" width="60" styleClass="#{position.problem4 lt '0' ? 'red' : (position.problem4 gt '0' ? 'green' : null)}">
+				<div align="center"><h:outputText value="#{position.problem4}" /></div>
 			</p:column>
-			<p:column headerText="P5" width="60" styleClass="#{rowIndex eq 2 ? 'green' : 'darkGreen'}">
-				<div align="center"><h:outputText value="0 / --" /></div>
+			<p:column headerText="P5" width="60" styleClass="#{position.problem5 lt '0' ? 'red' : (position.problem5 gt '0' ? 'green' : null)}">
+				<div align="center"><h:outputText value="#{position.problem5}" /></div>
 			</p:column>
 		</p:dataTable>
 		</div>

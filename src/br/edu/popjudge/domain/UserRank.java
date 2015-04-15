@@ -22,8 +22,15 @@ public class UserRank {
 		this.problem4 = problem4;
 		this.problem5 = problem5;
 	}
-
-	public String getUserName() {
+	
+	public UserRank() {
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public String getUsername() {
 		return username;
 	}
 

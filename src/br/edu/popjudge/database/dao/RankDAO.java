@@ -6,11 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.faces.bean.ManagedBean;
+
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.UserRank;
 
+@ManagedBean()
 public class RankDAO implements Dao<UserRank> {
 	Connection connection;
+	private ArrayList<UserRank> all;
 	
 	public static void main(String[] args) throws SQLException {
 		RankDAO ud = new RankDAO();
@@ -28,7 +32,7 @@ public class RankDAO implements Dao<UserRank> {
 				+ "RANKING(username, score, problem_1, problem_2, problem_3, problem_4, problem_5)"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setString(1, value.getUserName());
+		stmt.setString(1, value.getUsername());
 		stmt.setInt(2, 0);
 		stmt.setInt(3, 0);
 		stmt.setInt(4, 0);
@@ -43,13 +47,13 @@ public class RankDAO implements Dao<UserRank> {
 	@Override
 	public ArrayList<UserRank> getAll() throws SQLException {
 		connection = new ConnectionFactory().getConnection();
-		ArrayList<UserRank> list = new ArrayList<UserRank>();
+		this.all = new ArrayList<UserRank>();
 		String sql = "select * from RANKING order by(score)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
-			list.add(new UserRank(rs.getString("username"), rs
+			this.all.add(new UserRank(rs.getString("username"), rs
 					.getInt("score"), rs.getInt("problem_1"), rs
 					.getInt("problem_2"), rs.getInt("problem_3"), rs
 					.getInt("problem_4"), rs.getInt("problem_5")));
@@ -59,7 +63,7 @@ public class RankDAO implements Dao<UserRank> {
 		stmt.close();
 		connection.close();
 		
-		return list;
+		return this.all;
 	}
 
 	public UserRank get(String username) throws SQLException {
@@ -108,7 +112,7 @@ public class RankDAO implements Dao<UserRank> {
 		stmt.setInt(4, value.getProblem3());
 		stmt.setInt(5, value.getProblem4());
 		stmt.setInt(6, value.getProblem5());
-		stmt.setString(7, value.getUserName());
+		stmt.setString(7, value.getUsername());
 		
 		stmt.execute();
 		stmt.close();

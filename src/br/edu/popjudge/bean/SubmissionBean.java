@@ -17,7 +17,9 @@ import org.primefaces.model.UploadedFile;
 
 import br.edu.popjudge.control.Judge;
 import br.edu.popjudge.control.SubmissionIdGenerator;
+import br.edu.popjudge.database.dao.RankDAO;
 import br.edu.popjudge.database.dao.SubmissionDAO;
+import br.edu.popjudge.domain.UserRank;
 
 @ManagedBean(name = "submission")
 public class SubmissionBean {
@@ -118,7 +120,7 @@ public class SubmissionBean {
 		this.idLanguage = language;
 	}
 
-	public void submit() throws IOException {
+	public void submit() throws IOException, SQLException {
 		if (this.code != null) {
 
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -145,8 +147,9 @@ public class SubmissionBean {
 			
 			Judge j = new Judge();
 			setVeredict((j.judge(this).getRotulo1()));
-
+			
 			SubmissionDAO sbmdao = new SubmissionDAO();
+			
 			try {
 				sbmdao.insert(this);
 			} catch (SQLException e) {
@@ -154,7 +157,41 @@ public class SubmissionBean {
 				FacesMessage message = new FacesMessage("Não entre em pânico.\nAfaste-se do computador e chame os admins.\n Tem algo MUITO errado.", "");
 				FacesContext.getCurrentInstance().addMessage(null, message);
 			}
-
+			
+			RankDAO rd = new RankDAO();
+			UserRank ur = rd.get((String)session.getAttribute("username"));
+			int currentTime = TimerBean.currentMoment();
+			
+			if (!(j.judge(this).getRotulo1()).equals("Accepted")){
+				currentTime *= -1;
+			}
+			
+			switch (this.idProblem){
+				case 1:
+					ur.setProblem1(currentTime);
+					break;
+				case 2:
+					ur.setProblem1(currentTime);	
+					break;
+				case 3:
+					ur.setProblem1(currentTime);
+					break;
+				case 4:
+					ur.setProblem1(currentTime);
+					break;
+				case 5:
+					ur.setProblem1(currentTime);
+					break;
+			}
+		
+			rd.update(ur);
+			
+			this.code = null;
+			this.dir = null;
+			this.idLanguage = 0;
+			this.idProblem = 0;
+			this.idUser = 0;
+			
 			FacesMessage message = new FacesMessage("Enviado com sucesso", "");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		} else {

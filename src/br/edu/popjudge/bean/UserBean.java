@@ -8,7 +8,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import br.edu.popjudge.database.dao.RankDAO;
 import br.edu.popjudge.database.dao.UserDAO;
+import br.edu.popjudge.domain.UserRank;
 
 @ManagedBean(name = "user")
 public class UserBean {
@@ -127,6 +129,11 @@ public class UserBean {
 			u.setDir(home + "/POPJudge/users/" + this.username);
 			UserDAO ud = new UserDAO();
 			ud.insert(u);
+			
+			UserRank ur = new UserRank();
+			ur.setUsername(this.username);
+			RankDAO rd = new RankDAO();
+			rd.insert(ur);
 			
 			this.username = null;
 			this.password = null;

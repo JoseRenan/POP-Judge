@@ -38,9 +38,9 @@ body {
 		<div class="center">
 			<h:panelGrid columns="2">
 				<p:outputLabel value="Login: " for="login"/>
-				<p:inputText value="#{user.username}" id="login" required="true" validatorMessage="Digite o login"/>
+				<p:inputText value="#{user.username}" id="login" required="true"/>
 				<p:outputLabel value="Senha: " for="senha"/>
-				<p:password value="#{user.password}" id="senha" required="true" validatorMessage="Digite a senha"/>
+				<p:password value="#{user.password}" id="senha" required="true"/>
 				<div align="center">
 					<p:commandButton value="Entrar" action="#{user.login}"
 						icon="ui-icon-check" ajax="false" />

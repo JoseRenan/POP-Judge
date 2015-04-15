@@ -36,6 +36,11 @@ public class TimerBean {
         FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 	
+	public static int currentMoment(){
+		Calendar c = Calendar.getInstance();
+		return ((c.get(Calendar.MINUTE) + (c.get(Calendar.HOUR_OF_DAY) * 60) - (inicioContest.get(Calendar.MINUTE) + (inicioContest.get(Calendar.HOUR_OF_DAY) * 60))));
+	}
+	
 	public static boolean validaHorario(){
 		Calendar c = Calendar.getInstance();
 		if(inicioContest.get(Calendar.HOUR_OF_DAY) > c.get(Calendar.HOUR_OF_DAY) || fimContest.get(Calendar.HOUR_OF_DAY) <  c.get(Calendar.HOUR_OF_DAY))
