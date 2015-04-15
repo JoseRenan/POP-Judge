@@ -36,7 +36,7 @@ public class UserDAO implements Dao<UserBean> {
 		connection = new ConnectionFactory().getConnection();
 		ArrayList<UserBean> list = new ArrayList<UserBean>();
 		
-		String sql = "SELECT * FROM USER";
+		String sql = "SELECT * FROM USER WHERE username <> 'Admin'";
 		
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);

@@ -1,7 +1,10 @@
 package br.edu.popjudge.control;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.sql.SQLException;
 
 import br.edu.popjudge.bean.ProblemBean;
@@ -23,10 +26,19 @@ public class Judge {
 			
 			ProblemBean problem = new ProblemDAO().get(submission.getIdProblem());
 			Runtime runtime = Runtime.getRuntime();
-			String command = "diff " + submission.getDir() + "/output.txt" + " " + 
-							 problem.getOutput() + " > " + submission.getDir() + "/diff.txt"; 
 			
-			Process process = runtime.exec(command);
+			BufferedWriter writer = new BufferedWriter(
+									new OutputStreamWriter(
+									new FileOutputStream(submission.getDir() + "/diff.sh")));
+			
+			writer.write("diff " + submission.getDir() + "/output.txt" + " " + 
+						 problem.getOutput() + " > " + submission.getDir() + "/diff.txt"); 
+			writer.close();
+			
+			Process process = runtime.exec("chmod +x " + submission.getDir() + "/diff.sh");
+			process.waitFor();
+			
+			process = runtime.exec(submission.getDir() + "/diff.sh");
 			process.waitFor();
 			
 			File diff = new File(submission.getDir() + "/diff.txt");

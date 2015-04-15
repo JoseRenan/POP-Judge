@@ -80,7 +80,7 @@ public class SubmissionDAO implements Dao<SubmissionBean> {
 							.getString("file_name"), resultSet
 							.getString("veredict")));
 		}
-
+		
 		resultSet.close();
 		statement.close();
 		connection.close();
