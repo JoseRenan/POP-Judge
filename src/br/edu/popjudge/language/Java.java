@@ -85,12 +85,11 @@ public class Java extends Language {
 
 			TimedShell shell = new TimedShell(process, pb.getTimeLimit());
 			shell.start();
+			process.waitFor();
 
 			if (shell.isTimeOut()) {
 				throw new TimeLimitExceededException("Time Limit Exceeded");
 			}
-
-			process.waitFor();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

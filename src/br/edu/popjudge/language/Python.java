@@ -48,12 +48,11 @@ public class Python extends Language {
 
 			TimedShell shell = new TimedShell(process, pb.getTimeLimit());
 			shell.start();
-
-			if (shell.isTimeOut()) {
-				throw new TimeLimitExceededException("TLE");
-			}
-
 			process.waitFor();
+			
+			if (shell.isTimeOut()) {
+				throw new TimeLimitExceededException("Time Limit Exceeded");
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
