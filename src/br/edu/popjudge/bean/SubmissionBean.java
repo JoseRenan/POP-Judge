@@ -25,9 +25,9 @@ public class SubmissionBean {
 	private int idProblem;
 	private int idLanguage;
 	private int idSubmission;
-	private int idUser;// falta seta
-	private Timestamp timestamp;// falta seta
-	private String veredict;// falta seta
+	private int idUser;
+	private Timestamp timestamp;
+	private String veredict;
 	private String fileName;
 	private String dir;
 
@@ -53,8 +53,6 @@ public class SubmissionBean {
 	public void setDir(String dir) {
 		this.dir = dir;
 	}
-
-	// Usuário é conseguido pela sessão.
 
 	public String getFileName() {
 		return fileName;
