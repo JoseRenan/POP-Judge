@@ -52,18 +52,18 @@
 					</p:column>
 					<p:column headerText="Linguagem" width="70">
 						<div align="center">
-							<h:outputText value="0 / --" />
+							<h:outputText value="#{mySubmission.idLanguage}" />
 						</div>
 					</p:column>
 					<p:column headerText="Veredito" width="70">
 						<div align="center">
-							<h:outputText value="0 / --" />
+							<h:outputText value="#{mySubmission.veredict}" styleClass="#{mySubmission.veredict eq  'Accepted' ? 'AC' : 'ER'}"/>
 						</div>
 					</p:column>
 					<p:column headerText="Hora" width="70">
-						<h:outputText value="#{contato.dataNascimento.time}">
-							<f:convertDateTime pattern="hh:mm:ss" />
-						</h:outputText>
+						<div align="center"><h:outputText value="#{mySubmission.timestamp}">
+							<f:convertDateTime pattern="hh:mm:ss" timeZone="GMT-3"/>
+						</h:outputText></div>
 					</p:column>
 				</p:dataTable>
 			</div>

@@ -34,8 +34,8 @@ public class SubmissionBean {
 	public SubmissionBean() {
 	}
 
-	public SubmissionBean(int problem, int language, int idSubmission,
-			int idUser, Timestamp timestamp, String fileName, String veredict) {
+	public SubmissionBean(int idSubmission, int idUser, int problem,
+			int language, Timestamp timestamp, String fileName, String veredict) {
 		super();
 		this.idProblem = problem;
 		this.idLanguage = language;

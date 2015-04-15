@@ -6,9 +6,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
 import br.edu.popjudge.bean.SubmissionBean;
 import br.edu.popjudge.database.ConnectionFactory;
 
+@ManagedBean
 public class SubmissionDAO implements Dao<SubmissionBean> {
 	
 	Connection connection;
@@ -62,9 +67,14 @@ public class SubmissionDAO implements Dao<SubmissionBean> {
 		return list;
 	}
 
-	public ArrayList<SubmissionBean> getMySubmissions(int idUser) throws SQLException {
+	public ArrayList<SubmissionBean> getMySubmissions() throws SQLException {
 		connection = new ConnectionFactory().getConnection();
-
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		
+		int idUser = (Integer) session.getAttribute("idUser");
+		
 		String sql = String.format(
 				"SELECT * FROM SUBMISSION WHERE id_user = %d", idUser);
 
