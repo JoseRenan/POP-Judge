@@ -41,10 +41,7 @@
 			<div align="center">
 				<p:dataTable var="mySubmission"
 					value="#{submissionDAO.mySubmissions}" id="table"
-					style="width:850px;" rowIndexVar="rowIndex">
-					<p:column headerText="#" width="10">
-						<div align="center">#{rowIndex+1}</div>
-					</p:column>
+					style="width:850px;">
 					<p:column headerText="Problema" width="70">
 						<div align="center">
 							<h:outputText value="P#{mySubmission.idProblem}" />
