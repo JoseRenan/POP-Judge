@@ -5,7 +5,17 @@
 	color: green;
 }
 
-.ER {
+.WA {
 	font-weight: bold;
 	color: red;
+}
+
+.CE {
+	font-weight: bold;
+	color: #cbcb10;
+}
+
+.TLE {
+	font-weight: bold;
+	color: #3030e2;
 }

@@ -57,7 +57,7 @@
 					</p:column>
 					<p:column headerText="Veredito" width="70">
 						<div align="center">
-							<h:outputText value="#{mySubmission.veredict}" styleClass="#{mySubmission.veredict eq  'Accepted' ? 'AC' : 'ER'}"/>
+							<h:outputText value="#{mySubmission.veredict}" styleClass="#{mySubmission.veredict eq 'Accepted' ? 'AC' : mySubmission.veredict eq 'Time Limit Exceeded' ? 'TLE' : mySubmission.veredict eq 'Compilation Error' ? 'CE' : mySubmission.veredict eq 'Wrong Answer' ? 'WA' : null}"/>
 						</div>
 					</p:column>
 					<p:column headerText="Hora" width="70">
