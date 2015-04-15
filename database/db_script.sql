@@ -14,6 +14,7 @@ CREATE TABLE USER (
 
 CREATE TABLE PROBLEM (
 	id_problem INT,
+	score_points INT, 
 	time_limit LONG NOT NULL,
 	input VARCHAR(255) NOT NULL,
 	output VARCHAR(255) NOT NULL,
@@ -70,16 +71,31 @@ CREATE TABLE SUBMISSION (
 	REFERENCES LANGUAGE(id_language)
 );
 
+CREATE TABLE RANKING (
+	id_user INT,
+	score INT DEFAULT 0,
+	problem_1 INT DEFAULT 0,
+	problem_2 INT DEFAULT 0,
+	problem_3 INT DEFAULT 0,
+	problem_4 INT DEFAULT 0,
+	problem_5 INT DEFAULT 0,
+
+	PRIMARY KEY (id_user)
+);
+
+CREATE UNIQUE INDEX id_user
+ON RANKING (id_user);
+
 INSERT INTO LANGUAGE VALUES(1, 'C');
 INSERT INTO LANGUAGE VALUES(2, 'Cpp');
 INSERT INTO LANGUAGE VALUES(3, 'Java');
 INSERT INTO LANGUAGE VALUES(4, 'Pascal');
 INSERT INTO LANGUAGE VALUES(5, 'Python');
 
-INSERT INTO PROBLEM (id_problem) VALUES (1);
-INSERT INTO PROBLEM (id_problem) VALUES (2);
-INSERT INTO PROBLEM (id_problem) VALUES (3);
-INSERT INTO PROBLEM (id_problem) VALUES (4);
-INSERT INTO PROBLEM (id_problem) VALUES (5);
+INSERT INTO PROBLEM (id_problem, score_points, time_limit, input, output) VALUES (1, 500, 1000, '/home/gustavo/POPJudge/problems/p1/input.txt', '/home/gustavo/POPJudge/problems/p1/output.txt');
+INSERT INTO PROBLEM (id_problem, score_points, time_limit, input, output) VALUES (2, 500, 1000, '/home/gustavo/POPJudge/problems/p2/input.txt', '/home/gustavo/POPJudge/problems/p2/output.txt');
+INSERT INTO PROBLEM (id_problem, score_points, time_limit, input, output) VALUES (3, 500, 1000, '/home/gustavo/POPJudge/problems/p3/input.txt', '/home/gustavo/POPJudge/problems/p3/output.txt');
+INSERT INTO PROBLEM (id_problem, score_points, time_limit, input, output) VALUES (4, 500, 1000, '/home/gustavo/POPJudge/problems/p4/input.txt', '/home/gustavo/POPJudge/problems/p4/output.txt');
+INSERT INTO PROBLEM (id_problem, score_points, time_limit, input, output) VALUES (5, 500, 1000, '/home/gustavo/POPJudge/problems/p5/input.txt', '/home/gustavo/POPJudge/problems/p5/output.txt');
 
 INSERT INTO USER(id_user, username, password, dir) VALUES(0, 'Admin', 'admin123', '');
