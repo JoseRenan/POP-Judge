@@ -171,16 +171,16 @@ public class SubmissionBean {
 					ur.setProblem1(currentTime);
 					break;
 				case 2:
-					ur.setProblem1(currentTime);	
+					ur.setProblem2(currentTime);	
 					break;
 				case 3:
-					ur.setProblem1(currentTime);
+					ur.setProblem3(currentTime);
 					break;
 				case 4:
-					ur.setProblem1(currentTime);
+					ur.setProblem4(currentTime);
 					break;
 				case 5:
-					ur.setProblem1(currentTime);
+					ur.setProblem5(currentTime);
 					break;
 			}
 		
