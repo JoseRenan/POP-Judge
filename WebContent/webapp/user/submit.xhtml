@@ -54,13 +54,16 @@
 					</p:column>
 					<p:column headerText="Veredito" width="70">
 						<div align="center">
-							<h:outputText value="#{mySubmission.veredict}" styleClass="#{mySubmission.veredict eq 'Accepted' ? 'AC' : mySubmission.veredict eq 'Time Limit Exceeded' ? 'TLE' : mySubmission.veredict eq 'Compilation Error' ? 'CE' : mySubmission.veredict eq 'Wrong Answer' ? 'WA' : null}"/>
+							<h:outputText value="#{mySubmission.veredict}"
+								styleClass="#{mySubmission.veredict eq 'Accepted' ? 'AC' : mySubmission.veredict eq 'Time Limit Exceeded' ? 'TLE' : mySubmission.veredict eq 'Compilation Error' ? 'CE' : mySubmission.veredict eq 'Wrong Answer' ? 'WA' : 'SE'}" />
 						</div>
 					</p:column>
 					<p:column headerText="Hora" width="70">
-						<div align="center"><h:outputText value="#{mySubmission.timestamp}">
-							<f:convertDateTime pattern="hh:mm:ss" timeZone="GMT-3"/>
-						</h:outputText></div>
+						<div align="center">
+							<h:outputText value="#{mySubmission.timestamp}">
+								<f:convertDateTime pattern="hh:mm:ss" timeZone="GMT-3" />
+							</h:outputText>
+						</div>
 					</p:column>
 				</p:dataTable>
 			</div>
