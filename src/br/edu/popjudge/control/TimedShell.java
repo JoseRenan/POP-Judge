@@ -1,4 +1,7 @@
 package br.edu.popjudge.control;
+
+import java.io.IOException;
+
 /*
  * Codejudge
  * Copyright 2012, Sankha Narayan Guria (sankha93@gmail.com)
@@ -32,7 +35,20 @@ public class TimedShell extends Thread {
 			setTimeOut(false);
 		}catch(IllegalThreadStateException iex) {
 			setTimeOut(true);
-			process.destroy();
+			try{
+				ProcessKiller.killUnixProcess(process);
+			}catch(IllegalArgumentException ilaex){
+				ilaex.printStackTrace();
+			} catch (NoSuchFieldException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
 	}
 	
