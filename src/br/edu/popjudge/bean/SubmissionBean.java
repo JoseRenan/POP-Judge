@@ -17,6 +17,7 @@ import org.primefaces.model.UploadedFile;
 
 import br.edu.popjudge.control.Judge;
 import br.edu.popjudge.control.SubmissionIdGenerator;
+import br.edu.popjudge.database.dao.ProblemDAO;
 import br.edu.popjudge.database.dao.RankDAO;
 import br.edu.popjudge.database.dao.SubmissionDAO;
 import br.edu.popjudge.domain.UserRank;
@@ -120,7 +121,7 @@ public class SubmissionBean {
 		this.idLanguage = language;
 	}
 
-	public void submit() throws IOException, SQLException {
+	public void submit() throws IOException {
 		if (this.code != null) {
 
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -129,69 +130,116 @@ public class SubmissionBean {
 
 			InputStream in = new BufferedInputStream(this.code.getInputstream());
 
-			setIdSubmission(SubmissionIdGenerator.getSubmissionId());//Gets an id for a new submission.
-			dir = (String) session.getAttribute("dir") + "/" + this.getIdSubmission();//Gets the user's directory.
-			setIdUser((int) session.getAttribute("idUser"));//Gets user's id.
-			setTimestamp(new Timestamp(System.currentTimeMillis()));//Gets the actual time.
+			setIdSubmission(SubmissionIdGenerator.getSubmissionId());// Gets an
+																		// id
+																		// for a
+																		// new
+																		// submission.
+			dir = (String) session.getAttribute("dir") + "/"
+					+ this.getIdSubmission();// Gets the user's directory.
+			setIdUser((int) session.getAttribute("idUser"));// Gets user's id.
+			setTimestamp(new Timestamp(System.currentTimeMillis()));// Gets the
+																	// actual
+																	// time.
 
-			File file = new File(dir + "/" + this.code.getFileName());//Creates a file in the user's directory.
+			File file = new File(dir + "/" + this.code.getFileName());// Creates
+																		// a
+																		// file
+																		// in
+																		// the
+																		// user's
+																		// directory.
 			if (!file.getParentFile().exists())
-				file.getParentFile().mkdirs();//Creates the directories if they don't exists.
+				file.getParentFile().mkdirs();// Creates the directories if they
+												// don't exists.
 			FileOutputStream fos = new FileOutputStream(file);
-			while (in.available() != 0) {//Writes the content in the user's file.
+			while (in.available() != 0) {// Writes the content in the user's
+											// file.
 				fos.write(in.read());
 			}
 			fos.close();
 
 			setFileName(file.getAbsolutePath());
-			
+
 			Judge j = new Judge();
 			setVeredict((j.judge(this).getRotulo1()));
-			
+
 			SubmissionDAO sbmdao = new SubmissionDAO();
-			
+
 			try {
 				sbmdao.insert(this);
+
+				RankDAO rd = new RankDAO();
+				UserRank ur = rd.get((String) session.getAttribute("username"));
+
+				if (!(j.judge(this).getRotulo1()).equals("Accepted")) {
+					switch (this.idProblem) {
+					case 1:
+						if (ur.getProblem1() <= 0)
+							ur.setProblem1(ur.getProblem1() - 1);
+						break;
+					case 2:
+						if (ur.getProblem2() <= 0)
+							ur.setProblem2(ur.getProblem2() - 1);
+						break;
+					case 3:
+						if (ur.getProblem3() <= 0)
+							ur.setProblem3(ur.getProblem3() - 1);
+						break;
+					case 4:
+						if (ur.getProblem4() <= 0)
+							ur.setProblem4(ur.getProblem4() - 1);
+						break;
+					case 5:
+						if (ur.getProblem5() <= 0)
+							ur.setProblem5(ur.getProblem5() - 1);
+						break;
+					}
+				} else if (ur.getPoints() <= 0) {
+					int currentTime = TimerBean.currentMoment();
+					ProblemBean p = new ProblemDAO().get(this.idProblem);
+					int score = p.getPoints();
+					// TODO adicionar a constante e a relação da pontuação com o
+					// tempo.
+					ur.setPoints(ur.getPoints() + score);
+					switch (this.idProblem) {
+					case 1:
+						if (ur.getProblem1() <= 0)
+							ur.setProblem1(score);
+						break;
+					case 2:
+						if (ur.getProblem1() <= 0)
+							ur.setProblem2(score);
+						break;
+					case 3:
+						if (ur.getProblem1() <= 0)
+							ur.setProblem3(score);
+						break;
+					case 4:
+						if (ur.getProblem1() <= 0)
+							ur.setProblem4(score);
+						break;
+					case 5:
+						if (ur.getProblem1() <= 0)
+							ur.setProblem5(score);
+						break;
+					}
+				}
+				rd.update(ur);
+
+				this.code = null;
+				this.dir = null;
+				this.idLanguage = 0;
+				this.idProblem = 0;
+				this.idUser = 0;
+
 			} catch (SQLException e) {
 				e.printStackTrace();
-				FacesMessage message = new FacesMessage("Não entre em pânico.\nAfaste-se do computador e chame os admins.\n Tem algo MUITO errado.", "");
+				FacesMessage message = new FacesMessage(
+						"Não entre em pânico.\nAfaste-se do computador e chame os admins.\n Tem algo MUITO errado.",
+						"");
 				FacesContext.getCurrentInstance().addMessage(null, message);
 			}
-			
-			RankDAO rd = new RankDAO();
-			UserRank ur = rd.get((String)session.getAttribute("username"));
-			int currentTime = TimerBean.currentMoment();
-			
-			if (!(j.judge(this).getRotulo1()).equals("Accepted")){
-				currentTime *= -1;
-			}
-			
-			switch (this.idProblem){
-				case 1:
-					ur.setProblem1(currentTime);
-					break;
-				case 2:
-					ur.setProblem2(currentTime);	
-					break;
-				case 3:
-					ur.setProblem3(currentTime);
-					break;
-				case 4:
-					ur.setProblem4(currentTime);
-					break;
-				case 5:
-					ur.setProblem5(currentTime);
-					break;
-			}
-		
-			rd.update(ur);
-			
-			this.code = null;
-			this.dir = null;
-			this.idLanguage = 0;
-			this.idProblem = 0;
-			this.idUser = 0;
-			
 			FacesMessage message = new FacesMessage("Enviado com sucesso", "");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		} else {

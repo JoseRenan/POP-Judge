@@ -16,13 +16,14 @@ public class ProblemDAO implements Dao<ProblemBean> {
 	@Override
 	public void insert(ProblemBean value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
-		String sql = "insert into PROBLEM(id_problem, time_limit, input, output) VALUES(?, ?, ?, ?)";
+		String sql = "insert into PROBLEM(id_problem, time_limit, input, output) VALUES(?, ?, ?, ?, ?)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		stmt.setInt(1, 0);
 		stmt.setLong(2, value.getTimeLimit());
-		stmt.setString(3, value.getInput());
-		stmt.setString(4, value.getOutput());
+		stmt.setInt(3, value.getPoints());
+		stmt.setString(4, value.getInput());
+		stmt.setString(5, value.getOutput());
 
 		stmt.execute();
 
@@ -39,8 +40,8 @@ public class ProblemDAO implements Dao<ProblemBean> {
 		ArrayList<ProblemBean> list = new ArrayList<ProblemBean>();
 		while (rs.next()) {
 			list.add(new ProblemBean(rs.getInt("id_problem"), rs
-					.getLong("time_limit"), rs.getString("input"), rs
-					.getString("output")));
+					.getLong("time_limit"), rs.getInt("score_points"), rs
+					.getString("input"), rs.getString("output")));
 		}
 
 		connection.close();
@@ -48,7 +49,7 @@ public class ProblemDAO implements Dao<ProblemBean> {
 	}
 
 	@Override
-	public ProblemBean get(int id) throws SQLException {// testar
+	public ProblemBean get(int id) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		String sql = "select * from PROBLEM where id_problem = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
@@ -56,27 +57,28 @@ public class ProblemDAO implements Dao<ProblemBean> {
 		ResultSet rs = stmt.executeQuery();
 		if (rs.next()) {
 			return new ProblemBean(rs.getInt("id_problem"),
-					rs.getLong("time_limit"), rs.getString("input"),
-					rs.getString("output"));
+					rs.getLong("time_limit"), rs.getInt("score_points"),
+					rs.getString("input"), rs.getString("output"));
 		}
 		return null;
 	}
 
 	@Override
 	public boolean delete(int id) throws SQLException {
-		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
 	public void update(ProblemBean value) throws SQLException {
+		//TODO Adicionar score.
 		connection = new ConnectionFactory().getConnection();
-		String sql = "update PROBLEM set time_limit = ?, input = ?, output = ? where id_problem = ?";
+		String sql = "update PROBLEM set time_limit = ?, score_points = ?, input = ?, output = ? where id_problem = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setLong(1, value.getTimeLimit());
-		stmt.setString(2, value.getInput());
-		stmt.setString(3, value.getOutput());
-		stmt.setInt(4, value.getIdProblem());
+		stmt.setInt(2, value.getPoints());
+		stmt.setString(3, value.getInput());
+		stmt.setString(4, value.getOutput());
+		stmt.setInt(5, value.getIdProblem());
 		stmt.execute();
 	}
 }

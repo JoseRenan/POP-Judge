@@ -12,9 +12,7 @@ public class ProcessKiller {
 			field.setAccessible(true);
 			Object pidObject = field.get(process);
 			Integer pid = (Integer) pidObject;
-			System.out.println(pidObject);
-			String command = "kill -9 " + (pid + 3);//Por algum motivo ele não pega o número correto.
-			System.out.println(command);
+			String command = "kill -9 " + (pid + 3);//Por algum motivo ele não pega o número correto. Mas com + 3 tá funcionando.
 			Runtime.getRuntime().exec(command);
 		} else {
 			throw new IllegalArgumentException("Needs to be a UNIXProcess");

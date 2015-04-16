@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import javax.faces.bean.ManagedBean;
 
@@ -15,15 +16,6 @@ import br.edu.popjudge.domain.UserRank;
 public class RankDAO implements Dao<UserRank> {
 	Connection connection;
 	private ArrayList<UserRank> all;
-	
-	public static void main(String[] args) throws SQLException {
-		RankDAO ud = new RankDAO();
-		UserRank maria = ud.get("maria");
-		maria.setPoints(100000);
-		ud.update(maria);
-		maria = ud.get("maria");
-		System.out.println(maria.getPoints());
-	}
 	
 	@Override
 	public void insert(UserRank value) throws SQLException {
@@ -62,7 +54,15 @@ public class RankDAO implements Dao<UserRank> {
 		rs.close();
 		stmt.close();
 		connection.close();
-		
+		all.sort(new Comparator<UserRank>(){
+
+			@Override
+			public int compare(UserRank o1, UserRank o2) {
+				if( o1.getPoints() == o2.getPoints())return 0;
+				if( o1.getPoints() > o2.getPoints())return -1;
+				return 1;
+			}
+		});
 		return this.all;
 	}
 

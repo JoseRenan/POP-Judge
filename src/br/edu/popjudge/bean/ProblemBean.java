@@ -7,22 +7,32 @@ public class ProblemBean {
 
 	private int idProblem;
 	long timeLimit;
+	int points;
+
 	String input;
 	String output;
 
-	public ProblemBean(int idProblem, long timeLimit, String input,
+	public ProblemBean(int idProblem, long timeLimit, int points, String input,
 			String output) {
 		super();
 		this.idProblem = idProblem;
 		this.timeLimit = timeLimit;
+		this.points = points;
 		this.input = input;
 		this.output = output;
 	}
-	
+
 	public ProblemBean() {
 	}
-	
-	
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
 	public int getIdProblem() {
 		return idProblem;
 	}
