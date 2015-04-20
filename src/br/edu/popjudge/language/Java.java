@@ -40,8 +40,8 @@ public class Java extends Language {
 			process = runtime.exec(submission.getDir() + "/compile.sh");
 			process.waitFor();
 
-			File file = new File(submission.getFileName().substring(0,
-					submission.getFileName().length() - 5));
+			File file = new File(submission.getFileName().substring(0, 
+					submission.getFileName().length() - 5) + ".class");
 
 			if (!file.exists()) {
 				throw new CompilationErrorException("Compilation Error");
@@ -70,9 +70,11 @@ public class Java extends Language {
 			ProblemBean pb = new ProblemDAO().get(submission.getIdProblem());
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("chroot .\n");
+			
+			File file = new File(submission.getFileName());
+			
 			writer.write("java "
-					+ (submission.getFileName().substring(0, submission
-							.getFileName().length() - 5)) + " < "
+					+ file.getName().substring(0, file.getName().length() - 5) + " < "
 					+ pb.getInput() + " > " + submission.getDir()
 					+ "/output.txt");
 			writer.close();
