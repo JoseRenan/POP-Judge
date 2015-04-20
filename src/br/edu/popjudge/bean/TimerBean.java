@@ -95,4 +95,8 @@ public class TimerBean {
 		this.horaRestante = horaRestante;
 	}
 
+	public static int totalTimeContest() {
+		return ((fimContest.get(Calendar.MINUTE) + (fimContest.get(Calendar.HOUR_OF_DAY) * 60) - (inicioContest.get(Calendar.MINUTE) + (inicioContest.get(Calendar.HOUR_OF_DAY) * 60))));
+	}
+
 }

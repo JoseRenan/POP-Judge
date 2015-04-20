@@ -1,0 +1,142 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<div class="header">
+		<span>II Maratona POP | P2</span>
+		<h1>Colecionando Amizades</h1>
+		<div>
+			<p>
+				Por Gustavo Ribeiro, IFPB - Campina Grande <img
+					src='https://urionlinejudge.r.worldssl.net/gallery/images/flags/br.gif'
+					alt='BR' /> Brazil
+			</p>
+		</div>
+		<strong>Timelimit: 1</strong>
+	</div>
+
+	<div class="problem">
+
+		<div class="description">
+			<p>Zenan é um rapaz muito sociável e que possui extrema
+				facilidade em fazer amigos. No entanto, quando a questão é "aplicar
+				em novinhas" na busca de algo além da amizade ele é um fracasso,
+				assim como o seu mestre Tapioca. Mas ele está conformado e agora quer
+				fazer o maior número de amizades verdadeiras.</p>
+
+			<p>O índice de amizade verdadeira de uma pessoa para com Zenan é
+				calculado através do número de letras que o nome da pessoa possui em
+				comum com o nome 'zenan' multiplicado por uma constante 1 ≤ K ≤ 100.
+				Além disso Zenan não é um robô, e dessa forma ele só pode fazer
+				amizades de modo que a soma do índíce de amizade verdadeira de todos
+				as pessoas que ele escolheu para serem seus amigos não ultrapasse um
+				valor 1 ≤ T ≤ 1000.</p>
+
+			<p>Sua tarefa é simples. Dado o número de pessoas 1 ≤ P ≤ 100,
+				seus respectivos nomes (compostos apenas por letras minúsculas do
+				alfabeto latino) 1 - 20 caracteres, o valor T e a constante K
+				determine quais pessoas devem ser escolhidas por Zenan para serem
+				seus amigos de modo que a soma de seus índices de amizade verdadeira
+				com Zenan seja o máximo possível.</p>
+
+			<br />
+
+		</div>
+
+		<h2>Entrada</h2>
+
+		<div class="input">
+			<p>A entrada contém vários casos de teste e deve ser finalizada quando P for igual 
+				a zero. A primeira linha de cada entrada contém um número inteiro 1
+				≤ P ≤ 100, seguido por P nomes de no máximo 20 caracteres minúsculos
+				do alfabeto latino, um número inteiro 0 ≤ K ≤ 100 e um número
+				inteiro 1 ≤ T ≤ 1000.</p>
+
+		</div>
+
+		<h2>Saída</h2>
+
+		<div class="output">
+			<p>Para cada caso de teste imprima o número de amigos que Zenan
+				deve selecionar para que a soma de seus índices de amizade
+				verdadeira com Zenan seja o máximo possível. Seguido pelos nomes das
+				pessoas em ordem alfabética.</p>
+
+		</div>
+
+		<div class="both"></div>
+
+		<table>
+			<thead>
+				<tr>
+					<td>Exemplos de Entrada</td>
+					<td>Exemplos de Saída</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="division">
+						<p>3</p>
+
+						<p>tapioca</p>
+
+						<p>jujuh</p>
+
+						<p>rerissuh</p>
+
+						<p>10</p>
+
+						<p>30</p>
+
+					</td>
+					<td>
+						<p>2</p>
+
+						<p>rerissuh</p>
+
+						<p>tapioca</p>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="both"></div>
+		<table>
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="division">
+						<p>5</p>
+
+						<p>gustavo</p>
+
+						<p>marcelo</p>
+
+						<p>tourist</p>
+
+						<p>abella</p>
+
+						<p>gomes</p>
+
+						<p>10</p>
+
+						<p>10</p>
+
+					</td>
+					<td>
+						<p>1</p>
+
+						<p>abella</p> <br />
+					<br />
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+	</div>
+</ui:composition>

@@ -195,33 +195,43 @@ public class SubmissionBean {
 							ur.setProblem5(ur.getProblem5() - 1);
 						break;
 					}
-				} else if (ur.getPoints() <= 0) {
+				} else {
+					int totalTime = TimerBean.totalTimeContest();
 					int currentTime = TimerBean.currentMoment();
 					ProblemBean p = new ProblemDAO().get(this.idProblem);
-					int score = p.getPoints();
-					// TODO adicionar a constante e a relação da pontuação com o
-					// tempo.
-					ur.setPoints(ur.getPoints() + score);
+					int score = p.getPoints(); 
+					score -= ((p.getPoints()/2)/totalTime)*currentTime;
+
 					switch (this.idProblem) {
 					case 1:
-						if (ur.getProblem1() <= 0)
-							ur.setProblem1(score);
+						if (ur.getProblem1() <= 0){
+							ur.setProblem1(score + (ur.getProblem1()* ((int)(0.01 * p.getPoints()))));
+							ur.setPoints(ur.getPoints() + ur.getProblem1());
+						}
 						break;
 					case 2:
-						if (ur.getProblem1() <= 0)
-							ur.setProblem2(score);
+						if (ur.getProblem2() <= 0){
+							ur.setProblem2(score + (ur.getProblem2()* ((int)(0.01 * p.getPoints()))));
+							ur.setPoints(ur.getPoints() + ur.getProblem2());
+						}
 						break;
 					case 3:
-						if (ur.getProblem1() <= 0)
-							ur.setProblem3(score);
+						if (ur.getProblem3() <= 0){
+							ur.setProblem3(score + (ur.getProblem3()* ((int)(0.01 * p.getPoints()))));
+							ur.setPoints(ur.getPoints() + ur.getProblem3());
+						}
 						break;
 					case 4:
-						if (ur.getProblem1() <= 0)
-							ur.setProblem4(score);
+						if (ur.getProblem4() <= 0){
+							ur.setProblem4(score + (ur.getProblem4()* ((int)(0.01 * p.getPoints()))));
+							ur.setPoints(ur.getPoints() + ur.getProblem4());
+						}
 						break;
 					case 5:
-						if (ur.getProblem1() <= 0)
-							ur.setProblem5(score);
+						if (ur.getProblem5() <= 0){
+							ur.setProblem5(score + (ur.getProblem5()* ((int)(0.01 * p.getPoints()))));
+							ur.setPoints(ur.getPoints() + ur.getProblem5());
+						}
 						break;
 					}
 				}

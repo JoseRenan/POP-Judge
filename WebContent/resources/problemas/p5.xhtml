@@ -5,8 +5,8 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<div class="header">
-		<span>II Maratona POP | P5</span>
-		<h1>Arthur e seus Arco-Íris</h1>
+		<span>ConTESTE POPJudge | P5</span>
+		<h1>Torre da Sorte</h1>
 		<div>
 			<p>
 				Por Gustavo Ribeiro, IFPB - Campina Grande <img
@@ -20,40 +20,68 @@
 	<div class="problem">
 
 		<div class="description">
-			<p>Arthur é uma rapaz que adora arco-íris, e para ele quanto mais
-				coloridos eles forem mais feliz ele fica. No mundo em que Arthur
-				vive existem diversos tipos de arco-íris, alguns com mais de 7
-				cores, inclusive. Arthur tem uma preferência peculiar, ele gosta
-				mais daqueles árco-íris que as cores estão ordenadas
-				lexicograficamente.</p>
+			<p style="text-align: justify">O Magnífico Reitor do IFPB
+				(Instituto Federal de Programação Básica) adora construir prédios,
+				ginásios, blocos e diversos espaços na instituição. Muitos o
+				contestam por presar mais pela infraestrutura do que a qualidade dos
+				serviços que o mesmo deve oferecer a comunidade, mas isso não vem ao
+				caso. O que de fato vem ao caso é a torre que ele construiu nos
+				últimos meses, ela é a maior da região e possui 17 777 777 777
+				andares, numerados de -8 888 888 888 até 8 888 888 888. Em
+				particular, existe o andar 0 entre os andares -1 e 1. Todos os dias
+				milhares de alunos e pessoas veem à torre para desfrutar da
+				magnífica vista.</p>
 
-			<p>Como existem muitas cores no seu mundo ele não pretende
-				verificar isso "no olho", e como sabe que você é o melhor
-				programador do IFPB decidiu pedir para você que construisse um
-				programa que verifica se um arco-íris está com as cores ordenadas.
-				Você pode ajudá-lo?</p>
+			<p style="text-align: justify">O Magnífico Reitor acredita que o
+				número 8 é um número da sorte (por isso que a torre gigante possui 8
+				888 888 888 andares acima do solo) e qualquer outro número pode ser
+				um número da sorte desde que ele contenha pelo menos um dígito 8 na
+				sua notação decimal. Por exemplo: 8, -180 e 808 são todos números da
+				sorte enquanto que 42 e -10 não são. Para o Reitor se você escrever
+				um programa em um andar da sorte você terá sorte para o resto de sua
+				vida, ou pelo menos durante esse contest.</p>
+
+			<p style="text-align: justify">
+				Renan é aluno do IFPB e está na torre em busca de sorte. Nesse
+				momento ele encontrou você no andar <strong>a</strong>. E agora ele
+				pretende encontrar o mínimo inteiro <strong>POSITIVO b, </strong>tal
+				que se ele andar <strong>b</strong>andares para cima ele consiga
+				chegar em um andar com um número da sorte. Você poderia ajudá-lo?
+			</p>
 
 		</div>
 
 		<h2>Entrada</h2>
 
 		<div class="input">
-			<p>A entrada é composta por vários casos de teste e termina com
-				EOF. A primeira linha de cada caso de teste conterá um inteiro 1 ≤ N
-				≤ 1000 que define o número de cores do arco-íris, cada uma das N
-				linhas seguintes irá conter uma sequência de 1 à 50 letras
-				(maiúsculas e minúsculas) do alfabeto latino representando as cores
-				do arco-íris.</p>
+			<p>
+				<span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px">A
+					entrada é composta por diversos casos de teste e deverá terminar
+					com 0. Cada caso de teste contém uma linha com um único inteiro <strong><em>a</em></strong><span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px">(-109
+						≤ <strong><em>a</em></strong><span
+						style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px">
+							≤ 109). </span>
+				</span>
+				</span>
+			</p>
 
 		</div>
 
 		<h2>Saída</h2>
 
 		<div class="output">
-			<p>Para cada caso de teste imprima "LINDO" se as cores do
-				arco-íris estão ordenadas ou "MAIS OU MENOS" caso contrário. (As
-				aspas servem apenas para diferir o texto comum da descrição de
-				saída)</p>
+			<p>
+				<span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px">Para
+					cada caso de teste imprima o valor de <strong>b</strong><span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px">.
+
+				</span>
+				</span>
+
+			</p>
 
 		</div>
 
@@ -62,86 +90,33 @@
 		<table>
 			<thead>
 				<tr>
-					<td>Exemplos de Entrada</td>
-					<td>Exemplos de Saída</td>
+					<td>Exemplo de Entrada</td>
+					<td>Exemplo de Saída</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td class="division">
-						<p>4</p>
+						<p>179</p>
 
-						<p>Amarelo</p>
+						<p>-1</p>
 
-						<p>Azul</p>
+						<p>18</p>
 
-						<p>Preto</p>
-
-						<p>Verde</p>
+						<p>0</p>
 
 					</td>
 					<td>
-						<p>LINDO</p>
+						<p>1</p>
+
+						<p>9</p>
+
+						<p>10</p>
 
 					</td>
 				</tr>
 			</tbody>
 		</table>
 
-		<div class="both"></div>
-		<table>
-			<thead>
-			</thead>
-			<tbody>
-				<tr>
-					<td class="division">
-						<p>2</p>
-
-						<p>amarelo</p>
-
-						<p>Anil</p>
-
-						<p>
-							<br />
-						</p>
-
-					</td>
-					<td>
-						<p>MAIS OU MENOS</p>
-
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<div class="both"></div>
-
-		<table>
-			<thead>
-			</thead>
-			<tbody>
-				<tr>
-					<td class="division">
-						<p>5</p>
-
-						<p>turquesa</p>
-
-						<p>verde</p>
-
-						<p>vermelho</p>
-
-						<p>vinho</p>
-
-						<p>violeta</p>
-
-					</td>
-					<td>
-						<p>LINDO</p>
-
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<p class="footer"></p>
 	</div>
 </ui:composition>

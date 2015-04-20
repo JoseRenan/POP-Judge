@@ -3,12 +3,13 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+
 	<div class="header">
-		<span>II Maratona POP | P2</span>
-		<h1>Colecionando Amizades</h1>
+		<span>ConTESTE POPJudge | P2</span>
+		<h1>Vanlex pede socorro!</h1>
 		<div>
 			<p>
-				Por Gustavo Ribeiro, IFPB - Campina Grande <img
+				Por José Renan, IFPB - Campina Grande <img
 					src='https://urionlinejudge.r.worldssl.net/gallery/images/flags/br.gif'
 					alt='BR' /> Brazil
 			</p>
@@ -19,49 +20,32 @@
 	<div class="problem">
 
 		<div class="description">
-			<p>Zenan é um rapaz muito sociável e que possui extrema
-				facilidade em fazer amigos. No entanto, quando a questão é "aplicar
-				em novinhas" na busca de algo além da amizade ele é um fracasso,
-				assim como o seu mestre Tapioca. Mas ele está conformado e agora quer
-				fazer o maior número de amizades verdadeiras.</p>
-
-			<p>O índice de amizade verdadeira de uma pessoa para com Zenan é
-				calculado através do número de letras que o nome da pessoa possui em
-				comum com o nome 'zenan' multiplicado por uma constante 1 ≤ K ≤ 100.
-				Além disso Zenan não é um robô, e dessa forma ele só pode fazer
-				amizades de modo que a soma do índíce de amizade verdadeira de todos
-				as pessoas que ele escolheu para serem seus amigos não ultrapasse um
-				valor 1 ≤ T ≤ 1000.</p>
-
-			<p>Sua tarefa é simples. Dado o número de pessoas 1 ≤ P ≤ 100,
-				seus respectivos nomes (compostos apenas por letras minúsculas do
-				alfabeto latino) 1 - 20 caracteres, o valor T e a constante K
-				determine quais pessoas devem ser escolhidas por Zenan para serem
-				seus amigos de modo que a soma de seus índices de amizade verdadeira
-				com Zenan seja o máximo possível.</p>
-
-			<br />
+			<p>Valenx é um professor de matemática do IFEFPB (Instituto
+				Federal de Ensino Fundamental da Paraíba). Vanlex percebeu que seus
+				alunos estao com dificuldades em operações básicas da matemática e
+				pediu para os alunos de informática do IFPB para fazer um programa
+				que resolvesse calculos simples de operações básicas.</p>
 
 		</div>
 
 		<h2>Entrada</h2>
 
 		<div class="input">
-			<p>A entrada contém vários casos de teste e deve ser finalizada quando P for igual 
-				a zero. A primeira linha de cada entrada contém um número inteiro 1
-				≤ P ≤ 100, seguido por P nomes de no máximo 20 caracteres minúsculos
-				do alfabeto latino, um número inteiro 0 ≤ K ≤ 100 e um número
-				inteiro 1 ≤ T ≤ 1000.</p>
+			<p>A entrada consiste em vários casos de teste que contem um
+				inteiro X um operador O (' + ', ' - ', ' / ', ' * ' ) e outro
+				inteiro Y. (0 &lt; X ,Y &lt; 100). A entrada termina com o número 0.</p>
+
+			<p></p>
+
+			<p>OBS: Os resultados não inteiros devem ser arrendondados para
+				baixo.</p>
 
 		</div>
 
 		<h2>Saída</h2>
 
 		<div class="output">
-			<p>Para cada caso de teste imprima o número de amigos que Zenan
-				deve selecionar para que a soma de seus índices de amizade
-				verdadeira com Zenan seja o máximo possível. Seguido pelos nomes das
-				pessoas em ordem alfabética.</p>
+			<p>A saída consiste no resultado das expressões apresentadas.</p>
 
 		</div>
 
@@ -70,73 +54,37 @@
 		<table>
 			<thead>
 				<tr>
-					<td>Exemplos de Entrada</td>
-					<td>Exemplos de Saída</td>
+					<td>Exemplo de Entrada</td>
+					<td>Exemplo de Saída</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td class="division">
-						<p>3</p>
+						<p>1/2</p>
 
-						<p>tapioca</p>
+						<p>1+1</p>
 
-						<p>jujuh</p>
+						<p>1*1</p>
 
-						<p>rerissuh</p>
+						<p>1-9</p>
 
-						<p>10</p>
-
-						<p>30</p>
+						<p>0</p>
 
 					</td>
 					<td>
+						<p>0</p>
+
 						<p>2</p>
 
-						<p>rerissuh</p>
-
-						<p>tapioca</p>
-
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<div class="both"></div>
-		<table>
-			<thead>
-			</thead>
-			<tbody>
-				<tr>
-					<td class="division">
-						<p>5</p>
-
-						<p>gustavo</p>
-
-						<p>marcelo</p>
-
-						<p>tourist</p>
-
-						<p>abella</p>
-
-						<p>gomes</p>
-
-						<p>10</p>
-
-						<p>10</p>
-
-					</td>
-					<td>
 						<p>1</p>
 
-						<p>abella</p> <br />
-					<br />
+						<p>-8</p>
 
 					</td>
 				</tr>
 			</tbody>
 		</table>
-
 
 	</div>
 </ui:composition>
