@@ -7,15 +7,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
+import br.edu.popjudge.bean.TimerBean;
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.UserRank;
 
-@ManagedBean()
+@ManagedBean
+@ApplicationScoped
 public class RankDAO implements Dao<UserRank> {
 	Connection connection;
-	private ArrayList<UserRank> all;
+	private ArrayList<UserRank> all = null;
 	
 	@Override
 	public void insert(UserRank value) throws SQLException {
@@ -38,32 +41,38 @@ public class RankDAO implements Dao<UserRank> {
 
 	@Override
 	public ArrayList<UserRank> getAll() throws SQLException {
-		connection = new ConnectionFactory().getConnection();
-		this.all = new ArrayList<UserRank>();
-		String sql = "select * from RANKING order by(score)";
-		PreparedStatement stmt = connection.prepareStatement(sql);
 		
-		ResultSet rs = stmt.executeQuery();
-		while (rs.next()) {
-			this.all.add(new UserRank(rs.getString("username"), rs
-					.getInt("score"), rs.getInt("problem_1"), rs
-					.getInt("problem_2"), rs.getInt("problem_3"), rs
-					.getInt("problem_4"), rs.getInt("problem_5")));
+		boolean rankBlinded = new TimerBean().rankBlinded();
+		
+		if(!rankBlinded || all == null){
+			connection = new ConnectionFactory().getConnection();
+			this.all = new ArrayList<UserRank>();
+			String sql = "select * from RANKING order by(score)";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				this.all.add(new UserRank(rs.getString("username"), rs
+						.getInt("score"), rs.getInt("problem_1"), rs
+						.getInt("problem_2"), rs.getInt("problem_3"), rs
+						.getInt("problem_4"), rs.getInt("problem_5")));
+			}
+			
+			rs.close();
+			stmt.close();
+			connection.close();
+			all.sort(new Comparator<UserRank>(){
+	
+				@Override
+				public int compare(UserRank o1, UserRank o2) {
+					if( o1.getPoints() == o2.getPoints())return 0;
+					if( o1.getPoints() > o2.getPoints())return -1;
+					return 1;
+				}
+			});
 		}
 		
-		rs.close();
-		stmt.close();
-		connection.close();
-		all.sort(new Comparator<UserRank>(){
-
-			@Override
-			public int compare(UserRank o1, UserRank o2) {
-				if( o1.getPoints() == o2.getPoints())return 0;
-				if( o1.getPoints() > o2.getPoints())return -1;
-				return 1;
-			}
-		});
-		return this.all;
+		return all;
 	}
 
 	public UserRank get(String username) throws SQLException {

@@ -66,7 +66,13 @@ public class TimerBean {
 	public void setInicioContestD(Date inicioContestD) {
 		this.inicioContestD = inicioContestD;
 	}
-
+	
+	public boolean rankBlinded(){
+		if (this.getMinRestante() <= 15 && this.getHoraRestante() == 0)
+			return true;
+		return false;
+	}
+	
 	public Date getFimContestD() {
 		return fimContestD;
 	}
