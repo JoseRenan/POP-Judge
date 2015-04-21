@@ -17,6 +17,7 @@ import org.primefaces.model.UploadedFile;
 
 import br.edu.popjudge.control.Judge;
 import br.edu.popjudge.control.SubmissionIdGenerator;
+import br.edu.popjudge.database.dao.LanguageDAO;
 import br.edu.popjudge.database.dao.ProblemDAO;
 import br.edu.popjudge.database.dao.RankDAO;
 import br.edu.popjudge.database.dao.SubmissionDAO;
@@ -28,6 +29,8 @@ public class SubmissionBean {
 	private int idProblem;
 	private int idLanguage;
 	private int idSubmission;
+	private String languageName;
+
 	private int idUser;
 	private Timestamp timestamp;
 	private String veredict;
@@ -47,6 +50,19 @@ public class SubmissionBean {
 		this.timestamp = timestamp;
 		this.veredict = veredict;
 		this.fileName = fileName;
+		try{
+			this.languageName = new LanguageDAO().get(idLanguage).getName();
+		}catch(SQLException sqlex){
+			sqlex.printStackTrace();
+		}
+	}
+
+	public String getLanguageName() {
+		return languageName;
+	}
+
+	public void setLanguageName(String languageName) {
+		this.languageName = languageName;
 	}
 
 	public String getDir() {
@@ -239,6 +255,7 @@ public class SubmissionBean {
 
 				this.code = null;
 				this.dir = null;
+				this.languageName = null;
 				this.idLanguage = 0;
 				this.idProblem = 0;
 				this.idUser = 0;
