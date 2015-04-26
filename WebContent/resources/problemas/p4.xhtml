@@ -5,7 +5,118 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<div class="header">
-		<span>ConTESTE POPJudge | P2</span>
-		
+		<span>ConTESTE POPJudge | P4</span>
+		<h1>Quer Jogar POP?</h1>
+		<div>
+			<p>
+				Por Gustavo Ribeiro, IFPB - Campina Grande <img
+					src='https://urionlinejudge.r.worldssl.net/gallery/images/flags/br.gif'
+					alt='BR' /> Brazil
+			</p>
+		</div>
+		<strong>Timelimit: 1</strong>
 	</div>
+
+	<div class="problem">
+
+		<div class="description">
+			<p>
+				<span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px" />Arthur
+				e Rerisson estão jogando POP (Pega Ou Perde). O jogo é simples, cada
+				jogador possui uma caixa com bolas. Arthur possui uma caixa com
+				exatamente <span style="font-size: 14px" /><strong>n</strong><sub><span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 10px" />1</sub><span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px" />
+				bolas e Rerisson possui uma caixa com exatamente <span
+					style="font-size: 14px" /><strong>n</strong><sub><span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 10px" />2</sub><span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px" />
+				bolas. Em um movimento Arthur pode pegar de 1 a <span
+					style="font-size: 14px" /><strong>k</strong><sub><span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 10px" />1</sub><span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px" />
+				bolas de sua caixa e jogá-las fora. Similarmente, Rerisson pode
+				pegar de 1 a <span style="font-size: 14px" /><strong>k</strong><sub><span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 10px" />2</sub><span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px" /><sub>
+				</sub>bolas de sua caixa e jogá-las fora. Os dois alternam os turnos e
+				Arthur sempre começa o jogo. Aquele que não poder fazer mais
+				movimentos perde. A pedido de Rerisson você foi contratado para
+				escrever um programa que determine quem será o vencedor se ambos
+				jogarem de maneira ótima.
+			</p>
+
+		</div>
+
+		<h2>Entrada</h2>
+
+		<div class="input">
+			<p>
+				<span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px" />A
+				entrada é composta por diversos casos de teste e terminará com 0 0 0
+				0 (quatro zeros). Cada caso de teste conterá uma linha com quatro
+				inteiros 1 ≤ <em><strong>n<sub>1</sub></strong></em><em><strong>,<span
+						style="font-size: 14px" /> n<sub>2</sub>,<span
+						style="font-size: 14px" /> k<sub>1</sub>, <span
+						style="font-size: 14px" />k<sub>2</sub></strong></em><span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px" /><strong>
+				</strong>≤ 50.
+			</p>
+
+		</div>
+
+		<h2>Saída</h2>
+
+		<div class="output">
+			<p>
+				<span
+					style="font-family: trebuchet ms, helvetica, jamrul, sans-serif; font-size: 14px" />Para
+				cada caso de teste escreva "Arthur" (sem aspas) caso ele seja o
+				vencedor ou "Rerisson" (sem aspas) caso contrário.
+			</p>
+
+		</div>
+
+		<div class="both"></div>
+
+		<table>
+			<thead>
+				<tr>
+					<td>Exemplo de Entrada</td>
+					<td>Exemplo de Saída</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="division">
+						<p>2 2 1 2</p>
+
+						<p>2 1 1 1</p>
+
+						<p>0 0 0 0</p>
+
+					</td>
+					<td>
+						<p>
+							Rerisson<br /> Arthur
+						</p>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="both"></div>
+		<div class="footerProblem">
+			<p>Considere o primeiro caso de exemplo. Ambos, Arthur e Rerisson
+				possuem uma caixa com 2 bolas. Arthur retira uma única bola de sua
+				caixa em um movimento e Rerisson pode retirar ambas 1 ou 2 bolas de
+				sua caixa em um movimento. Não importa como Arthur jogou Rerisson
+				pode sair vitorioso se jogar sabiamente.</p>
+		</div>
+	</div>
+	<br />
+	<br />
 </ui:composition>

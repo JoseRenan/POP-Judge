@@ -101,3 +101,9 @@
 .code {
 	font-family: "Courier New", Courier, "Nimbus Mono L", monospace;
 }
+
+.footerProblem p{
+    color: #545454;
+    font-size: 10px;
+    line-height: 12px;
+}
