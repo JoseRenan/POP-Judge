@@ -16,6 +16,12 @@ CREATE TABLE USER (
 	PRIMARY KEY(id_user)
 );
 
+CREATE UNIQUE INDEX id_user
+ON USER (id_user);
+
+CREATE UNIQUE INDEX username
+ON USER (username);
+
 CREATE TABLE PROBLEM (
 	id_problem INT AUTO_INCREMENT,
 	title VARCHAR(255) NOT NULL,
@@ -77,19 +83,23 @@ CREATE TABLE SUBMISSION (
 	REFERENCES LANGUAGE(id_language)
 );
 
-CREATE TABLE RANKING (
-	username VARCHAR(45),
-	score INT DEFAULT 0,
-	problem_1 INT DEFAULT 0,
-	problem_2 INT DEFAULT 0,
-	problem_3 INT DEFAULT 0,
-	problem_4 INT DEFAULT 0,
-	problem_5 INT DEFAULT 0,
-
-	PRIMARY KEY (username)
+CREATE TABLE RANKING ( 
+	username VARCHAR(50) NOT NULL,
+	id_problem INT,
+	score INT DEFAULT 0, -- O Score será a quantidade de pontos obtidos em cada problema.
+	
+	PRIMARY KEY (username, id_problem), 
+	
+	CONSTRAINT fk_USER_username_RANKING_username
+	FOREIGN KEY (username) 
+	REFERENCES USER(username),
+	
+	CONSTRAINT fk_PROBLEM_id_problem_RANKING_id_problem 
+	FOREIGN KEY (id_problem) 
+	REFERENCES PROBLEM(id_problem)
 );
 
-CREATE UNIQUE INDEX username
+CREATE INDEX username
 ON RANKING (username);
 
 INSERT INTO LANGUAGE VALUES(1, 'C');
