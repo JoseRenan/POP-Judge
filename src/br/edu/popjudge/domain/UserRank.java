@@ -1,29 +1,34 @@
 package br.edu.popjudge.domain;
 
+import java.util.ArrayList;
+
 public class UserRank {
-	String username;
+	private String username;
+	private ArrayList<Score> problems;
+	private int totalScore;
 
-	int points;
-	int problem1;// Represents the moment that the user solved the problem, in
-					// milliseconds.
-	int problem2;
-	int problem3;
-	int problem4;
-	int problem5;
 
-	public UserRank(String userId, int points, int problem1, int problem2,
-			int problem3, int problem4, int problem5) {
+	public UserRank(String username, ArrayList<Score> problems, int score) {
 		super();
-		this.username = userId;
-		this.points = points;
-		this.problem1 = problem1;
-		this.problem2 = problem2;
-		this.problem3 = problem3;
-		this.problem4 = problem4;
-		this.problem5 = problem5;
+		this.username = username;
+		this.problems = problems;
+		this.totalScore = score;
 	}
 	
 	public UserRank() {
+	}
+
+	private int calculateScore(){
+		//TODO
+		return 0;
+	}
+	
+	public int getScore() {
+		return totalScore;
+	}
+
+	public void setScore() {
+		this.totalScore = calculateScore();
 	}
 	
 	public void setUsername(String username) {
@@ -34,51 +39,12 @@ public class UserRank {
 		return username;
 	}
 
-	public int getProblem1() {
-		return problem1;
+	public ArrayList<Score> getProblems() {
+		return problems;
 	}
 
-	public void setProblem1(int problem1) {
-		this.problem1 = problem1;
+	public void setProblems(ArrayList<Score> problems) {
+		this.problems = problems;
 	}
-
-	public int getProblem2() {
-		return problem2;
-	}
-
-	public void setProblem2(int problem2) {
-		this.problem2 = problem2;
-	}
-
-	public int getProblem3() {
-		return problem3;
-	}
-
-	public void setProblem3(int problem3) {
-		this.problem3 = problem3;
-	}
-
-	public int getProblem4() {
-		return problem4;
-	}
-
-	public void setProblem4(int problem4) {
-		this.problem4 = problem4;
-	}
-
-	public int getProblem5() {
-		return problem5;
-	}
-
-	public void setProblem5(int problem5) {
-		this.problem5 = problem5;
-	}
-
-	public int getPoints() {
-		return points;
-	}
-
-	public void setPoints(int points) {
-		this.points = points;
-	}
+	
 }
