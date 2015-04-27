@@ -1,6 +1,7 @@
 package br.edu.popjudge.database.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,122 +9,153 @@ import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
 
-import br.edu.popjudge.bean.UserBean;
 import br.edu.popjudge.database.ConnectionFactory;
+import br.edu.popjudge.domain.User;
 
 @ManagedBean
-public class UserDAO implements Dao<UserBean> {
+public class UserDAO implements Dao<User> {
 	private Connection connection;
-	private ArrayList<UserBean> all;
 	
 	@Override
-	public void insert(UserBean value) throws SQLException {
+	public void insert(User value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		
-		String sql = String.format("INSERT INTO USER(id_user, username, password, dir) "
-				+ "VALUES(0, '%s', '%s', '%s')", value.getUsername(), value.getPassword(), value.getDir());
+		String sql = "INSERT INTO USER(id_user, username, password, email, "
+				+ "full_name, city, college, dir)"
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		
-		Statement statement = connection.createStatement();
+		PreparedStatement statement = connection.prepareStatement(sql);
 		
-		statement.execute(sql);
+		statement.setInt(1, 0);
+		statement.setString(2, value.getUsername());
+		statement.setString(3, value.getPassword());
+		statement.setString(4, value.getEmail());
+		statement.setString(5, value.getFullName());
+		statement.setString(6, value.getCity());
+		statement.setString(7, value.getCollege());
+		statement.setString(8, value.getDir());
+		
+		statement.execute();
 		
 		statement.close();
 		connection.close();
 	}
 
 	@Override
-	public ArrayList<UserBean> getAll() throws SQLException {
+	public ArrayList<User> getAll() throws SQLException {
 		connection = new ConnectionFactory().getConnection();
-		ArrayList<UserBean> list = new ArrayList<UserBean>();
 		
 		String sql = "SELECT * FROM USER WHERE username <> 'Admin'";
 		
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
-
+		
+		ArrayList<User> list = new ArrayList<User>();
+		
 		while(resultSet.next()){
-			UserBean userBean = new UserBean();
-			userBean.setIdUser(resultSet.getInt("id_user"));
-			userBean.setUsername(resultSet.getString("username"));
-			userBean.setPassword(resultSet.getString("password"));
-			userBean.setDir(resultSet.getString("dir"));
-			
-			list.add(userBean);
+			list.add(new User(resultSet.getInt("id_user"),
+							  resultSet.getString("username"),
+							  resultSet.getString("password"),
+							  resultSet.getString("email"),
+							  resultSet.getString("full_name"),
+							  resultSet.getString("city"),
+							  resultSet.getString("college"),
+							  resultSet.getString("dir")));
 		}
 		
 		resultSet.close();
 		statement.close();
 		connection.close();
 		
-		this.all = list;
-		
-		return this.all;
+		return list;
 	}
 
 	@Override
-	public UserBean get(int id) throws SQLException {
+	public User get(int id) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		
 		String sql = String.format("SELECT * FROM USER WHERE id_user = %d", id);
 		
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
-		UserBean userBean = new UserBean();
-
+		
+		User ret = null;
+		
 		if(resultSet.next()){
-			userBean.setIdUser(resultSet.getInt("id_user"));
-			userBean.setUsername(resultSet.getString("username"));
-			userBean.setPassword(resultSet.getString("password"));
-			userBean.setDir(resultSet.getString("dir"));
-		} else {
-			userBean = null;
+			ret = new User(resultSet.getInt("id_user"),
+						   resultSet.getString("username"),
+						   resultSet.getString("password"),
+						   resultSet.getString("email"),
+						   resultSet.getString("full_name"),
+						   resultSet.getString("city"),
+						   resultSet.getString("college"),
+						   resultSet.getString("dir"));
 		}
 		
 		resultSet.close();
 		statement.close();
 		connection.close();
 		
-		return userBean;
+		return ret;
 	}
-
-	public UserBean get(String username) throws SQLException {
+	
+	public User get(String username) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		
-		String sql = String.format("SELECT * FROM USER WHERE username = '%s'", username);
+		String sql = String.format("SELECT * FROM USER WHERE id_user = %s", username);
 		
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
-		UserBean userBean = new UserBean();
-
+		
+		User ret = null;
+		
 		if(resultSet.next()){
-			userBean.setIdUser(resultSet.getInt("id_user"));
-			userBean.setUsername(resultSet.getString("username"));
-			userBean.setPassword(resultSet.getString("password"));
-			userBean.setDir(resultSet.getString("dir"));
-		} else {
-			userBean = null;
+			ret = new User(resultSet.getInt("id_user"),
+						   resultSet.getString("username"),
+						   resultSet.getString("password"),
+						   resultSet.getString("email"),
+						   resultSet.getString("full_name"),
+						   resultSet.getString("city"),
+						   resultSet.getString("college"),
+						   resultSet.getString("dir"));
 		}
 		
 		resultSet.close();
 		statement.close();
 		connection.close();
 		
-		return userBean;
+		return ret;
 	}
 
 	@Override
 	public boolean delete(int id) throws SQLException {
-		return false;
+		connection = new ConnectionFactory().getConnection();
+		
+		String sql = String.format("DELETE FROM USER WHERE id_user = %d", id);
+		
+		Statement statement = connection.createStatement();
+		
+		return statement.execute(sql);
 	}
 
 	@Override
-	public void update(UserBean value) throws SQLException {
+	public void update(User value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
-
-		String sql = String.format("UPDATE USER SET password = '%s' WHERE id_user = %d", value.getPassword(), value.getIdUser());
-		Statement statement = connection.createStatement();
 		
-		statement.execute(sql);
+		String sql = "UPDATE USER SET password = ?, email = ?,"
+				+ "full_name = ?, city = ?, college = ?, dir = ? WHERE id_user = ?";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		statement.setString(1, value.getPassword());
+		statement.setString(2, value.getEmail());
+		statement.setString(3, value.getFullName());
+		statement.setString(4, value.getCity());
+		statement.setString(5, value.getCollege());
+		statement.setString(6, value.getDir());
+		statement.setInt(7, value.getIdUser());
+		
+		statement.execute();
 		
 		statement.close();
 		connection.close();

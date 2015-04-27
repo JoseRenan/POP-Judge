@@ -1,6 +1,10 @@
 package br.edu.popjudge.domain;
 
+import java.io.File;
+import java.sql.Timestamp;
+
 import br.edu.popjudge.language.Language;
+
 /*
  * The storage of the submissions will work in the following way:
  * There will be a folder for each user, in which his submissions
@@ -13,39 +17,25 @@ import br.edu.popjudge.language.Language;
 
 public class Submission {
 	private int idSubmission;
-	private String veredict;
-	private String dir;
-	private String sourceName;
 	private User user;
 	private Problem problem;
 	private Language language;
+	private File file;
+	private Timestamp timestamp;
+	private String veredict;
+	
+	public Submission() {}
 
-	public Submission(int idSubmission, String veredict, String dir, User user, String sourceName,
-			Problem problem, Language language) {
+	public Submission(int idSubmission, User user, Problem problem,
+			Language language, File file, Timestamp timestamp, String veredict) {
 		super();
 		this.idSubmission = idSubmission;
-		this.veredict = veredict;
-		this.dir = dir;
-		this.sourceName = sourceName;
 		this.user = user;
 		this.problem = problem;
 		this.language = language;
-	}
-
-	public String getSourceName() {
-		return sourceName;
-	}
-
-	public void setSourceName(String sourceName) {
-		this.sourceName = sourceName;
-	}
-
-	public String getDir() {
-		return dir;
-	}
-
-	public void setDir(String dir) {
-		this.dir = dir;
+		this.file = file;
+		this.timestamp = timestamp;
+		this.veredict = veredict;
 	}
 
 	public int getIdSubmission() {
@@ -54,14 +44,6 @@ public class Submission {
 
 	public void setIdSubmission(int idSubmission) {
 		this.idSubmission = idSubmission;
-	}
-
-	public String getVeredict() {
-		return veredict;
-	}
-
-	public void setVeredict(String veredict) {
-		this.veredict = veredict;
 	}
 
 	public User getUser() {
@@ -86,5 +68,29 @@ public class Submission {
 
 	public void setLanguage(Language language) {
 		this.language = language;
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public String getVeredict() {
+		return veredict;
+	}
+
+	public void setVeredict(String veredict) {
+		this.veredict = veredict;
 	}
 }

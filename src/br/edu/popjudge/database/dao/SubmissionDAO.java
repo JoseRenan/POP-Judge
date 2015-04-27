@@ -1,141 +1,136 @@
 package br.edu.popjudge.database.dao;
 
+import java.io.File;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
-import br.edu.popjudge.bean.SubmissionBean;
 import br.edu.popjudge.database.ConnectionFactory;
+import br.edu.popjudge.domain.Submission;
+import br.edu.popjudge.domain.Veredict;
 
 @ManagedBean
-public class SubmissionDAO implements Dao<SubmissionBean> {
-	
+public class SubmissionDAO implements Dao<Submission> {
 	Connection connection;
-	private ArrayList<SubmissionBean> mySubmissions;
+	
+	public static void main(String[] args) throws SQLException {
+		SubmissionDAO sDAO = new SubmissionDAO();
+		UserDAO uDAO = new UserDAO();
+		ProblemDAO pDAO = new ProblemDAO();
+		LanguageDAO lDAO = new LanguageDAO();
+		
+		sDAO.insert(new Submission(0, uDAO.get(2), pDAO.get(0), lDAO.get(2), new File(""), new Timestamp(System.currentTimeMillis()), "Accepted"));
+		
+		for(Submission i : sDAO.getAll()){
+			System.out.println(i.getUser().getFullName());
+			System.out.println(i.getProblem().getTitle());
+			System.out.println(i.getLanguage().getName());
+			System.out.println(i.getVeredict());
+		}
+	}
 	
 	@Override
-	public void insert(SubmissionBean value) throws SQLException {
+	public void insert(Submission value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
-
-		String sql = String
-				.format("INSERT INTO SUBMISSION(id_submission, id_user, id_problem, id_language, file_name, time_submission, veredict) "
-						+ "VALUES(%d, %d, %d, %d, '%s', '%s', '%s')",
-						value.getIdSubmission(), value.getIdUser(),
-						value.getIdProblem(), value.getIdLanguage(),
-						value.getFileName(), value.getTimestamp().toString(),
-						value.getVeredict());
-
-		Statement statement = connection.createStatement();
-
-		statement.execute(sql);
-
+		
+		String sql = "INSERT INTO SUBMISSION(id_submission, id_user, id_problem, "
+				+ "id_language, file_name, time_submission, veredict) VALUES(0, ?, ?, ?, ?, ?, ?)";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		statement.setInt(1, value.getUser().getIdUser());
+		statement.setInt(2, value.getProblem().getIdProblem());
+		statement.setInt(3, value.getLanguage().getIdLanguage());
+		statement.setString(4, value.getFile().getAbsolutePath());
+		statement.setString(5, value.getTimestamp().toString());
+		statement.setString(6, value.getVeredict());
+		
+		statement.execute();
+		
 		statement.close();
 		connection.close();
 	}
 
 	@Override
-	public ArrayList<SubmissionBean> getAll() throws SQLException {
+	public ArrayList<Submission> getAll() throws SQLException {
 		connection = new ConnectionFactory().getConnection();
-
-		String sql = "SELECT * FROM SUBMISSION";
-
+		
+		String sql = "SELECT * FROM SUBMISSION ORDER BY time_submission DESC";
+		
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
-
-		ArrayList<SubmissionBean> list = new ArrayList<SubmissionBean>();
-
-		while (resultSet.next()) {
-			list.add(new SubmissionBean(resultSet.getInt("id_submission"),
-					resultSet.getInt("id_user"),
-					resultSet.getInt("id_problem"), resultSet
-							.getInt("id_language"), resultSet
-							.getTimestamp("time_submission"), resultSet
-							.getString("file_name"), resultSet
-							.getString("veredict")));
+		
+		ArrayList<Submission> list = new ArrayList<Submission>();
+		
+		UserDAO uDAO = new UserDAO();
+		ProblemDAO pDAO = new ProblemDAO();
+		LanguageDAO lDAO = new LanguageDAO();
+		
+		while(resultSet.next()){
+			list.add(new Submission(resultSet.getInt("id_submission"),
+									uDAO.get(resultSet.getInt("id_user")),
+									pDAO.get(resultSet.getInt("id_problem")),
+									lDAO.get(resultSet.getInt("id_language")),
+									new File(resultSet.getString("file_name")),
+									resultSet.getTimestamp("time_submission"),
+									resultSet.getString("veredict")));
 		}
-
+		
 		resultSet.close();
 		statement.close();
 		connection.close();
-
+		
 		return list;
 	}
 
-	public ArrayList<SubmissionBean> getMySubmissions() throws SQLException {
-		connection = new ConnectionFactory().getConnection();
-		
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		
-		int idUser = (Integer) session.getAttribute("idUser");
-		
-		String sql = String.format(
-				"SELECT * FROM SUBMISSION WHERE id_user = %d ORDER BY time_submission DESC", idUser);
-
-		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery(sql);
-
-		this.mySubmissions = new ArrayList<SubmissionBean>();
-
-		while (resultSet.next()) {
-			this.mySubmissions.add(new SubmissionBean(resultSet.getInt("id_submission"),
-					resultSet.getInt("id_user"),
-					resultSet.getInt("id_problem"), resultSet
-							.getInt("id_language"), resultSet
-							.getTimestamp("time_submission"), resultSet
-							.getString("file_name"), resultSet
-							.getString("veredict")));
-		}
-		
-		resultSet.close();
-		statement.close();
-		connection.close();
-
-		return this.mySubmissions;
-	}
-
 	@Override
-	public SubmissionBean get(int id) throws SQLException {
+	public Submission get(int id) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
-
-		String sql = String.format(
-				"SELECT * FROM SUBMISSION WHERE id_submission = %d", id);
-
+		
+		String sql = String.format("SELECT * FROM SUBMISSION WHERE id_submission = %d", id);
+		
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
-
-		SubmissionBean submissionBean = null;
-
-		if (resultSet.next()) {
-			submissionBean = new SubmissionBean(
-					resultSet.getInt("id_submission"),
-					resultSet.getInt("id_user"),
-					resultSet.getInt("id_problem"),
-					resultSet.getInt("id_language"),
-					resultSet.getTimestamp("time_submission"),
-					resultSet.getString("file_name"),
-					resultSet.getString("veredict"));
+		
+		Submission ret = new Submission();
+		
+		UserDAO uDAO = new UserDAO();
+		ProblemDAO pDAO = new ProblemDAO();
+		LanguageDAO lDAO = new LanguageDAO();
+		
+		if(resultSet.next()){
+			ret = new Submission(resultSet.getInt("id_submission"),
+									uDAO.get(resultSet.getInt("id_user")),
+									pDAO.get(resultSet.getInt("id_problem")),
+									lDAO.get(resultSet.getInt("id_language")),
+									new File(resultSet.getString("file_name")),
+									resultSet.getTimestamp("time_submission"),
+									resultSet.getString("veredict"));
 		}
-
+		
 		resultSet.close();
 		statement.close();
 		connection.close();
-
-		return submissionBean;
+		
+		return ret;
 	}
 
 	@Override
 	public boolean delete(int id) throws SQLException {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void update(SubmissionBean value) throws SQLException {
+	public void update(Submission value) throws SQLException {
+		// TODO Auto-generated method stub
+		
 	}
+	
 }

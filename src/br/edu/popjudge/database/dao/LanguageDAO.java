@@ -18,10 +18,13 @@ public class LanguageDAO implements Dao<Language> {
 	@Override
 	public void insert(Language value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
-		String sql = "insert into LANGUAGE(id_language, name) values (0, ?)";
+		
+		String sql = "INSERT INTO LANGUAGE(id_language, name) values (0, ?)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
+		
 		stmt.setString(1, value.getName());
 		stmt.execute();
+		
 		stmt.close();
 		connection.close();
 	}
