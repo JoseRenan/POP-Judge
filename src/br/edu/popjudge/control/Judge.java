@@ -5,12 +5,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.sql.SQLException;
 
-import br.edu.popjudge.bean.ProblemBean;
-import br.edu.popjudge.bean.SubmissionBean;
-import br.edu.popjudge.database.dao.LanguageDAO;
-import br.edu.popjudge.database.dao.ProblemDAO;
+import br.edu.popjudge.domain.Problem;
+import br.edu.popjudge.domain.Submission;
 import br.edu.popjudge.domain.Veredict;
 import br.edu.popjudge.exceptions.CompilationErrorException;
 import br.edu.popjudge.exceptions.TimeLimitExceededException;
@@ -18,13 +15,13 @@ import br.edu.popjudge.language.Language;
 
 public class Judge {
 	
-	public Veredict judge(SubmissionBean submission){
+	public Veredict judge(Submission submission){
 		try{
-			Language lang = new LanguageDAO().get(submission.getIdLanguage()); 
+			Language lang = submission.getLanguage(); 
 			lang.compile(submission);
 			lang.execute(submission);
 			
-			ProblemBean problem = new ProblemDAO().get(submission.getIdProblem());
+			Problem problem = submission.getProblem();
 			Runtime runtime = Runtime.getRuntime();
 			
 			BufferedWriter writer = new BufferedWriter(
@@ -44,9 +41,6 @@ public class Judge {
 			File diff = new File(submission.getDir() + "/diff.txt");
 			
 			if(diff.length() > 0) return Veredict.WRONG_ANSWER;
-		}catch(SQLException sqlex){
-			sqlex.printStackTrace();
-			return Veredict.SUBMISSION_ERROR;
 		}catch(CompilationErrorException cep){
 			return Veredict.COMPILATION_ERROR;
 		} catch (TimeLimitExceededException e) {
