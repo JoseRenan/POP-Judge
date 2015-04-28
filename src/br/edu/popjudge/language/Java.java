@@ -6,12 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.sql.SQLException;
 
-import br.edu.popjudge.bean.ProblemBean;
-import br.edu.popjudge.bean.SubmissionBean;
 import br.edu.popjudge.control.TimedShell;
-import br.edu.popjudge.database.dao.ProblemDAO;
+import br.edu.popjudge.domain.Problem;
+import br.edu.popjudge.domain.Submission;
 import br.edu.popjudge.exceptions.CompilationErrorException;
 import br.edu.popjudge.exceptions.TimeLimitExceededException;
 
@@ -22,7 +20,7 @@ public class Java extends Language {
 	}
 
 	@Override
-	public boolean compile(SubmissionBean submission)
+	public boolean compile(Submission submission)
 			throws CompilationErrorException {
 		try {
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
@@ -62,12 +60,12 @@ public class Java extends Language {
 	}
 
 	@Override
-	public boolean execute(SubmissionBean submission)
+	public boolean execute(Submission submission)
 			throws TimeLimitExceededException {
 		try {
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
 					new FileOutputStream(submission.getDir() + "/run.sh")));
-			ProblemBean pb = new ProblemDAO().get(submission.getIdProblem());
+			Problem p = submission.getProblem();
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("chroot .\n");
 			
@@ -75,7 +73,7 @@ public class Java extends Language {
 			
 			writer.write("java "
 					+ file.getName().substring(0, file.getName().length() - 5) + " < "
-					+ pb.getInput() + " > " + submission.getDir()
+					+ p.getInput() + " > " + submission.getDir()
 					+ "/output.txt");
 			writer.close();
 
@@ -85,7 +83,7 @@ public class Java extends Language {
 
 			process = runtime.exec(submission.getDir() + "/run.sh");
 
-			TimedShell shell = new TimedShell(process, pb.getTimeLimit());
+			TimedShell shell = new TimedShell(process, p.getTimeLimit());
 			shell.start();
 			process.waitFor();
 
@@ -97,8 +95,6 @@ public class Java extends Language {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
