@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.edu.popjudge.bean.TimerBean;
+import br.edu.popjudge.domain.User;
 
 
 
@@ -24,10 +25,14 @@ public class Filtro implements Filter{
 	public void doFilter (ServletRequest request, ServletResponse response, FilterChain chain ) throws IOException , ServletException {
 		HttpServletRequest req = ( HttpServletRequest ) request ;
 		HttpSession session = req.getSession() ;
-		String user = (String) session.getAttribute("username");		
+		String username = null;
 		
-		if (user != null &&
-				!user.equals("Admin") &&
+		if ((User) session.getAttribute("user") != null)
+			username = ((User) session.getAttribute("user")).getUsername();
+			
+		
+		if (username != null &&
+				!username.equals("Admin") &&
 		    	((TimerBean.validaHorario() 
 				&& !req.getRequestURI().endsWith("index.xhtml") 
 				&& !req.getRequestURI().endsWith("Judge/")
@@ -44,8 +49,8 @@ public class Filtro implements Filter{
 			chain.doFilter( request, response );
 		} else {
 			
-			if(user != null &&
-					user.equals("Admin") &&
+			if(username != null &&
+					username.equals("Admin") &&
 					(!req.getRequestURI().endsWith("index.xhtml") 
 					&& !req.getRequestURI().endsWith("Judge/")
 					&& req.getRequestURI().contains("admin")
@@ -53,7 +58,7 @@ public class Filtro implements Filter{
 				chain.doFilter( request, response );
 			} else {
 				
-				if(user == null &&
+				if(username == null &&
 						(req.getRequestURI().endsWith("index.xhtml")
 						|| req.getRequestURI().endsWith("Judge/")
 						|| req.getRequestURI().contains("javax.faces.resource"))){
@@ -61,11 +66,11 @@ public class Filtro implements Filter{
 				} else {
 					HttpServletResponse res = ( HttpServletResponse ) response ;
 					
-					if(user == null)
+					if(username == null)
 						res.sendRedirect("/POP-Judge/");
-					if(user != null && !user.equals("Admin"))
+					if(username != null && !username.equals("Admin"))
 			    		res.sendRedirect("/POP-Judge/webapp/user/indexUser.xhtml");
-					if(user != null && user.equals("Admin"))
+					if(username != null && username.equals("Admin"))
 			    		res.sendRedirect("/POP-Judge/webapp/admin/indexAdmin.xhtml");
 				}
 
