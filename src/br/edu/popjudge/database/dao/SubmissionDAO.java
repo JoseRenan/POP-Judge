@@ -18,23 +18,7 @@ import br.edu.popjudge.domain.Veredict;
 @ManagedBean
 public class SubmissionDAO implements Dao<Submission> {
 	Connection connection;
-	
-	public static void main(String[] args) throws SQLException {
-		SubmissionDAO sDAO = new SubmissionDAO();
-		UserDAO uDAO = new UserDAO();
-		ProblemDAO pDAO = new ProblemDAO();
-		LanguageDAO lDAO = new LanguageDAO();
-		
-		sDAO.insert(new Submission(0, uDAO.get(2), pDAO.get(0), lDAO.get(2), new File(""), new Timestamp(System.currentTimeMillis()), "Accepted"));
-		
-		for(Submission i : sDAO.getAll()){
-			System.out.println(i.getUser().getFullName());
-			System.out.println(i.getProblem().getTitle());
-			System.out.println(i.getLanguage().getName());
-			System.out.println(i.getVeredict());
-		}
-	}
-	
+
 	@Override
 	public void insert(Submission value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
@@ -47,7 +31,7 @@ public class SubmissionDAO implements Dao<Submission> {
 		statement.setInt(1, value.getUser().getIdUser());
 		statement.setInt(2, value.getProblem().getIdProblem());
 		statement.setInt(3, value.getLanguage().getIdLanguage());
-		statement.setString(4, value.getFile().getAbsolutePath());
+		statement.setString(4, value.getFileName());
 		statement.setString(5, value.getTimestamp().toString());
 		statement.setString(6, value.getVeredict());
 		
