@@ -13,7 +13,7 @@ import br.edu.popjudge.database.dao.UserDAO;
 import br.edu.popjudge.domain.User;
 import br.edu.popjudge.domain.UserRank;
 
-@ManagedBean(name = "user")
+@ManagedBean(name = "userB")
 public class UserBean {
 
 	private User user = new User();
@@ -26,38 +26,31 @@ public class UserBean {
 		this.user = user;
 	}
 
-	public String login() throws IOException {
+	public String login() throws IOException, SQLException {
 		UserDAO ud = new UserDAO();
-		User u;
+		User u = ud.get(this.user.getUsername());
 
-		try {
-			u = ud.get(this.user.getUsername());
+		if (u == null || !u.getPassword().equals(this.user.getPassword())) {
+			this.user.setUsername(null);
+			this.user.setPassword(null);
 
-			if (u == null || !u.getPassword().equals(this.user.getPassword())) {
-				this.user.setUsername(null);
-				this.user.setPassword(null);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha incorretos", ""));
+			return "";
+		}
 
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha incorretos", ""));
-				return "";
-			}
+		if (this.user.username.equalsIgnoreCase("Admin")) {
+			logging(u);
+			this.user.setUsername(null);
+			this.user.setPassword(null);
+			return "/webapp/admin/indexAdmin.xhtml?faces-redirect=true";
 
-			if (this.user.username.equalsIgnoreCase("Admin")) {
-				logging(u);
-				this.user.setUsername(null);
-				this.user.setPassword(null);
-				return "/webapp/admin/indexAdmin.xhtml?faces-redirect=true";
+		}
 
-			}
-
-			if (u.getUsername().equalsIgnoreCase(this.user.username)) {
-				logging(u);
-				this.user.setUsername(null);
-				this.user.setPassword(null);
-				return "/webapp/user/indexUser.xhtml?faces-redirect=true";
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if (u.getUsername().equalsIgnoreCase(this.user.username)) {
+			logging(u);
+			this.user.setUsername(null);
+			this.user.setPassword(null);
+			return "/webapp/user/indexUser.xhtml?faces-redirect=true";
 		}
 		
 		return "";
@@ -72,15 +65,12 @@ public class UserBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context
 				.getExternalContext().getSession(true);
-		session.setAttribute("username", u.getUsername());
-		session.setAttribute("password", u.getPassword());
-		session.setAttribute("idUser", u.getIdUser());
-		session.setAttribute("dir", u.getDir());
+		session.setAttribute("user", u);
 	}
 	
 	private static void invalidateSession() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		session.removeAttribute("username");
+		session.removeAttribute("user");
 		session.invalidate();
 	}
 
@@ -116,9 +106,8 @@ public class UserBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext()
 				.getSession(true);
-		User u = new User();
+		User u = (User) session.getAttribute("user");
 		u.setPassword(this.user.getPassword());
-		u.setIdUser((Integer) session.getAttribute("idUser"));
 		UserDAO ud = new UserDAO();
 		ud.update(u);
 		FacesContext.getCurrentInstance().addMessage(
