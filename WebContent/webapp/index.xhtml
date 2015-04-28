@@ -8,7 +8,7 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>II Maratona POP</title>
-	<link href="/POP_Judge/img/icon.png" type="image/x-icon"
+	<link href="/POP-Judge/resources/img/icon.png" type="image/x-icon"
 		rel="shortcut icon" />
 	<style>
 .center {
@@ -38,11 +38,11 @@ body {
 		<div class="center">
 			<h:panelGrid columns="2">
 				<p:outputLabel value="Login: " for="login"/>
-				<p:inputText value="#{user.user.username}" id="login" required="true"/>
+				<p:inputText value="#{userB.user.username}" id="login" required="true"/>
 				<p:outputLabel value="Senha: " for="senha"/>
-				<p:password value="#{user.user.password}" id="senha" required="true"/>
+				<p:password value="#{userB.user.password}" id="senha" required="true"/>
 				<div align="center">
-					<p:commandButton value="Entrar" action="#{user.login}"
+					<p:commandButton value="Entrar" action="#{userB.login}"
 						icon="ui-icon-check" ajax="false" />
 				</div>
 			</h:panelGrid>
