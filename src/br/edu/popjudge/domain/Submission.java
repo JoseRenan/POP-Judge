@@ -1,8 +1,7 @@
 package br.edu.popjudge.domain;
 
-import java.io.File;
 import java.sql.Timestamp;
-
+import org.primefaces.model.UploadedFile;
 import br.edu.popjudge.language.Language;
 
 /*
@@ -20,14 +19,16 @@ public class Submission {
 	private User user;
 	private Problem problem;
 	private Language language;
-	private File file;
+	private UploadedFile file;
+	private String dir;
+	private String fileName;
 	private Timestamp timestamp;
 	private String veredict;
 	
 	public Submission() {}
 
 	public Submission(int idSubmission, User user, Problem problem,
-			Language language, File file, Timestamp timestamp, String veredict) {
+			Language language, UploadedFile file, Timestamp timestamp, String veredict) {
 		super();
 		this.idSubmission = idSubmission;
 		this.user = user;
@@ -70,11 +71,11 @@ public class Submission {
 		this.language = language;
 	}
 
-	public File getFile() {
+	public UploadedFile getFile() {
 		return file;
 	}
 
-	public void setFile(File file) {
+	public void setFile(UploadedFile file) {
 		this.file = file;
 	}
 
@@ -92,5 +93,21 @@ public class Submission {
 
 	public void setVeredict(String veredict) {
 		this.veredict = veredict;
+	}
+
+	public String getDir() {
+		return dir;
+	}
+
+	public void setDir(String dir) {
+		this.dir = dir;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 }
