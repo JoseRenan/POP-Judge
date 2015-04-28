@@ -9,7 +9,7 @@
 		<div align="center">
 			<h:form enctype="multipart/form-data">
 				<p:growl id="growl" autoUpdate="true" />
-				<p:selectOneMenu id="problema" value="#{submission.submission.problem.idProblem}"
+				<p:selectOneMenu id="idProblem" value="#{submission.submission.problem.idProblem}"
 					required="true" style="width:283px;">
 					<f:selectItem itemLabel="InfoOS" itemValue="1" />
 					<f:selectItem itemLabel="Vanlex pede socorro!" itemValue="2" />
@@ -44,23 +44,23 @@
 					style="width:850px;">
 					<p:column headerText="Problema" width="70">
 						<div align="center">
-							<h:outputText value="P#{mySubmission.idProblem}" />
+							<h:outputText value="P#{submission.submission.problem.idProblem}" />
 						</div>
 					</p:column>
 					<p:column headerText="Linguagem" width="70">
 						<div align="center">
-							<h:outputText value="#{mySubmission.languageName}" />
+							<h:outputText value="#{submission.submission.language.name}" />
 						</div>
 					</p:column>
 					<p:column headerText="Veredito" width="70">
 						<div align="center">
-							<h:outputText value="#{mySubmission.veredict}"
-								styleClass="#{mySubmission.veredict eq 'Accepted' ? 'AC' : (mySubmission.veredict eq 'Time Limit Exceeded' ? 'TLE' : (mySubmission.veredict eq 'Compilation Error' ? 'CE' : (mySubmission.veredict eq 'Wrong Answer' ? 'WA' : 'SE')))}" />
+							<h:outputText value="#{submission.submission.veredict}"
+								styleClass="#{submission.submission.veredict eq 'Accepted' ? 'AC' : (submission.submission.veredict eq 'Time Limit Exceeded' ? 'TLE' : (submission.submission.veredict eq 'Compilation Error' ? 'CE' : (submission.submission.veredict eq 'Wrong Answer' ? 'WA' : 'SE')))}" />
 						</div>
 					</p:column>
 					<p:column headerText="Hora" width="70">
 						<div align="center">
-							<h:outputText value="#{mySubmission.timestamp}">
+							<h:outputText value="#{submission.submission.timestamp}">
 								<f:convertDateTime pattern="hh:mm:ss" timeZone="GMT-3" />
 							</h:outputText>
 						</div>

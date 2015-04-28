@@ -9,8 +9,10 @@ public class Problem {
 	private long timeLimit;
 	private File input;
 	private File output;
-	
-	public Problem() {}
+
+	public Problem() {
+
+	}
 
 	public Problem(int idProblem, int scorePoints, String title,
 			long timeLimit, File input, File output) {

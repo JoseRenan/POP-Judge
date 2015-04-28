@@ -27,9 +27,18 @@ import br.edu.popjudge.domain.UserRank;
 
 @ManagedBean(name = "submission")
 public class SubmissionBean {
-	
+
 	private Submission submission = new Submission();
-	
+	private UploadedFile upFile;
+
+	public UploadedFile getUpFile() {
+		return upFile;
+	}
+
+	public void setUpFile(UploadedFile upFile) {
+		this.upFile = upFile;
+	}
+
 	public Submission getSubmission() {
 		return submission;
 	}
@@ -39,30 +48,28 @@ public class SubmissionBean {
 	}
 
 	public void submit() throws IOException {
-		if (this.submission.getFile() != null) {
+		if (this.getUpFile() != null) {
 
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) context.getExternalContext()
 					.getSession(true);
 
-			InputStream in = new BufferedInputStream(this.submission.getFile().getInputstream());
+			InputStream in = new BufferedInputStream(this.getUpFile()
+					.getInputstream());
 
-			this.submission.setDir((String) session.getAttribute("dir") + "/"
-					+ this.submission.getIdSubmission());// Gets the user's directory.
-			
-			this.submission.setUser((User) session.getAttribute("user"));// Gets user's id.
-			
-			this.submission.setTimestamp(new Timestamp(System.currentTimeMillis()));// Gets the
-																	// actual
-																	// time.
+			this.submission.setUser((User) session.getAttribute("user"));
+			/*
+			 * Gets user 's id. TODO Isso vai dar merda . Mas vou esperar testar
+			 * pra corrigir .
+			 */
 
-			File file = new File(this.submission.getDir() + "/" + this.submission.getFile().getFileName());// Creates
-																		// a
-																		// file
-																		// in
-																		// the
-																		// user's
-																		// directory.
+			this.submission.setTimestamp(new Timestamp(System
+					.currentTimeMillis()));
+
+			File file = new File(this.submission.getDir() + "/"
+					+ this.getUpFile().getFileName());
+			submission.setFile(file);
+
 			if (!file.getParentFile().exists())
 				file.getParentFile().mkdirs();// Creates the directories if they
 												// don't exists.
@@ -73,89 +80,29 @@ public class SubmissionBean {
 			}
 			fos.close();
 
-			this.submission.setFileName(file.getAbsolutePath());
-
-			Judge j = new Judge();
-			this.submission.setVeredict((j.judge(this).getRotulo1()));
-
-			SubmissionDAO sbmdao = new SubmissionDAO();
-
 			try {
+				this.submission.setProblem(new ProblemDAO().get((int)session.getAttribute("idProblem")));
+				this.submission.setDir((String) session.getAttribute("dir") + "/"
+						+ this.submission.getIdSubmission());
+				this.submission.setFileName(file.getAbsolutePath());
+				this.submission.setLanguage(new LanguageDAO()
+						.get(this.submission.getLanguage().getIdLanguage()));
+				Judge j = new Judge();
+				this.submission.setVeredict((j.judge(this.submission)
+						.getRotulo1()));
+
+				SubmissionDAO sbmdao = new SubmissionDAO();
+
 				sbmdao.insert(this.submission);
 
 				RankDAO rd = new RankDAO();
 				UserRank ur = rd.get((String) session.getAttribute("username"));
-				
-				//TODO Falta concertar essa parte que manipula o ranking
-				//Inicia aqui
-				
-				if (!(j.judge(this).getRotulo1()).equals("Accepted")) {
-					switch (this.submission.getProblem().getIdProblem()) {
-					case 1:
-						if (ur.getProblem1() <= 0)
-							ur.setProblem1(ur.getProblem1() - 1);
-						break;
-					case 2:
-						if (ur.getProblem2() <= 0)
-							ur.setProblem2(ur.getProblem2() - 1);
-						break;
-					case 3:
-						if (ur.getProblem3() <= 0)
-							ur.setProblem3(ur.getProblem3() - 1);
-						break;
-					case 4:
-						if (ur.getProblem4() <= 0)
-							ur.setProblem4(ur.getProblem4() - 1);
-						break;
-					case 5:
-						if (ur.getProblem5() <= 0)
-							ur.setProblem5(ur.getProblem5() - 1);
-						break;
-					}
-				} else {
-					int totalTime = TimerBean.totalTimeContest();
-					int currentTime = TimerBean.currentMoment();
-					ProblemBean p = new ProblemDAO().get(this.idProblem);
-					int score = p.getPoints(); 
-					score -= ((p.getPoints()/2)/totalTime)*currentTime;
 
-					switch (this.idProblem) {
-					case 1:
-						if (ur.getProblem1() <= 0){
-							ur.setProblem1(score + (ur.getProblem1()* ((int)(0.01 * p.getPoints()))));
-							ur.setPoints(ur.getPoints() + ur.getProblem1());
-						}
-						break;
-					case 2:
-						if (ur.getProblem2() <= 0){
-							ur.setProblem2(score + (ur.getProblem2()* ((int)(0.01 * p.getPoints()))));
-							ur.setPoints(ur.getPoints() + ur.getProblem2());
-						}
-						break;
-					case 3:
-						if (ur.getProblem3() <= 0){
-							ur.setProblem3(score + (ur.getProblem3()* ((int)(0.01 * p.getPoints()))));
-							ur.setPoints(ur.getPoints() + ur.getProblem3());
-						}
-						break;
-					case 4:
-						if (ur.getProblem4() <= 0){
-							ur.setProblem4(score + (ur.getProblem4()* ((int)(0.01 * p.getPoints()))));
-							ur.setPoints(ur.getPoints() + ur.getProblem4());
-						}
-						break;
-					case 5:
-						if (ur.getProblem5() <= 0){
-							ur.setProblem5(score + (ur.getProblem5()* ((int)(0.01 * p.getPoints()))));
-							ur.setPoints(ur.getPoints() + ur.getProblem5());
-						}
-						break;
-					}
-				}
-				rd.update(ur);
-				
-				//Termina aqui
-				
+				// TODO Falta concertar essa parte que manipula o ranking
+				// Inicia aqui
+
+				// Termina aqui
+
 				this.submission = new Submission();
 
 			} catch (SQLException e) {

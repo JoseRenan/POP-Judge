@@ -103,7 +103,6 @@ public class LanguageDAO implements Dao<Language> {
 
 	@Override
 	public boolean delete(int id) throws SQLException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

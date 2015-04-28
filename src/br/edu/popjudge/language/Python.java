@@ -34,7 +34,7 @@ public class Python extends Language {
 					new FileOutputStream(submission.getDir() + "/run.sh")));
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("chroot .\n");
-			writer.write("python " + new File(submission.getFile().getFileName()).getName() + " < "
+			writer.write("python " + new File(submission.getFileName()).getName() + " < "
 					+ p.getInput() + " > "+ submission.getDir() +"/output.txt");
 			writer.close();
 
