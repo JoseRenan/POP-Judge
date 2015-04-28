@@ -8,11 +8,11 @@ public class UserRank {
 	private int totalScore;
 
 
-	public UserRank(String username, ArrayList<Score> problems, int score) {
+	public UserRank(String username, ArrayList<Score> problems) {
 		super();
 		this.username = username;
 		this.problems = problems;
-		this.totalScore = score;
+		this.totalScore = calculateScore();
 	}
 	
 	public UserRank() {
