@@ -9,102 +9,41 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import br.edu.popjudge.database.dao.ClarificationDAO;
+import br.edu.popjudge.domain.Clarification;
+import br.edu.popjudge.domain.User;
 
 @ManagedBean(name = "clarification")
 public class ClarificationBean {
-	private int idClarification;
-	private int idUser;
-	private int idProblem;
-	private String issue;
-	private String answer;
-	private ClarificationBean selectedClarification;
 	
-	public ClarificationBean(int idClarification, int idUser, int idProblem,
-			String issue, String answer) {
-		super();
-		this.idClarification = idClarification;
-		this.idUser = idUser;
-		this.idProblem = idProblem;
-		this.issue = issue;
-		this.answer = answer;
+	private Clarification clarification = new Clarification();
+	
+	public Clarification getClarification() {
+		return clarification;
 	}
-	
-	public ClarificationBean() {
+
+	public void setClarification(Clarification clarification) {
+		this.clarification = clarification;
 	}
 
 	public void doIssue() throws SQLException, IOException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		int id = (Integer) session.getAttribute("idUser");
-		
-		ClarificationBean c = new ClarificationBean();
-		c.setIssue(this.issue);
-		c.setIdProblem(this.idProblem);
-		c.setIdUser(id);
+		clarification.setUser((User) session.getAttribute("user"));
 		
 		ClarificationDAO cd = new ClarificationDAO();
 		
-		cd.insert(c);
+		cd.insert(this.clarification);
 		
-		this.issue = null;
-		this.idProblem = 0;
+		this.clarification = new Clarification();
 		
 		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Enviado!",""));
 	}
 	
 	public void replyIssue() throws SQLException {
-		this.selectedClarification.answer = this.answer;
 		ClarificationDAO cd = new ClarificationDAO();
-		cd.update(this.selectedClarification);
-		this.answer = null;
+		cd.update(this.clarification);
+		this.clarification = new Clarification();
 		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Respondido!",""));
 	}
 	
-	public int getIdClarification() {
-		return idClarification;
-	}
-	
-	public void setIdClarification(int idClarification) {
-		this.idClarification = idClarification;
-	}
-	
-	public int getIdUser() {
-		return idUser;
-	}
-	
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
-	}
-	
-	public int getIdProblem() {
-		return idProblem;
-	}
-	
-	public void setIdProblem(int idProblem) {
-		this.idProblem = idProblem;
-	}
-	
-	public String getIssue() {
-		return issue;
-	}
-	
-	public void setIssue(String issue) {
-		this.issue = issue;
-	}
-	
-	public String getAnswer() {
-		return answer;
-	}
-	
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-
-	public ClarificationBean getSelectedClarification() {
-		return selectedClarification;
-	}
-
-	public void setSelectedClarification(ClarificationBean selectedClarification) {
-		this.selectedClarification = selectedClarification;
-	}
 }
