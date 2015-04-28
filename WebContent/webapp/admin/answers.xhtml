@@ -9,7 +9,7 @@
 		<h:form>
 			<p:growl autoUpdate="true" showDetail="false"/>
 			<p:dataTable id="selectIssue" var="issue" value="#{issuedao.notReplied}"
-				selection="#{clarification.selectedClarification}"
+				selection="#{clarification.clarification}"
 				rowKey="#{issue.idClarification}" paginator="true" rows="5">
 				<f:facet name="header">
           			Selecione a dúvida a ser respondida
@@ -35,7 +35,7 @@
 				<p:outputLabel value="Resposta" />
 				<br /> <br />
 
-				<p:inputTextarea id="textArea" value="#{clarification.answer}" style="width:50%;"
+				<p:inputTextarea id="textArea" value="#{clarification.clarification.answer}" style="width:50%;"
 					maxlength="250" autoResize="false" required="true"/>
 
 				<br /> <br />
