@@ -3,7 +3,9 @@ package br.edu.popjudge.domain;
 public class Score {
 	private int id_problem;
 	private int score;
-
+	
+	public Score() {}
+	
 	public Score(Integer id_problem, Integer score) {
 		this.id_problem = id_problem;
 		this.score = score;

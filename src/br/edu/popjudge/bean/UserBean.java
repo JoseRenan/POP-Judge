@@ -10,134 +10,95 @@ import javax.servlet.http.HttpSession;
 
 import br.edu.popjudge.database.dao.RankDAO;
 import br.edu.popjudge.database.dao.UserDAO;
+import br.edu.popjudge.domain.User;
 import br.edu.popjudge.domain.UserRank;
 
 @ManagedBean(name = "user")
 public class UserBean {
-	private String password;
-	private String username;
-	private int idUser;
-	private String dir;
 
-	public String getDir() {
-		return dir;
+	private User user = new User();
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setDir(String dir) {
-		this.dir = dir;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public int getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String login() throws IOException {
 		UserDAO ud = new UserDAO();
-		UserBean usuario;
-		
+		User u;
+
 		try {
-			usuario = ud.get(this.username);
+			u = ud.get(this.user.getUsername());
 
-			if (usuario != null && this.username.equals("Admin")) {
+			if (u == null || !u.getPassword().equals(this.user.getPassword())) {
+				this.user.setUsername(null);
+				this.user.setPassword(null);
 
-				if (usuario.getPassword().equals(this.password)) {
-					FacesContext context = FacesContext.getCurrentInstance();
-					HttpSession session = (HttpSession) context
-							.getExternalContext().getSession(true);
-					session.setAttribute("username", this.username);
-					session.setAttribute("password", this.password);
-					this.username = null;
-					this.password = null;
-					return "/webapp/admin/indexAdmin.xhtml?faces-redirect=true";
-				} else {
-					FacesContext.getCurrentInstance().addMessage(
-							null,
-							new FacesMessage(FacesMessage.SEVERITY_ERROR,
-									"Erro!", " Login ou senha incorretos"));
-					return "";
-				}
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha incorretos", ""));
+				return "";
+			}
+
+			if (this.user.username.equalsIgnoreCase("Admin")) {
+				logging(u);
+				this.user.setUsername(null);
+				this.user.setPassword(null);
+				return "/webapp/admin/indexAdmin.xhtml?faces-redirect=true";
 
 			}
 
-			if (usuario != null && usuario.getUsername().equals(this.username)
-					&& usuario.getPassword().equals(this.password)) {
-				FacesContext context = FacesContext.getCurrentInstance();
-				HttpSession session = (HttpSession) context
-						.getExternalContext().getSession(true);
-				session.setAttribute("username", usuario.getUsername());
-				session.setAttribute("password", usuario.getPassword());
-				session.setAttribute("idUser", usuario.getIdUser());
-				session.setAttribute("dir", usuario.getDir());
-				this.username = null;
-				this.password = null;
+			if (u.getUsername().equalsIgnoreCase(this.user.username)) {
+				logging(u);
+				this.user.setUsername(null);
+				this.user.setPassword(null);
 				return "/webapp/user/indexUser.xhtml?faces-redirect=true";
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		this.username = null;
-		this.password = null;
-
-		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha incorretos",""));
+		
 		return "";
 	}
 
 	public void logout() throws IOException {
-		this.username = null;
-		this.password = null;
-		this.dir = null;
 		invalidateSession();
-		FacesContext.getCurrentInstance().getExternalContext()
-				.redirect("/POP-Judge/");
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/");
 	}
-
-	public static void invalidateSession() {
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-				.getExternalContext().getSession(false);
+	
+	private static void logging (User u) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context
+				.getExternalContext().getSession(true);
+		session.setAttribute("username", u.getUsername());
+		session.setAttribute("password", u.getPassword());
+		session.setAttribute("idUser", u.getIdUser());
+		session.setAttribute("dir", u.getDir());
+	}
+	
+	private static void invalidateSession() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		session.removeAttribute("username");
 		session.invalidate();
 	}
 
 	public void newUser() throws SQLException, IOException {
 		try {
-			UserBean u = new UserBean();
-			u.setUsername(this.username);
-			u.setPassword(this.password);
 			String home = System.getProperty("user.home");
-			u.setDir(home + "/POPJudge/users/" + this.username);
+			user.setDir(home + "/POPJudge/users/" + this.user.getUsername());
 			UserDAO ud = new UserDAO();
-			ud.insert(u);
-			
+			ud.insert(user);
+
 			UserRank ur = new UserRank();
-			ur.setUsername(this.username);
+			ur.setUsername(this.user.getUsername());
 			RankDAO rd = new RankDAO();
 			rd.insert(ur);
-			
-			this.username = null;
-			this.password = null;
-			
+
+			this.user.setUsername(null);
+			this.user.setPassword(null);
+
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -155,8 +116,8 @@ public class UserBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext()
 				.getSession(true);
-		UserBean u = new UserBean();
-		u.setPassword(this.password);
+		User u = new User();
+		u.setPassword(this.user.getPassword());
 		u.setIdUser((Integer) session.getAttribute("idUser"));
 		UserDAO ud = new UserDAO();
 		ud.update(u);
@@ -165,4 +126,5 @@ public class UserBean {
 				new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Senha modificada com sucesso", ""));
 	}
+
 }

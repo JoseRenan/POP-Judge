@@ -102,7 +102,7 @@ public class UserDAO implements Dao<User> {
 	public User get(String username) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		
-		String sql = String.format("SELECT * FROM USER WHERE id_user = %s", username);
+		String sql = String.format("SELECT * FROM USER WHERE username = '%s'", username);
 		
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
