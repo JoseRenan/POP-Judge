@@ -21,144 +21,42 @@ import br.edu.popjudge.database.dao.LanguageDAO;
 import br.edu.popjudge.database.dao.ProblemDAO;
 import br.edu.popjudge.database.dao.RankDAO;
 import br.edu.popjudge.database.dao.SubmissionDAO;
+import br.edu.popjudge.domain.Submission;
+import br.edu.popjudge.domain.User;
 import br.edu.popjudge.domain.UserRank;
 
 @ManagedBean(name = "submission")
 public class SubmissionBean {
-	private UploadedFile code;
-	private int idProblem;
-	private int idLanguage;
-	private int idSubmission;
-	private String languageName;
-
-	private int idUser;
-	private Timestamp timestamp;
-	private String veredict;
-	private String fileName;
-	private String dir;
-
-	public SubmissionBean() {
+	
+	private Submission submission = new Submission();
+	
+	public Submission getSubmission() {
+		return submission;
 	}
 
-	public SubmissionBean(int idSubmission, int idUser, int problem,
-			int language, Timestamp timestamp, String fileName, String veredict) {
-		super();
-		this.idProblem = problem;
-		this.idLanguage = language;
-		this.idSubmission = idSubmission;
-		this.idUser = idUser;
-		this.timestamp = timestamp;
-		this.veredict = veredict;
-		this.fileName = fileName;
-		try{
-			this.languageName = new LanguageDAO().get(idLanguage).getName();
-		}catch(SQLException sqlex){
-			sqlex.printStackTrace();
-		}
-	}
-
-	public String getLanguageName() {
-		return languageName;
-	}
-
-	public void setLanguageName(String languageName) {
-		this.languageName = languageName;
-	}
-
-	public String getDir() {
-		return dir;
-	}
-
-	public void setDir(String dir) {
-		this.dir = dir;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String filename) {
-		this.fileName = filename;
-	}
-
-	public String getVeredict() {
-		return veredict;
-	}
-
-	public void setVeredict(String veredict) {
-		this.veredict = veredict;
-	}
-
-	public Timestamp getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public int getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
-	}
-
-	public int getIdSubmission() {
-		return idSubmission;
-	}
-
-	public void setIdSubmission(int idSubmission) {
-		this.idSubmission = idSubmission;
-	}
-
-	public UploadedFile getCode() {
-		return code;
-	}
-
-	public void setCode(UploadedFile code) {
-		this.code = code;
-	}
-
-	public int getIdProblem() {
-		return idProblem;
-	}
-
-	public void setIdProblem(int problem) {
-		this.idProblem = problem;
-	}
-
-	public int getIdLanguage() {
-		return idLanguage;
-	}
-
-	public void setIdLanguage(int language) {
-		this.idLanguage = language;
+	public void setSubmission(Submission submission) {
+		this.submission = submission;
 	}
 
 	public void submit() throws IOException {
-		if (this.code != null) {
+		if (this.submission.getFile() != null) {
 
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) context.getExternalContext()
 					.getSession(true);
 
-			InputStream in = new BufferedInputStream(this.code.getInputstream());
+			InputStream in = new BufferedInputStream(this.submission.getFile().getInputstream());
 
-			setIdSubmission(SubmissionIdGenerator.getSubmissionId());// Gets an
-																		// id
-																		// for a
-																		// new
-																		// submission.
-			dir = (String) session.getAttribute("dir") + "/"
-					+ this.getIdSubmission();// Gets the user's directory.
-			setIdUser((int) session.getAttribute("idUser"));// Gets user's id.
-			setTimestamp(new Timestamp(System.currentTimeMillis()));// Gets the
+			this.submission.setDir((String) session.getAttribute("dir") + "/"
+					+ this.submission.getIdSubmission());// Gets the user's directory.
+			
+			this.submission.setUser((User) session.getAttribute("user"));// Gets user's id.
+			
+			this.submission.setTimestamp(new Timestamp(System.currentTimeMillis()));// Gets the
 																	// actual
 																	// time.
 
-			File file = new File(dir + "/" + this.code.getFileName());// Creates
+			File file = new File(this.submission.getDir() + "/" + this.submission.getFile().getFileName());// Creates
 																		// a
 																		// file
 																		// in
@@ -175,21 +73,24 @@ public class SubmissionBean {
 			}
 			fos.close();
 
-			setFileName(file.getAbsolutePath());
+			this.submission.setFileName(file.getAbsolutePath());
 
 			Judge j = new Judge();
-			setVeredict((j.judge(this).getRotulo1()));
+			this.submission.setVeredict((j.judge(this).getRotulo1()));
 
 			SubmissionDAO sbmdao = new SubmissionDAO();
 
 			try {
-				sbmdao.insert(this);
+				sbmdao.insert(this.submission);
 
 				RankDAO rd = new RankDAO();
 				UserRank ur = rd.get((String) session.getAttribute("username"));
-
+				
+				//TODO Falta concertar essa parte que manipula o ranking
+				//Inicia aqui
+				
 				if (!(j.judge(this).getRotulo1()).equals("Accepted")) {
-					switch (this.idProblem) {
+					switch (this.submission.getProblem().getIdProblem()) {
 					case 1:
 						if (ur.getProblem1() <= 0)
 							ur.setProblem1(ur.getProblem1() - 1);
@@ -252,13 +153,10 @@ public class SubmissionBean {
 					}
 				}
 				rd.update(ur);
-
-				this.code = null;
-				this.dir = null;
-				this.languageName = null;
-				this.idLanguage = 0;
-				this.idProblem = 0;
-				this.idUser = 0;
+				
+				//Termina aqui
+				
+				this.submission = new Submission();
 
 			} catch (SQLException e) {
 				e.printStackTrace();
