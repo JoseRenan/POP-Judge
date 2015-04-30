@@ -7,22 +7,30 @@ public class Problem {
 	private int scorePoints;
 	private String title;
 	private long timeLimit;
-	private File input;
-	private File output;
+	private File dir;
+	private File testCase;
 
-	public Problem() {
-
-	}
+	public Problem() { }
 
 	public Problem(int idProblem, int scorePoints, String title,
-			long timeLimit, File input, File output) {
+			long timeLimit, File dir) {
 		super();
 		this.idProblem = idProblem;
 		this.scorePoints = scorePoints;
 		this.title = title;
 		this.timeLimit = timeLimit;
-		this.input = input;
-		this.output = output;
+		this.dir = dir;
+	}
+	
+	public Problem(int idProblem, int scorePoints, String title,
+			long timeLimit, File dir, File testCase) {
+		super();
+		this.idProblem = idProblem;
+		this.scorePoints = scorePoints;
+		this.title = title;
+		this.timeLimit = timeLimit;
+		this.dir = dir;
+		this.testCase = testCase;
 	}
 
 	public int getIdProblem() {
@@ -57,19 +65,19 @@ public class Problem {
 		this.timeLimit = timeLimit;
 	}
 
-	public File getInput() {
-		return input;
+	public File getDir() {
+		return dir;
 	}
 
-	public void setInput(File input) {
-		this.input = input;
+	public void setDir(File dir) {
+		this.dir = dir;
 	}
 
-	public File getOutput() {
-		return output;
+	public File getTestCase() {
+		return testCase;
 	}
 
-	public void setOutput(File output) {
-		this.output = output;
+	public void setTestCase(File testCase) {
+		this.testCase = testCase;
 	}
 }

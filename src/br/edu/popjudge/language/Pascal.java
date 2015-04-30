@@ -25,10 +25,10 @@ public class Pascal extends Language {
 		try {
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
 					new FileOutputStream(submission.getDir() + "/compile.sh")));
-
 			writer.write("cd \"" + submission.getDir() + "\"\n");
-			writer.write("fpc " + submission.getFileName() + " > "
-					+ submission.getDir() + "/errors.txt");
+			writer.write("fpc "
+					+ submission.getFile().getAbsolutePath() 
+					+ " > " + submission.getDir() + "/errors.txt");
 			writer.close();
 
 			Process process = runtime.exec("chmod +x " + submission.getDir()
@@ -38,8 +38,8 @@ public class Pascal extends Language {
 			process = runtime.exec(submission.getDir() + "/compile.sh");
 			process.waitFor();
 
-			File file = new File(submission.getFileName().substring(0,
-					submission.getFileName().length() - 4));
+			File file = new File(submission.getFile().getAbsolutePath().substring(0,
+								 submission.getFile().getAbsolutePath().length() - 4));
 
 			if (!file.exists()) {
 				throw new CompilationErrorException("Compilation Error");
@@ -61,16 +61,15 @@ public class Pascal extends Language {
 	public boolean execute(Submission submission)
 			throws TimeLimitExceededException {
 		try {
-			Problem p = submission.getProblem();
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
 					new FileOutputStream(submission.getDir() + "/run.sh")));
+			Problem p = submission.getProblem();
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("chroot .\n");
-			writer.write("./"
-					+ new File(submission.getFileName().substring(0,
-							submission.getFileName().length() - 4)).getName()
-					+ " < " + p.getInput() + " > " + submission.getDir()
-					+ "/output.txt");
+			writer.write(new File(submission.getFile().getAbsolutePath().substring(0,
+							   submission.getFile().getAbsolutePath().length() - 4)) + " < "
+					+ p.getTestCase().getAbsolutePath() + "/input.txt"
+					+ " > " + submission.getDir() + "/output.txt");
 			writer.close();
 
 			Process process = runtime.exec("chmod +x " + submission.getDir()

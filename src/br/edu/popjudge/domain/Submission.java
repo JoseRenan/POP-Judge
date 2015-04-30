@@ -20,15 +20,15 @@ public class Submission {
 	private User user;
 	private Problem problem;
 	private Language language;
-	private File file;
-	private String dir;
-	private String fileName;
+	private File file; /* Absolute Path of the Submission 
+						* File = UserDir + Submission Number + File Name */
+	private String dir; 
 	private Timestamp timestamp;
 	private String veredict;
-	
+
 	public Submission() {
 	}
-
+	
 	public Submission(int idSubmission, User user, Problem problem,
 			Language language, File file, Timestamp timestamp, String veredict) {
 		super();
@@ -39,6 +39,28 @@ public class Submission {
 		this.file = file;
 		this.timestamp = timestamp;
 		this.veredict = veredict;
+	}
+
+	public Submission(int idSubmission, User user, Problem problem,
+			Language language, File file, String dir, Timestamp timestamp,
+			String veredict) {
+		super();
+		this.idSubmission = idSubmission;
+		this.user = user;
+		this.problem = problem;
+		this.language = language;
+		this.file = file;
+		this.dir = dir;
+		this.timestamp = timestamp;
+		this.veredict = veredict;
+	}
+
+	public String getDir() {
+		return dir;
+	}
+
+	public void setDir(String dir) {
+		this.dir = dir;
 	}
 
 	public int getIdSubmission() {
@@ -95,21 +117,5 @@ public class Submission {
 
 	public void setVeredict(String veredict) {
 		this.veredict = veredict;
-	}
-
-	public String getDir() {
-		return dir;
-	}
-
-	public void setDir(String dir) {
-		this.dir = dir;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
 	}
 }

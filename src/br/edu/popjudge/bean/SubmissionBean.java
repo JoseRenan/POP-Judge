@@ -84,7 +84,7 @@ public class SubmissionBean {
 				this.submission.setProblem(new ProblemDAO().get((int)session.getAttribute("idProblem")));
 				this.submission.setDir((String) session.getAttribute("dir") + "/"
 						+ this.submission.getIdSubmission());
-				this.submission.setFileName(file.getAbsolutePath());
+				this.submission.setFile(new File(file.getAbsolutePath()));
 				this.submission.setLanguage(new LanguageDAO()
 						.get(this.submission.getLanguage().getIdLanguage()));
 				Judge j = new Judge();

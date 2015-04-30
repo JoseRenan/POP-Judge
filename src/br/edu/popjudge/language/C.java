@@ -27,10 +27,10 @@ public class C extends Language {
 					new FileOutputStream(submission.getDir() + "/compile.sh")));
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("gcc -lm -std=c11 "
-					+ submission.getFileName()
+					+ submission.getFile().getAbsolutePath()
 					+ " -o "
-					+ submission.getFileName().substring(0,
-							submission.getFileName().length() - 2)
+					+ submission.getFile().getAbsolutePath().substring(0,
+							submission.getFile().getAbsolutePath().length() - 2)
 					+ " 2> " + submission.getDir() + "/errors.txt");
 			writer.close();
 
@@ -41,8 +41,8 @@ public class C extends Language {
 			process = runtime.exec(submission.getDir() + "/compile.sh");
 			process.waitFor();
 
-			File file = new File(submission.getFileName().substring(0,
-					submission.getFileName().length() - 2));
+			File file = new File(submission.getFile().getAbsolutePath().substring(0,
+								 submission.getFile().getAbsolutePath().length() - 2));
 
 			if (!file.exists()) {
 				throw new CompilationErrorException("Compilation Error");
@@ -69,10 +69,9 @@ public class C extends Language {
 			Problem p = submission.getProblem();
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("chroot .\n");
-			writer.write("./"
-					+ new File(submission.getFileName().substring(0,
-							submission.getFileName().length() - 2)).getName() + " < "
-					+ p.getInput()
+			writer.write(new File(submission.getFile().getAbsolutePath().substring(0,
+							   submission.getFile().getAbsolutePath().length() - 2)) + " < "
+					+ p.getTestCase().getAbsolutePath() + "/input.txt"
 					+ " > " + submission.getDir() + "/output.txt");
 			writer.close();
 

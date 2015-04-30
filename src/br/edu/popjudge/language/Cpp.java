@@ -27,10 +27,10 @@ public class Cpp extends Language {
 					new FileOutputStream(submission.getDir() + "/compile.sh")));
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("g++ -lm -std=c++11 "
-					+ submission.getFileName()
+					+ submission.getFile().getAbsolutePath()
 					+ " -o "
-					+ submission.getFileName().substring(0,
-							submission.getFileName().length() - 4)
+					+ submission.getFile().getAbsolutePath().substring(0,
+							submission.getFile().getAbsolutePath().length() - 4)
 					+ " 2> " + submission.getDir() + "/errors.txt");
 			writer.close();
 
@@ -41,8 +41,8 @@ public class Cpp extends Language {
 			process = runtime.exec(submission.getDir() + "/compile.sh");
 			process.waitFor();
 
-			File file = new File(submission.getFileName().substring(0,
-					submission.getFileName().length() - 4));
+			File file = new File(submission.getFile().getAbsolutePath().substring(0,
+								 submission.getFile().getAbsolutePath().length() - 4));
 
 			if (!file.exists()) {
 				throw new CompilationErrorException("Compilation Error");
@@ -69,10 +69,9 @@ public class Cpp extends Language {
 			Problem p = submission.getProblem();
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("chroot .\n");
-			writer.write("./"
-					+ new File(submission.getFileName().substring(0,
-							submission.getFileName().length() - 4)).getName() + " < "
-					+ p.getInput()
+			writer.write(new File(submission.getFile().getAbsolutePath().substring(0,
+							   submission.getFile().getAbsolutePath().length() - 4)) + " < "
+					+ p.getTestCase().getAbsolutePath() + "/input.txt"
 					+ " > " + submission.getDir() + "/output.txt");
 			writer.close();
 
@@ -85,7 +84,7 @@ public class Cpp extends Language {
 			TimedShell shell = new TimedShell(process, p.getTimeLimit());
 			shell.start();
 			process.waitFor();
-			
+
 			if (shell.isTimeOut()) {
 				throw new TimeLimitExceededException("Time Limit Exceeded");
 			}

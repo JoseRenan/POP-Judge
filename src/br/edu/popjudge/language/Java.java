@@ -27,7 +27,7 @@ public class Java extends Language {
 					new FileOutputStream(submission.getDir() + "/compile.sh")));
 
 			writer.write("cd \"" + submission.getDir() + "\"\n");
-			writer.write("javac " + submission.getFileName() + " 2> "
+			writer.write("javac " + submission.getFile().getAbsolutePath() + " 2> "
 					+ submission.getDir() + "/errors.txt");
 			writer.close();
 
@@ -38,14 +38,12 @@ public class Java extends Language {
 			process = runtime.exec(submission.getDir() + "/compile.sh");
 			process.waitFor();
 
-			File file = new File(submission.getFileName().substring(0, 
-					submission.getFileName().length() - 5) + ".class");
+			File file = new File(submission.getFile().getAbsolutePath().substring(0, 
+								 submission.getFile().getAbsolutePath().length() - 5) + ".class");
 
 			if (!file.exists()) {
 				throw new CompilationErrorException("Compilation Error");
 			}
-			
-			System.out.println(submission.getDir());
 			
 			return true;
 		} catch (FileNotFoundException e) {
@@ -69,11 +67,11 @@ public class Java extends Language {
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("chroot .\n");
 			
-			File file = new File(submission.getFileName());
+			File file = new File(submission.getFile().getAbsolutePath());
 			
 			writer.write("java "
 					+ file.getName().substring(0, file.getName().length() - 5) + " < "
-					+ p.getInput() + " > " + submission.getDir()
+					+ p.getTestCase().getAbsolutePath() + "/input.txt" + " > " + submission.getDir()
 					+ "/output.txt");
 			writer.close();
 

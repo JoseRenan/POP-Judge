@@ -19,15 +19,14 @@ public class ProblemDAO implements Dao<Problem> {
 		connection = new ConnectionFactory().getConnection();
 		
 		String sql = "INSERT INTO PROBLEM(id_problem, title, score_points, "
-				+ "time_limit, input, output) VALUES(0, ?, ?, ?, ?, ?)";
+				+ "time_limit, dir) VALUES(0, ?, ?, ?, ?)";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
 		statement.setString(1, value.getTitle());
 		statement.setInt(2, value.getScorePoints());
 		statement.setLong(3, value.getTimeLimit());
-		statement.setString(4, value.getInput().getAbsolutePath());
-		statement.setString(5, value.getOutput().getAbsolutePath());
+		statement.setString(4, value.getDir().getAbsolutePath());
 		
 		statement.execute();
 		
@@ -51,8 +50,7 @@ public class ProblemDAO implements Dao<Problem> {
 								 resultSet.getInt("score_points"),
 								 resultSet.getString("title"),
 								 resultSet.getLong("time_limit"),
-								 new File(resultSet.getString("input")),
-								 new File(resultSet.getString("output"))));
+								 new File(resultSet.getString("dir"))));
 		}
 		
 		resultSet.close();
@@ -64,7 +62,7 @@ public class ProblemDAO implements Dao<Problem> {
 
 	@Override
 	public Problem get(int id) throws SQLException {
-connection = new ConnectionFactory().getConnection();
+		connection = new ConnectionFactory().getConnection();
 		
 		String sql = String.format("SELECT * FROM PROBLEM WHERE id_problem = %d", id);
 		
@@ -78,8 +76,7 @@ connection = new ConnectionFactory().getConnection();
 						   	  resultSet.getInt("score_points"),
 							  resultSet.getString("title"),
 							  resultSet.getLong("time_limit"),
-							  new File(resultSet.getString("input")),
-							  new File(resultSet.getString("output")));
+							  new File(resultSet.getString("dir")));
 		}
 		
 		resultSet.close();
@@ -100,21 +97,19 @@ connection = new ConnectionFactory().getConnection();
 		connection = new ConnectionFactory().getConnection();
 		
 		String sql = "UPDATE PROBLEM SET title = ?, score_points = ?, "
-				+ "time_limit = ?, input = ?, output = ? WHERE id_problem = ?";
+				+ "time_limit = ?, dir = ? WHERE id_problem = ?";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
 		statement.setString(1, value.getTitle());
 		statement.setInt(2, value.getScorePoints());
 		statement.setLong(3, value.getTimeLimit());
-		statement.setString(4, value.getInput().getAbsolutePath());
-		statement.setString(5, value.getOutput().getAbsolutePath());
-		statement.setInt(6, value.getIdProblem());
+		statement.setString(4, value.getDir().getAbsolutePath());
+		statement.setInt(5, value.getIdProblem());
 		
 		statement.execute();
 		
 		statement.close();
 		connection.close();
 	}
-
 }

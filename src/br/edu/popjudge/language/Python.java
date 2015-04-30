@@ -34,8 +34,8 @@ public class Python extends Language {
 					new FileOutputStream(submission.getDir() + "/run.sh")));
 			writer.write("cd \"" + submission.getDir() + "\"\n");
 			writer.write("chroot .\n");
-			writer.write("python " + new File(submission.getFileName()).getName() + " < "
-					+ p.getInput() + " > "+ submission.getDir() +"/output.txt");
+			writer.write("python " + new File(submission.getFile().getAbsolutePath()).getName() + " < "
+					+ p.getTestCase() + "/input.txt" + " > "+ submission.getDir() +"/output.txt");
 			writer.close();
 
 			Process process = runtime.exec("chmod +x " + submission.getDir()
