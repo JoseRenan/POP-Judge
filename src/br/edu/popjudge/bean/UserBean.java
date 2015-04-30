@@ -8,12 +8,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-import br.edu.popjudge.database.dao.RankDAO;
 import br.edu.popjudge.database.dao.UserDAO;
 import br.edu.popjudge.domain.User;
-import br.edu.popjudge.domain.UserRank;
 
-@ManagedBean(name = "userB")
+@ManagedBean(name = "userBean")
 public class UserBean {
 
 	private User user = new User();
@@ -80,11 +78,7 @@ public class UserBean {
 			user.setDir(home + "/POPJudge/users/" + this.user.getUsername());
 			UserDAO ud = new UserDAO();
 			ud.insert(user);
-
-			UserRank ur = new UserRank();
-			ur.setUsername(this.user.getUsername());
-			RankDAO rd = new RankDAO();
-			rd.insert(ur);
+			//TODO adicionar o bichin na tabela ranking.
 
 			this.user.setUsername(null);
 			this.user.setPassword(null);
