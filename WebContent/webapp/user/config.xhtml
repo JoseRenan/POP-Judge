@@ -11,10 +11,10 @@
 				<p:growl id="growl" showDetail="false" />
 				<h:panelGrid columns="2">
 					<p:outputLabel for="senha" value="Nova senha: " />
-					<p:password id="senha" value="#{userB.user.password}" match="senha2"
+					<p:password id="senha" value="#{userBean.user.password}" match="senha2"
 						required="true" />
 					<p:outputLabel for="senha2" value="Nova senha novamente: " />
-					<p:password id="senha2" value="#{userB.user.password}" required="true" />
+					<p:password id="senha2" value="#{userBean.user.password}" required="true" />
 					<p:commandButton value="Mudar"
 						actionListener="#{userB.changePassword}" icon="ui-icon-refresh"
 						update="growl" />
