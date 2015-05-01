@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.model.UploadedFile;
 
 import br.edu.popjudge.control.Judge;
-import br.edu.popjudge.control.SubmissionIdGenerator;
 import br.edu.popjudge.database.dao.LanguageDAO;
 import br.edu.popjudge.database.dao.ProblemDAO;
 import br.edu.popjudge.database.dao.RankDAO;
@@ -96,6 +95,7 @@ public class SubmissionBean {
 				sbmdao.insert(this.submission);
 
 				RankDAO rd = new RankDAO();
+				@SuppressWarnings("unused")
 				UserRank ur = rd.get((String) session.getAttribute("username"));
 
 				// TODO Falta concertar essa parte que manipula o ranking

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import br.edu.popjudge.database.dao.UserDAO;
 import br.edu.popjudge.domain.User;
 
-@ManagedBean(name = "userBean")
+@ManagedBean
 public class UserBean {
 
 	private User user = new User();

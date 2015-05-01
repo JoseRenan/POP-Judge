@@ -6,14 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
 
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.Submission;
-import br.edu.popjudge.domain.Veredict;
 
 @ManagedBean
 public class SubmissionDAO implements Dao<Submission> {

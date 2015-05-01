@@ -5,12 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 
-import br.edu.popjudge.database.dao.LanguageDAO;
-import br.edu.popjudge.database.dao.ProblemDAO;
-import br.edu.popjudge.database.dao.UserDAO;
 import br.edu.popjudge.domain.Problem;
 import br.edu.popjudge.domain.Submission;
 import br.edu.popjudge.domain.Veredict;
