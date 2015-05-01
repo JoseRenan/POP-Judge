@@ -1,0 +1,60 @@
+<ui:composition template="/WEB-INF/templates/admin/templateAdmin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<p:button outcome="createProblem" value="Novo Problema" />
+
+		<p:growl autoUpdate="true" showDetail="false" />
+
+
+		<p:dataTable id="listProblems" var="problems"
+			value="#{problemDAO.all}">
+
+			<p:column headerText="Nome do Problema">
+				<h:outputText value="#{problems.title}" />
+			</p:column>
+
+			<p:column style="width:80px;text-align: center">
+
+				<p:commandButton icon="ui-icon-pencil" title="Editar"
+					update=":form:problemDetail"
+					oncomplete="PF('problemDialog').show()">
+					<f:setPropertyActionListener value="#{problems}"
+						target="#{problem.selectedProblem}" />
+				</p:commandButton>
+
+				<p:commandButton actionListener="#{problem.deleteProblem}"
+					icon="ui-icon-close" title="Excluir" />
+			</p:column>
+
+		</p:dataTable>
+
+
+		<p:dialog header="Editar Problema" widgetVar="problemDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			<h:form id="form">
+				<p:outputPanel id="problemDetail" style="text-align:center;">
+					<p:panelGrid columns="2"
+						rendered="#{null ne problem.selectedProblem}"
+						columnClasses="label,value">
+
+						<p:outputLabel value="Nome:" />
+						<p:inputText value="#{problem.selectedProblem.title}" />
+						<p:outputLabel value="Pontuação" />
+						<p:inputText value="#{problem.selectedProblem.scorePoints}" />
+						<p:outputLabel value="Tempo Limite" />
+						<p:inputText value="#{problem.selectedProblem.timeLimit}" />
+						<p:commandButton action="#{problem.editProblem}"
+							value="Editar" />
+
+					</p:panelGrid>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
