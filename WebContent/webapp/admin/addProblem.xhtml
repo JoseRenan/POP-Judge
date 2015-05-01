@@ -10,7 +10,9 @@
 		<h:form id="form">
 			<p:growl autoUpdate="true" showDetail="false" />
 
-
+			
+			<p:remoteCommand name="removeRC" update=":form:listProblems" actionListener="#{problem.deleteProblem}"/>
+			
 			<p:dataTable id="listProblems" var="problems"
 				value="#{problemDAO.all}">
 
@@ -26,14 +28,31 @@
 						<f:setPropertyActionListener value="#{problems}"
 							target="#{problem.selectedProblem}" />
 					</p:commandButton>
-
-					<p:commandButton actionListener="#{problem.deleteProblem}"
-						icon="ui-icon-close" title="Excluir" />
+				
+					<p:commandButton icon="ui-icon-close" title="Apagar"
+						update=":form:problemDetail2"
+						oncomplete="PF('problemDialog2').show()">
+						<f:setPropertyActionListener value="#{problems}"
+							target="#{problem.selectedProblem}" />
+					</p:commandButton>	
 				</p:column>
 
 			</p:dataTable>
+			
+			<p:dialog header="Apagar Problema" widgetVar="problemDialog2"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 
+				<p:outputPanel id="problemDetail2" style="text-align:center;">
+					<p:panelGrid columns="2"
+						rendered="#{null ne problem.selectedProblem}"
+						columnClasses="label,value">
+						<p:commandButton action="#{problem.deleteProblem}" value="Sim" update=":form:listProblems" onclick="problemDialog.hide()" process="@none"/>					
+						<p:commandButton value="Não" update=":form:listProblems" onclick="problemDialog.hide()" process="@none"/>
 
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+			
 			<p:dialog header="Editar Problema" widgetVar="problemDialog"
 				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 
@@ -48,7 +67,7 @@
 						<p:inputText value="#{problem.selectedProblem.scorePoints}" />
 						<p:outputLabel value="Tempo Limite" />
 						<p:inputText value="#{problem.selectedProblem.timeLimit}" />
-						<p:commandButton action="#{problem.editProblem}" value="Editar" update=":form:listProblems"/>
+						<p:commandButton action="#{problem.editProblem}" value="Editar" update=":form:listProblems" onclick="problemDialog.hide()" process="@none"/>
 
 					</p:panelGrid>
 				</p:outputPanel>

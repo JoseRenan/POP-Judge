@@ -45,6 +45,9 @@ public class ProblemBean {
 	}
 	
 	public void deleteProblem() throws SQLException {
-		//TODO
+		ProblemDAO pd = new ProblemDAO();
+		pd.delete(this.selectedProblem.getIdProblem());
+		FacesMessage message = new FacesMessage("Apagado com sucesso", "");
+		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 }
