@@ -4,12 +4,14 @@ import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import br.edu.popjudge.database.dao.ProblemDAO;
 import br.edu.popjudge.domain.Problem;
 
 @ManagedBean(name = "problem")
+@ViewScoped
 public class ProblemBean {
 
 	private Problem problem = new Problem();
@@ -32,7 +34,7 @@ public class ProblemBean {
 	}
 
 	public void createProblem() {
-		
+		//TODO
 	}
 	
 	public void editProblem() throws SQLException {
@@ -42,7 +44,7 @@ public class ProblemBean {
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 	
-	public void deleteProblem() {
-		
+	public void deleteProblem() throws SQLException {
+		//TODO
 	}
 }

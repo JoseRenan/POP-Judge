@@ -34,7 +34,7 @@ public class Problem {
 	}
 
 	public int getIdProblem() {
-		return idProblem;
+		return this.idProblem;
 	}
 
 	public void setIdProblem(int idProblem) {
@@ -42,7 +42,7 @@ public class Problem {
 	}
 
 	public int getScorePoints() {
-		return scorePoints;
+		return this.scorePoints;
 	}
 
 	public void setScorePoints(int scorePoints) {
@@ -50,7 +50,7 @@ public class Problem {
 	}
 
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	public void setTitle(String title) {
@@ -66,7 +66,7 @@ public class Problem {
 	}
 
 	public File getDir() {
-		return dir;
+		return this.dir;
 	}
 
 	public void setDir(File dir) {
@@ -74,7 +74,7 @@ public class Problem {
 	}
 
 	public File getTestCase() {
-		return testCase;
+		return this.testCase;
 	}
 
 	public void setTestCase(File testCase) {

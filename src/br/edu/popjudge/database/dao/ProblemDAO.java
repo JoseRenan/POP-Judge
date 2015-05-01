@@ -9,18 +9,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
-
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.Problem;
 
 @ManagedBean
 public class ProblemDAO implements Dao<Problem> {
 	private Connection connection;
-	private ArrayList<Problem> all;
-	
-	public void setAll(ArrayList<Problem> all) {
-		this.all = all;
-	}
 
 	@Override
 	public void insert(Problem value) throws SQLException {
@@ -65,9 +59,7 @@ public class ProblemDAO implements Dao<Problem> {
 		statement.close();
 		connection.close();
 		
-		this.all = list;
-		
-		return this.all;
+		return list;
 	}
 
 	@Override
