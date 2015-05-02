@@ -3,7 +3,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<ui:define name="content">
 		<div align="center">
@@ -12,8 +13,9 @@
 				<p:inputText value="#{contest.nome}" />
 				<h:panelGrid columns="1"  cellspacing="30">
 					<p:outputLabel value="Informações e instruções:" />
-					<p:editor id="editor" widgetVar="editorWidget"
-						value="#{contest.info}" width="600" />
+					<pe:ckEditor id="editor" value="#{contest.info}"
+								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"/>
 				</h:panelGrid>
 				<p:commandButton value="Enviar" actionListener="#{contest.salvar}" />
 
