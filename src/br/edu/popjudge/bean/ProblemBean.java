@@ -1,5 +1,6 @@
 package br.edu.popjudge.bean;
 
+import java.io.File;
 import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
@@ -33,11 +34,19 @@ public class ProblemBean {
 		this.selectedProblem = selectedProblem;
 	}
 
-	public void createProblem() {
-		//TODO
+	public String createProblem() throws SQLException {
+		String home = System.getProperty("user.home");
+		this.problem.setDir(new File(home + "/POPJudge/problems/"+ this.problem.getTitle()));
+		
+		ProblemDAO pd = new ProblemDAO();
+		pd.insert(this.problem);
+		FacesMessage message = new FacesMessage("Criado com sucesso", "");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		
+		return "addProblem";
 	}
 	
-	public void editProblem() throws SQLException {
+	public void editProblem() throws SQLException {		
 		ProblemDAO pd = new ProblemDAO();
 		pd.update(this.selectedProblem);
 		FacesMessage message = new FacesMessage("Editado com sucesso", "");

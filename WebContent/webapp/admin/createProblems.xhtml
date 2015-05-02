@@ -1,0 +1,101 @@
+<ui:composition template="/WEB-INF/templates/admin/templateAdmin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<ui:define name="content">
+		<p:growl autoUpdate="true" showDetail="false"/>
+		<h:form id="form">
+			<div align="center">
+				<h:panelGrid columns="5" cellspacing="10">
+					<p:outputLabel value="Título:" for="title" />
+					<p:outputLabel value="Tempo Limite:" for="timeLimit" />
+					<p:outputLabel value="Pontuação:" for="scorePoints" />
+					<p:outputLabel value="Autor:" for="author" />
+					<p:outputLabel value="Universidade:" for="university" />
+					<p:inputText value="#{problem.problem.title}" id="title" />
+					<p:inputText value="#{problem.problem.timeLimit}" id="timeLimit" />
+					<p:inputText value="#{problem.problem.scorePoints}"
+						id="scorePoints" />
+					<p:inputText value="#{problem.problem.author}" id="author" />
+					<p:inputText value="#{problem.problem.university}" id="university" />
+				</h:panelGrid>
+				<p:fieldset legend="Descrição" toggleable="true" toggleSpeed="500" collapsed="true" style="width:850px">
+					<h:panelGrid columns="1" cellspacing="10">
+						<p:outputLabel value="Descrição:"/>
+						<pe:ckEditor id="description" value="#{problem.problem.description}"
+							toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+	        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
+							width="850px" />
+						<p:outputLabel value="Entrada:"/>
+						<pe:ckEditor id="input" value="#{problem.problem.inputDescription}"
+							toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+	        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
+							width="850px" />
+						<p:outputLabel value="Saída:"/>
+						<pe:ckEditor id="output" value="#{problem.problem.outputDescription}"
+							toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+	        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
+							width="850px" />
+					</h:panelGrid>
+				</p:fieldset>
+				<p:fieldset legend="Casos de teste (Exemplos)" toggleable="true" toggleSpeed="500" collapsed="true" style="width:850px">
+					<p:fieldset legend="Casos de teste 1" toggleable="true" toggleSpeed="500" collapsed="true" style="width:800px">
+						<h:panelGrid columns="1" cellspacing="5">
+							<p:outputLabel value="Entrada 1:"/>
+							<pe:ckEditor id="inputSample1" value="#{problem.problem.inputSample1}"
+								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
+								width="800px" />
+							<p:outputLabel value="Saída 1:"/>
+							<pe:ckEditor id="outputSample1" value="#{problem.problem.outputSample1}"
+								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
+								width="800px" />
+						</h:panelGrid>
+					</p:fieldset>
+					<p:fieldset legend="Casos de teste 2" toggleable="true" toggleSpeed="500" collapsed="true" style="width:800px">
+						<h:panelGrid columns="1" cellspacing="5">
+							<p:outputLabel value="Entrada 2:"/>
+							<pe:ckEditor id="inputSample2" value="#{problem.problem.inputSample2}"
+								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
+								width="800px" />
+							<p:outputLabel value="Saída 2:"/>
+							<pe:ckEditor id="outputSample2" value="#{problem.problem.outputSample2}"
+								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
+								width="800px" />
+						</h:panelGrid>
+					</p:fieldset>
+					<p:fieldset legend="Casos de teste 3" toggleable="true" toggleSpeed="500" collapsed="true" style="width:800px">
+						<h:panelGrid columns="1" cellspacing="5">
+							<p:outputLabel value="Entrada 3:"/>
+							<pe:ckEditor id="inputSample3" value="#{problem.problem.inputSample2}"
+								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
+								width="800px" />
+							<p:outputLabel value="Saída 3:"/>
+							<pe:ckEditor id="outputSample3" value="#{problem.problem.outputSample2}"
+								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
+								width="800px" />
+						</h:panelGrid>
+					</p:fieldset>
+				</p:fieldset>
+				<h:panelGrid columns="1" cellspacing="5">
+					<p:outputLabel value="Observações:"/>
+					<pe:ckEditor id="notes" value="#{problem.problem.notes}"
+								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
+								width="850px" height="60px"/>
+				</h:panelGrid>
+				<p:commandButton value="Salvar" action="#{problem.createProblem}" icon="ui-icon-disk" update="form" ajax="false"/>
+			</div>
+		</h:form>
+		<br/>
+	</ui:define>
+</ui:composition>

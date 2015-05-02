@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		<p:button outcome="createProblem" value="Novo Problema" />
+		<p:button outcome="createProblems" value="Novo Problema" />
 		<h:form id="form">
 			<p:growl autoUpdate="true" showDetail="false" />
 
@@ -46,8 +46,8 @@
 					<p:panelGrid columns="2"
 						rendered="#{null ne problem.selectedProblem}"
 						columnClasses="label,value">
-						<p:commandButton action="#{problem.deleteProblem}" value="Sim" update=":form:listProblems" onclick="problemDialog.hide()" process="@none"/>					
-						<p:commandButton value="Não" update=":form:listProblems" onclick="problemDialog.hide()" process="@none"/>
+						<p:commandButton action="#{problem.deleteProblem}" value="Sim" update=":form:listProblems" onclick="problemDialog.hide()" process="@none" icon="ui-icon-circle-check"/>					
+						<p:commandButton value="Não" update=":form:listProblems" onclick="problemDialog.hide()" process="@none" icon="ui-icon-circle-close"/>
 
 					</p:panelGrid>
 				</p:outputPanel>
@@ -64,7 +64,7 @@
 						<p:outputLabel value="Nome:" />
 						<p:inputText value="#{problem.selectedProblem.title}" />
 						<p:outputLabel value="Pontuação" />
-						<p:inputText value="#{problem.selectedProblem.scorePoints}" />
+						<p:inputText value="#{problem.selectedProblem.scorePoints}"/>
 						<p:outputLabel value="Tempo Limite" />
 						<p:inputText value="#{problem.selectedProblem.timeLimit}" />
 						<p:commandButton action="#{problem.editProblem}" value="Editar" update=":form:listProblems" onclick="problemDialog.hide()" process="@none"/>
