@@ -1,6 +1,7 @@
 package br.edu.popjudge.database.dao;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
+
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.Problem;
 
@@ -25,9 +27,21 @@ public class ProblemDAO implements Dao<Problem> {
 
 		PreparedStatement statement = connection.prepareStatement(sql);
 
-		statement.setString(1, value.getTitle());
-		statement.setInt(2, value.getScorePoints());
-		statement.setLong(3, value.getTimeLimit());
+		try {
+			statement.setString(1, value.getTitle());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			statement.setInt(2, value.getScorePoints());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			statement.setLong(3, value.getTimeLimit());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		statement.setString(4, value.getDir().getAbsolutePath());
 
 		statement.execute();
@@ -113,9 +127,21 @@ public class ProblemDAO implements Dao<Problem> {
 
 		PreparedStatement statement = connection.prepareStatement(sql);
 
-		statement.setString(1, value.getTitle());
-		statement.setInt(2, value.getScorePoints());
-		statement.setLong(3, value.getTimeLimit());
+		try {
+			statement.setString(1, value.getTitle());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			statement.setInt(2, value.getScorePoints());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			statement.setLong(3, value.getTimeLimit());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		statement.setString(4, value.getDir().getAbsolutePath());
 		statement.setInt(5, value.getIdProblem());
 
