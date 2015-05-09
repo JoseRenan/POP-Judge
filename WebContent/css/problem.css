@@ -1,11 +1,5 @@
 @CHARSET "UTF-8";
 
-.margem {
-	margin-right: 100px;
-	margin-left: 100px;
-}
-
-
 .geral {
 	min-height: 100%;
 	position: relative;

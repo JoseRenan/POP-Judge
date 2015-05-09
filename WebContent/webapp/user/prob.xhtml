@@ -1,0 +1,97 @@
+<ui:composition template="/WEB-INF/templates/user/templateUser.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<div class="margem">
+			<div class="header">
+				<span>#{contest.nome}</span>
+				<h1>#{Selectedproblem.title}</h1>
+				<div>
+					<p>
+						Por #{Selectedproblem.author}, #{Selectedproblem.university} <img
+							src='https://urionlinejudge.r.worldssl.net/gallery/images/flags/br.gif'
+							alt='BR' /> Brasil
+					</p>
+				</div>
+				<strong>Timelimit: #{Selectedproblem.timeLimit}ms |
+					Pontuação: #{Selectedproblem.scorePoints}</strong>
+			</div>
+
+			<div class="problem">
+				<div class="description">
+					<h:outputText value="#{Selectedproblem.description}" escape="false" />
+				</div>
+
+				<h2>Entrada</h2>
+
+				<div class="input">
+					<h:outputText value="#{Selectedproblem.inputDescription}"
+						escape="false" />
+				</div>
+
+				<h2>Saída</h2>
+
+				<div class="output">
+					<h:outputText value="#{Selectedproblem.outputDescription}"
+						escape="false" />
+				</div>
+
+				<div class="both"></div>
+
+				<table>
+					<thead>
+						<tr>
+							<td>Exemplos de Entrada</td>
+							<td>Exemplos de Saída</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="division"><h:outputText
+									value="#{Selectedproblem.inputSample1}" escape="false" /></td>
+							<td><h:outputText value="#{Selectedproblem.outputSample1}"
+									escape="false" /></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="both"></div>
+				<table>
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="division"><h:outputText
+									value="#{Selectedproblem.inputSample2}" escape="false" /></td>
+							<td><h:outputText value="#{Selectedproblem.outputSample2}"
+									escape="false" /></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="both"></div>
+
+				<table>
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="division"><h:outputText
+									value="#{Selectedproblem.inputSample3}" escape="false" /></td>
+							<td><h:outputText value="#{Selectedproblem.outputSample3}"
+									escape="false" /></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="footerProblem">
+					<h:outputText value="#{Selectedproblem.notes}" escape="false" />
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

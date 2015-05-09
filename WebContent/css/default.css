@@ -43,9 +43,16 @@ sub {
 	bottom: -3px;
 }
 
+.margem {
+	margin-right: auto;
+	margin-left: auto;
+	min-width: 900px;
+	width: 900px;
+}
+
 .rules {
-	margin-right: 150px;
-	margin-left: 150px;
+	margin-right: auto;
+	margin-left: auto;
 	width: 900px;
 	min-width: 900px;
 }

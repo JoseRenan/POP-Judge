@@ -49,6 +49,13 @@ public class Problem {
 	}
 	
 	public String getAuthor() throws IOException {        		      
+		
+		File file = new File (this.getDir() + "/header.txt");        
+        
+		if (!file.exists()) {
+			return author;
+		}
+		
 		BufferedReader buffRead = new BufferedReader(new FileReader(this.getDir() + "/header.txt")); 
 		
 		this.author = "";
@@ -73,6 +80,12 @@ public class Problem {
 	}
 
 	public String getUniversity() throws IOException {
+		
+		File file = new File (this.getDir() + "/header.txt");        
+        
+		if (!file.exists()) {
+			return university;
+		}
 		
 		BufferedReader buffRead = new BufferedReader(new FileReader(this.getDir() + "/header.txt")); 
 		
@@ -99,6 +112,12 @@ public class Problem {
 
 	public String getInputDescription() throws IOException {
 		
+		File file = new File (this.getDir() + "/inputDescription.txt");        
+        
+		if (!file.exists()) {
+			return inputDescription;
+		}
+		
 		inputDescription = getFileContent(this.dir + "/inputDescription.txt");
 		
 		return inputDescription;
@@ -109,6 +128,12 @@ public class Problem {
 	}
 
 	public String getOutputDescription() throws IOException {
+		
+		File file = new File (this.getDir() + "/outputDescription.txt");        
+        
+		if (!file.exists()) {
+			return outputDescription;
+		}
 		
 		outputDescription = getFileContent(this.dir + "/outputDescription.txt");
 		
@@ -121,6 +146,12 @@ public class Problem {
 
 	public String getDescription() throws IOException {
 		
+		File file = new File (this.getDir() + "/description.txt");        
+        
+		if (!file.exists()) {
+			return description;
+		}
+		
 		description = getFileContent(this.dir + "/description.txt");
 		
 		return description;
@@ -131,6 +162,12 @@ public class Problem {
 	}
 
 	public String getNotes() throws IOException {
+		
+		File file = new File (this.getDir() + "/notes.txt");        
+        
+		if (!file.exists()) {
+			return notes;
+		}
 		
 		notes = getFileContent(this.dir + "/notes.txt");
 		
@@ -143,6 +180,12 @@ public class Problem {
 
 	public String getInputSample1() throws IOException {
 		
+		File file = new File (this.getDir() + "/inputSample1.txt");        
+        
+		if (!file.exists()) {
+			return inputSample1;
+		}
+		
 		inputSample1 = getFileContent(this.dir + "/inputSample1.txt");
 		
 		return inputSample1;
@@ -153,6 +196,12 @@ public class Problem {
 	}
 
 	public String getInputSample2() throws IOException {
+		
+		File file = new File (this.getDir() + "/inputSample2.txt");        
+        
+		if (!file.exists()) {
+			return inputSample2;
+		}
 		
 		inputSample2 = getFileContent(this.dir + "/inputSample2.txt");
 		
@@ -165,6 +214,12 @@ public class Problem {
 
 	public String getInputSample3() throws IOException {
 		
+		File file = new File (this.getDir() + "/inputSample3.txt");        
+        
+		if (!file.exists()) {
+			return inputSample3;
+		}
+		
 		inputSample3 = getFileContent(this.dir + "/inputSample3.txt");
 		
 		return inputSample3;
@@ -175,6 +230,12 @@ public class Problem {
 	}
 
 	public String getOutputSample1() throws IOException {
+		
+		File file = new File (this.getDir() + "/outputSample1.txt");        
+        
+		if (!file.exists()) {
+			return outputSample1;
+		}
 		
 		outputSample1 = getFileContent(this.dir + "/outputSample1.txt");
 		
@@ -187,6 +248,12 @@ public class Problem {
 
 	public String getOutputSample2() throws IOException {
 		
+		File file = new File (this.getDir() + "/outputSample2.txt");        
+        
+		if (!file.exists()) {
+			return outputSample2;
+		}
+		
 		outputSample2 = getFileContent(this.dir + "/outputSample2.txt");
 		
 		return outputSample2;
@@ -197,6 +264,12 @@ public class Problem {
 	}
 
 	public String getOutputSample3() throws IOException {
+		
+		File file = new File (this.getDir() + "/outputSample3.txt");        
+        
+		if (!file.exists()) {
+			return outputSample3;
+		}
 		
 		outputSample3 = getFileContent(this.dir + "/outputSample3.txt");
 		
@@ -216,6 +289,12 @@ public class Problem {
 	}
 
 	public int getScorePoints() throws IOException {
+		
+		File file = new File (this.getDir() + "/header.txt");        
+        
+		if (!file.exists()) {
+			return scorePoints;
+		}
 		
 		BufferedReader buffRead = new BufferedReader(new FileReader(this.getDir() + "/header.txt"));
 		
@@ -241,6 +320,12 @@ public class Problem {
 
 	public String getTitle() throws IOException {
 		
+		File file = new File (this.getDir() + "/header.txt");        
+        
+		if (!file.exists()) {
+			return title;
+		}
+		
 		BufferedReader buffRead = new BufferedReader(new FileReader(this.getDir() + "/header.txt")); 
 		
 		this.title = "";
@@ -265,6 +350,12 @@ public class Problem {
 	}
 
 	public long getTimeLimit() throws IOException {
+		
+		File file = new File (this.getDir() + "/header.txt");        
+        
+		if (!file.exists()) {
+			return timeLimit;
+		}
 		
 		BufferedReader buffRead = new BufferedReader(new FileReader(this.getDir() + "/header.txt"));
 		
@@ -306,10 +397,13 @@ public class Problem {
 	
 	private static String getFileContent(String dir) throws IOException{
 		BufferedReader buffRead = new BufferedReader(new FileReader(dir)); 
-		String string = buffRead.readLine(); 
 		
-		while (string != null) { 
-			string = buffRead.readLine(); 
+		
+		String s = buffRead.readLine(), string = "";
+				
+		while (s != null) { 
+			string += s;
+			s = buffRead.readLine();
 		}
 		
 		buffRead.close();

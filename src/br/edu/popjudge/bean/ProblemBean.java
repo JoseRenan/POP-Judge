@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import br.edu.popjudge.database.dao.ProblemDAO;
 import br.edu.popjudge.domain.Problem;
@@ -35,6 +36,9 @@ public class ProblemBean {
 
 	public void setSelectedProblem(Problem selectedProblem) {
 		this.selectedProblem = selectedProblem;
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		session.setAttribute("Selectedproblem", this.selectedProblem);
 	}
 
 	public String createProblem() throws SQLException, IOException {
@@ -47,9 +51,9 @@ public class ProblemBean {
         new File (this.problem.getDir() + "/" + "inputSample1.txt").getParentFile().mkdirs();
         new File (this.problem.getDir() + "/" + "inputSample2.txt").getParentFile().mkdirs();
         new File (this.problem.getDir() + "/" + "inputSample3.txt").getParentFile().mkdirs();
-        new File (this.problem.getDir() + "/" + "ouputSample1.txt").getParentFile().mkdirs();
-        new File (this.problem.getDir() + "/" + "ouputSample2.txt").getParentFile().mkdirs();
-        new File (this.problem.getDir() + "/" + "ouputSample3.txt").getParentFile().mkdirs();
+        new File (this.problem.getDir() + "/" + "outputSample1.txt").getParentFile().mkdirs();
+        new File (this.problem.getDir() + "/" + "outputSample2.txt").getParentFile().mkdirs();
+        new File (this.problem.getDir() + "/" + "outputSample3.txt").getParentFile().mkdirs();
         new File (this.problem.getDir() + "/" + "notes.txt").getParentFile().mkdirs();
         new File (this.problem.getDir() + "/" + "header.txt").getParentFile().mkdirs();
 		
@@ -59,9 +63,9 @@ public class ProblemBean {
 		createFiles(this.problem.getDir() + "/" + "inputSample1.txt", this.problem.getInputSample1());
 		createFiles(this.problem.getDir() + "/" + "inputSample2.txt", this.problem.getInputSample2());
 		createFiles(this.problem.getDir() + "/" + "inputSample3.txt", this.problem.getInputSample3());
-		createFiles(this.problem.getDir() + "/" + "ouputSample1.txt", this.problem.getOutputSample1());
-		createFiles(this.problem.getDir() + "/" + "ouputSample2.txt", this.problem.getOutputSample2());
-		createFiles(this.problem.getDir() + "/" + "ouputSample3.txt", this.problem.getOutputSample3());
+		createFiles(this.problem.getDir() + "/" + "outputSample1.txt", this.problem.getOutputSample1());
+		createFiles(this.problem.getDir() + "/" + "outputSample2.txt", this.problem.getOutputSample2());
+		createFiles(this.problem.getDir() + "/" + "outputSample3.txt", this.problem.getOutputSample3());
 		createFiles(this.problem.getDir() + "/" + "notes.txt", this.problem.getNotes());
 		createFiles(this.problem.getDir() + "/" + "header.txt", this.problem.getTitle() + "\n" +
 																this.problem.getAuthor() + "\n" +

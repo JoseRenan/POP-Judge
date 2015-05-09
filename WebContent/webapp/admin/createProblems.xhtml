@@ -12,7 +12,7 @@
 			<div align="center">
 				<h:panelGrid columns="5" cellspacing="10">
 					<p:outputLabel value="Título:" for="title" />
-					<p:outputLabel value="Tempo Limite:" for="timeLimit" />
+					<p:outputLabel value="Tempo Limite (ms): " for="timeLimit" />
 					<p:outputLabel value="Pontuação:" for="scorePoints" />
 					<p:outputLabel value="Autor:" for="author" />
 					<p:outputLabel value="Universidade:" for="university" />
@@ -74,12 +74,12 @@
 					<p:fieldset legend="Casos de teste 3" toggleable="true" toggleSpeed="500" collapsed="true" style="width:800px">
 						<h:panelGrid columns="1" cellspacing="5">
 							<p:outputLabel value="Entrada 3:"/>
-							<pe:ckEditor id="inputSample3" value="#{problem.problem.inputSample2}"
+							<pe:ckEditor id="inputSample3" value="#{problem.problem.inputSample3}"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 								width="800px" />
 							<p:outputLabel value="Saída 3:"/>
-							<pe:ckEditor id="outputSample3" value="#{problem.problem.outputSample2}"
+							<pe:ckEditor id="outputSample3" value="#{problem.problem.outputSample3}"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 								width="800px" />
