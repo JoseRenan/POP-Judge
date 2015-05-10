@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -17,18 +18,19 @@ import org.primefaces.model.UploadedFile;
 
 import br.edu.popjudge.control.Judge;
 import br.edu.popjudge.database.dao.LanguageDAO;
-import br.edu.popjudge.database.dao.ProblemDAO;
-import br.edu.popjudge.database.dao.RankDAO;
 import br.edu.popjudge.database.dao.SubmissionDAO;
+import br.edu.popjudge.domain.Problem;
 import br.edu.popjudge.domain.Submission;
 import br.edu.popjudge.domain.User;
-import br.edu.popjudge.domain.UserRank;
 
 @ManagedBean(name = "submission")
+@ViewScoped
 public class SubmissionBean {
 
 	private Submission submission = new Submission();
 	private UploadedFile upFile;
+	private int idLanguage;
+	private Problem selectedProblem;
 
 	public UploadedFile getUpFile() {
 		return upFile;
@@ -46,62 +48,68 @@ public class SubmissionBean {
 		this.submission = submission;
 	}
 
-	public void submit() throws IOException {
+	public int getIdLanguage() {
+		return idLanguage;
+	}
+
+	public void setIdLanguage(int idLanguage) {
+		this.idLanguage = idLanguage;
+	}
+
+	public Problem getSelectedProblem() {
+		return selectedProblem;
+	}
+
+	public void setSelectedProblem(Problem selectedProblem) {
+		this.selectedProblem = selectedProblem;
+	}
+
+	public void submit() throws IOException, SQLException {
 		if (this.getUpFile() != null) {
-
+				
 			FacesContext context = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) context.getExternalContext()
-					.getSession(true);
+			HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 
-			InputStream in = new BufferedInputStream(this.getUpFile()
-					.getInputstream());
+			InputStream in = new BufferedInputStream(this.getUpFile().getInputstream());
 
 			this.submission.setUser((User) session.getAttribute("user"));
+			
 			/*
 			 * Gets user 's id. TODO Isso vai dar merda . Mas vou esperar testar
 			 * pra corrigir .
 			 */
-
-			this.submission.setTimestamp(new Timestamp(System
-					.currentTimeMillis()));
-
-			File file = new File(this.submission.getDir() + "/"
-					+ this.getUpFile().getFileName());
-			submission.setFile(file);
+		
+			this.submission.setDir(this.submission.getUser().getDir() + "/" + this.submission.getIdSubmission());
+			
+			File file = new File(this.submission.getDir() + "/" + this.getUpFile().getFileName());
+			this.submission.setFile(file);
 
 			if (!file.getParentFile().exists())
-				file.getParentFile().mkdirs();// Creates the directories if they
-												// don't exists.
+				file.getParentFile().mkdirs();// Creates the directories if they don't exists.
+			
 			FileOutputStream fos = new FileOutputStream(file);
-			while (in.available() != 0) {// Writes the content in the user's
-											// file.
+			
+			while (in.available() != 0) {// Writes the content in the user's file.
 				fos.write(in.read());
 			}
+			
 			fos.close();
 
 			try {
-				this.submission.setProblem(new ProblemDAO().get((int)session.getAttribute("idProblem")));
-				this.submission.setDir((String) session.getAttribute("dir") + "/"
-						+ this.submission.getIdSubmission());
-				this.submission.setFile(new File(file.getAbsolutePath()));
-				this.submission.setLanguage(new LanguageDAO()
-						.get(this.submission.getLanguage().getIdLanguage()));
+				LanguageDAO ld = new LanguageDAO();
+				
+				this.submission.setTimestamp(new Timestamp(System.currentTimeMillis()));
+				this.submission.setLanguage(ld.get(idLanguage));
+				this.submission.setProblem(selectedProblem);
+				
 				Judge j = new Judge();
-				this.submission.setVeredict((j.judge(this.submission)
-						.getRotulo1()));
+				this.submission.setVeredict((j.judge(this.submission).getRotulo1()));
 
 				SubmissionDAO sbmdao = new SubmissionDAO();
 
 				sbmdao.insert(this.submission);
 
-				RankDAO rd = new RankDAO();
-				@SuppressWarnings("unused")
-				UserRank ur = rd.get((String) session.getAttribute("username"));
-
-				// TODO Falta concertar essa parte que manipula o ranking
-				// Inicia aqui
-
-				// Termina aqui
+				// TODO Falta fazer toda a parte que manipula o ranking
 
 				this.submission = new Submission();
 

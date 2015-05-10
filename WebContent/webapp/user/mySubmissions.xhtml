@@ -1,0 +1,38 @@
+<ui:composition template="/WEB-INF/templates/user/templateUser.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<div class="margem">
+			<p:dataTable var="allSubmissions" value="#{submissionDAO.getMySubmissions()}" id="table"
+				style="width:850px;">
+				<p:column headerText="Problema">
+					<div align="center">
+						<h:outputText value="#{allSubmissions.problem.title}" />
+					</div>
+				</p:column>
+				<p:column headerText="Linguagem" width="75">
+					<div align="center">
+						<h:outputText value="#{allSubmissions.language.name}" />
+					</div>
+				</p:column>
+				<p:column headerText="Veredito" width="160">
+					<div align="center">
+						<h:outputText value="#{allSubmissions.veredict}"
+							styleClass="#{allSubmissions.veredict eq 'Accepted' ? 'AC' : (allSubmissions.veredict eq 'Time Limit Exceeded' ? 'TLE' : (allSubmissions.veredict eq 'Compilation Error' ? 'CE' : (allSubmissions.veredict eq 'Wrong Answer' ? 'WA' : 'SE')))}" />
+					</div>
+				</p:column>
+				<p:column headerText="Hora" width="75">
+					<div align="center">
+						<h:outputText value="#{allSubmissions.timestamp}">
+							<f:convertDateTime pattern="hh:mm:ss" timeZone="GMT-3" />
+						</h:outputText>
+					</div>
+				</p:column>
+			</p:dataTable>
+		</div>
+	</ui:define>
+</ui:composition>

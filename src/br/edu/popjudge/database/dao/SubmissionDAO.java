@@ -9,9 +9,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.Submission;
+import br.edu.popjudge.domain.User;
 
 @ManagedBean
 public class SubmissionDAO implements Dao<Submission> {
@@ -44,6 +47,42 @@ public class SubmissionDAO implements Dao<Submission> {
 		connection = new ConnectionFactory().getConnection();
 
 		String sql = "SELECT * FROM SUBMISSION ORDER BY time_submission DESC";
+
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(sql);
+
+		ArrayList<Submission> list = new ArrayList<Submission>();
+
+		UserDAO uDAO = new UserDAO();
+		ProblemDAO pDAO = new ProblemDAO();
+		LanguageDAO lDAO = new LanguageDAO();
+
+		while (resultSet.next()) {
+			list.add(new Submission(resultSet.getInt("id_submission"), 
+									uDAO.get(resultSet.getInt("id_user")), 
+									pDAO.get(resultSet.getInt("id_problem")), 
+									lDAO.get(resultSet.getInt("id_language")), 
+									new File(resultSet.getString("file_name")), 
+									resultSet.getTimestamp("time_submission"), 
+									resultSet.getString("veredict")));
+		}
+
+		resultSet.close();
+		statement.close();
+		connection.close();
+
+		return list;
+	}
+	
+	public ArrayList<Submission> getMySubmissions() throws SQLException {
+		connection = new ConnectionFactory().getConnection();
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		
+		int id = ((User) session.getAttribute("user")).getIdUser();
+		
+		String sql = "SELECT * FROM SUBMISSION WHERE id_user = " + id + " ORDER BY time_submission DESC";
 
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);

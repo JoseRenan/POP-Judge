@@ -43,6 +43,11 @@ sub {
 	bottom: -3px;
 }
 
+.dialog {
+	width:600px;
+	height: 600px;
+}
+
 .margem {
 	margin-right: auto;
 	margin-left: auto;

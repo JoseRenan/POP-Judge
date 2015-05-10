@@ -6,67 +6,67 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
+		<p:growl id="growl" autoUpdate="true" />
+		<p:button outcome="mySubmissions" value="Minhas Submissões" />
 		<div align="center">
-			<h:form enctype="multipart/form-data">
-				<p:growl id="growl" autoUpdate="true" />
-				<p:selectOneMenu id="idProblem" value="#{submission.submission.problem.idProblem}"
-					required="true" style="width:283px;">
-					<f:selectItem itemLabel="InfoOS" itemValue="1" />
-					<f:selectItem itemLabel="Vanlex pede socorro!" itemValue="2" />
-					<f:selectItem itemLabel="Marcelo e seus pixels" itemValue="3" />
-					<f:selectItem itemLabel="Quer Jogar POP?" itemValue="4" />
-					<f:selectItem itemLabel="Torre da Sorte" itemValue="5" />
-				</p:selectOneMenu>
-				<h:panelGrid columns="2">
-					<p:outputLabel for="linguagem" value="Linguagem: " />
-					<p:selectOneRadio id="linguagem" value="#{submission.submission.language.idLanguage}"
-						layout="grid" columns="5" required="true">
-						<f:selectItem itemLabel="PASCAL" itemValue="4" />
-						<f:selectItem itemLabel="PYTHON" itemValue="5" />
-						<f:selectItem itemLabel="JAVA" itemValue="3" />
-						<f:selectItem itemLabel="C++" itemValue="2" />
-						<f:selectItem itemLabel="C" itemValue="1" />
-					</p:selectOneRadio>
-				</h:panelGrid>
-				<h:panelGrid columns="2">
-					<p:fileUpload value="#{submission.upFile}" label="Arquivo"
-						skinSimple="true" mode="simple" icon="ui-icon-plus"
-						required="true" />
-					<p:commandButton action="#{submission.submit}" value="Enviar"
-						update="growl" ajax="false" icon="ui-icon-extlink"
-						style="width:106px;" />
-				</h:panelGrid>
-			</h:form>
-			<p:separator />
-			<div align="center">
-				<p:dataTable var="mySubmission"
-					value="#" id="table"
-					style="width:850px;">
-					<p:column headerText="Problema" width="70">
-						<div align="center">
-							<h:outputText value="P#{submission.submission.problem.idProblem}" />
-						</div>
-					</p:column>
-					<p:column headerText="Linguagem" width="70">
-						<div align="center">
-							<h:outputText value="#{submission.submission.language.name}" />
-						</div>
-					</p:column>
-					<p:column headerText="Veredito" width="70">
-						<div align="center">
-							<h:outputText value="#{submission.submission.veredict}"
-								styleClass="#{submission.submission.veredict eq 'Accepted' ? 'AC' : (submission.submission.veredict eq 'Time Limit Exceeded' ? 'TLE' : (submission.submission.veredict eq 'Compilation Error' ? 'CE' : (submission.submission.veredict eq 'Wrong Answer' ? 'WA' : 'SE')))}" />
-						</div>
-					</p:column>
-					<p:column headerText="Hora" width="70">
-						<div align="center">
-							<h:outputText value="#{submission.submission.timestamp}">
-								<f:convertDateTime pattern="hh:mm:ss" timeZone="GMT-3" />
-							</h:outputText>
-						</div>
-					</p:column>
-				</p:dataTable>
-			</div>
+			<p:dataTable id="listProblems" var="problems"
+				value="#{problemDAO.all}" rowIndexVar="rowIndex">
+				<p:column headerText="#" width="50">
+					<div align="center">
+						<h:outputText value="P#{rowIndex+1}" />
+					</div>
+				</p:column>
+				<p:column headerText="Problema">
+					<h:outputText value="#{problems.title}" />
+				</p:column>
+				<p:column headerText="Pontuação" width="100">
+					<div align="center">
+						<h:outputText value="#{problems.scorePoints}" />
+					</div>
+				</p:column>
+				<p:column style="width:90px;text-align: center" headerText="Submeter">
+					<p:commandButton icon="ui-icon-circle-arrow-n" title="Submeter"
+						update="problemDetail" oncomplete="PF('problemDialog').show()">
+						<f:setPropertyActionListener value="#{problems}"
+							target="#{submission.selectedProblem}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Submeter" widgetVar="problemDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+
+				<p:outputPanel id="problemDetail" style="text-align:center;">
+						<h:form enctype="multipart/form-data">
+							<p:scrollPanel style="width:400px;height:250px">
+								<div align="center">
+									<h:panelGrid columns="1">
+										<br/>
+										<br/>
+										<br/>
+										<p:outputLabel for="linguagem" value="Linguagem: " />
+										<p:selectOneRadio id="linguagem"
+											value="#{submission.idLanguage}" layout="grid" columns="5"
+											required="true">
+											<f:selectItem itemLabel="PASCAL" itemValue="4" />
+											<f:selectItem itemLabel="PYTHON" itemValue="5" />
+											<f:selectItem itemLabel="JAVA" itemValue="3" />
+											<f:selectItem itemLabel="C++" itemValue="2" />
+											<f:selectItem itemLabel="C" itemValue="1" />
+										</p:selectOneRadio>
+									</h:panelGrid>
+								</div>
+								<p:fileUpload value="#{submission.upFile}" label="Arquivo"
+									skinSimple="true" mode="simple" icon="ui-icon-plus"
+									required="true" />
+								<p:commandButton action="#{submission.submit}" value="Enviar"
+									ajax="false" icon="ui-icon-extlink" style="width:106px;" />
+							</p:scrollPanel>
+						</h:form>
+				</p:outputPanel>
+
+			</p:dialog>
+
 		</div>
 	</ui:define>
 </ui:composition>

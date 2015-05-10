@@ -9,7 +9,7 @@
 		<div class="margem">
 		<h:form>
 			<p:dataTable id="listProblems" var="problems"
-				value="#{problemDAO.all}" rowIndexVar="rowIndex" rendered="#{problem.selectedProblem eq null}">
+				value="#{problemDAO.all}" rowIndexVar="rowIndex">
 				<p:column headerText="#" width="50">
 					<div align="center"><h:outputText value="P#{rowIndex+1}" /></div>
 				</p:column>
