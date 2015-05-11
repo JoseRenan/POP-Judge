@@ -1,0 +1,31 @@
+<ui:composition template="/WEB-INF/templates/user/templateUser.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<p:growl autoUpdate="true" showDetail="false" id="growl" />
+
+		<p:dataTable var="issue" value="#{issuedao.all}" id="tabela">
+			<p:column headerText="ID" width="30">
+				<div align="center">
+					<h:outputText value="#{issue.idClarification}" />
+				</div>
+			</p:column>
+			<p:column headerText="Problema">
+				<div align="center">
+					<h:outputText value="#{issue.problem.title}" />
+				</div>
+			</p:column>
+			<p:column headerText="Dúvida">
+				<h:outputText value="#{issue.issue}" />
+			</p:column>
+			<p:column headerText="Resposta">
+				<h:outputText value="#{issue.answer}" />
+			</p:column>
+		</p:dataTable>
+
+	</ui:define>
+</ui:composition>

@@ -21,7 +21,7 @@ public class ClarificationDAO implements Dao<Clarification> {
 		connection = new ConnectionFactory().getConnection();
 		
 		String sql = "INSERT INTO CLARIFICATION(id_clarification, id_user, id_problem, "
-				+ "issue, answer, time_clarification) VALUES(0, ?, ?, ?, ?, ?)";
+				+ "issue, answer) VALUES(0, ?, ?, ?, ?)";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
@@ -29,7 +29,6 @@ public class ClarificationDAO implements Dao<Clarification> {
 		statement.setInt(2, value.getProblem().getIdProblem());
 		statement.setString(3, value.getIssue());
 		statement.setString(4, value.getAnswer());
-		statement.setString(5, value.getTimestamp().toString());
 		
 		statement.execute();
 		

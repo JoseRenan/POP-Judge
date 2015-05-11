@@ -45,7 +45,7 @@ CREATE TABLE CLARIFICATION (
 	id_problem INT,
 	issue VARCHAR(255) NOT NULL,
 	answer VARCHAR(255),
-	time_clarification TIMESTAMP NOT NULL,
+	time_clarification TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 
 	PRIMARY KEY(id_clarification),
 	

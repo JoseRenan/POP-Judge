@@ -6,43 +6,53 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		<p:growl autoUpdate="true" showDetail="false" id="growl"/>
-		<div align="center">
-			<h:form id="clarifications">
-				<h:panelGrid columns="1">
-					<p:selectOneMenu id="problem" value="#{clarification.clarification.problem.idProblem}"
-						required="true" style="width:283px;">
-						<f:selectItem itemLabel="InfoOS" itemValue="1" />
-						<f:selectItem itemLabel="Vanlex pede socorro!" itemValue="2" />
-						<f:selectItem itemLabel="Marcelo e seus pixels" itemValue="3" />
-						<f:selectItem itemLabel="Quer Jogar POP?" itemValue="4" />
-						<f:selectItem itemLabel="Torre da Sorte" itemValue="5" />
-					</p:selectOneMenu>
-					<p:inputTextarea rows="5" style="width:275px;" counter="display"
-						maxlength="250" counterTemplate="{0} caracteres restantes"
-						autoResize="false" value="#{clarification.clarification.issue}" required="true"/>
-				</h:panelGrid>
-				<h:outputText id="display" />
-				<br />
-				<br />
-				<p:commandButton value="Enviar"
-					actionListener="#{clarification.doIssue}" update="clarifications , tabela"/>
-			</h:form>
+		<p:growl autoUpdate="true" showDetail="false" id="growl" />
+		<div class="margem">
+			<p:button outcome="allIssues" value="Todas as dúvidas" />
+			<div align="center">
+				<p:dataTable id="listProblems" var="problems"
+					value="#{problemDAO.all}" rowIndexVar="rowIndex">
+					<p:column headerText="#" width="50">
+						<div align="center">
+							<h:outputText value="P#{rowIndex+1}" />
+						</div>
+					</p:column>
+					<p:column headerText="Problema">
+						<h:outputText value="#{problems.title}" />
+					</p:column>
+					<p:column style="width:200px;text-align: center"
+						headerText="Escrever Dúvida">
+						<p:commandButton icon="	ui-icon-help" title="Enviar"
+							update="problemDetail" oncomplete="PF('problemDialog').show()">
+							<f:setPropertyActionListener value="#{problems}"
+								target="#{clarification.selectedProblem}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</div>
+			<p:dialog header="Dúvida" widgetVar="problemDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+
+				<p:outputPanel id="problemDetail" style="text-align:center;">
+					<h:form id="clarifications">
+						<h:panelGrid columns="1">
+							<p:inputTextarea rows="5" style="width:275px;" counter="display"
+								maxlength="250" counterTemplate="{0} caracteres restantes"
+								autoResize="false" value="#{clarification.clarification.issue}"
+								required="true" />
+
+							<h:outputText id="display" />
+							<br />
+							<br />
+							<p:commandButton value="Enviar" oncomplete="PF('problemDialog').hide()"
+								actionListener="#{clarification.doIssue}"
+								update="clarifications" />
+						</h:panelGrid>
+					</h:form>
+				</p:outputPanel>
+
+			</p:dialog>
+
 		</div>
-		<p:separator />
-		<p:dataTable var="issue" value="#{issuedao.all}" id="tabela">
-			<p:column headerText="ID" width="30">
-				<div align="center"><h:outputText value="#{issue.idClarification}"/></div>
-			</p:column>
-			<p:column headerText="Problema" width="100">
-				<div align="center"><h:outputText value="P#{issue.idProblem}"/></div>
-			</p:column>
-			<p:column headerText="Dúvida">
-				<h:outputText value="#{issue.issue}" />
-			</p:column>
-			<p:column headerText="Resposta">
-				<h:outputText value="#{issue.answer}" />
-			</p:column>
-		</p:dataTable>
 	</ui:define>
 </ui:composition>
