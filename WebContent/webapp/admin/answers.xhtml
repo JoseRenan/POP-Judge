@@ -6,42 +6,58 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		<h:form>
-			<p:growl autoUpdate="true" showDetail="false"/>
-			<p:dataTable id="selectIssue" var="issue" value="#{issuedao.notReplied}"
-				selection="#{clarification.clarification}"
-				rowKey="#{issue.idClarification}" paginator="true" rows="5">
-				<f:facet name="header">
+		<p:growl autoUpdate="true" showDetail="false" />
+		<p:dataTable id="selectIssue" var="issue"
+			value="#{issuedao.notReplied}">
+			<f:facet name="header">
           			Selecione a dúvida a ser respondida
-       			</f:facet>
-				<p:column selectionMode="single"
-					style="width:16px;text-align:center" />
-				<p:column headerText="ID" width="30">
-					<div align="center">
-						<h:outputText value="#{issue.idClarification}" />
-					</div>
-				</p:column>
-				<p:column headerText="Problema" width="100">
-					<div align="center">
-						<h:outputText value="P#{issue.idProblem}" />
-					</div>
-				</p:column>
-				<p:column headerText="Dúvida">
-					<h:outputText value="#{issue.issue}" />
-				</p:column>
-			</p:dataTable>
-			<p:separator />
-			<div align="center">
-				<p:outputLabel value="Resposta" />
-				<br /> <br />
+       		</f:facet>
+			<p:column headerText="ID" width="30">
+				<div align="center">
+					<h:outputText value="#{issue.idClarification}" />
+				</div>
+			</p:column>
+			<p:column headerText="Problema" width="300">
+				<div align="center">
+					<h:outputText value="#{issue.problem.title}" />
+				</div>
+			</p:column>
+			<p:column headerText="Dúvida">
+				<h:outputText value="#{issue.issue}" />
+			</p:column>
 
-				<p:inputTextarea id="textArea" value="#{clarification.clarification.answer}" style="width:50%;"
-					maxlength="250" autoResize="false" required="true"/>
+			<p:column style="width:90px;text-align: center"
+				headerText="Responder">
+				<p:commandButton icon="ui-icon-circle-arrow-n" title="Responder"
+					update=":form:answerDetail" oncomplete="PF('answerDialog').show()">
+					<f:setPropertyActionListener value="#{issue}"
+						target="#{clarification.clarification}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
 
-				<br /> <br />
-				<p:commandButton value="Responder"
-					action="#{clarification.replyIssue}" update="selectIssue , textArea"/>
-			</div>
+		<h:form id="form">
+			<p:dialog header="Resposta" widgetVar="answerDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+
+				<p:outputPanel id="answerDetail" style="text-align:center;">
+					<h:panelGrid columns="1">
+						<p:inputTextarea id="textArea" rows="5" style="width:275px;"
+							counter="display" maxlength="250"
+							counterTemplate="{0} caracteres restantes" autoResize="false"
+							value="#{clarification.clarification.answer}" required="true" />
+						<div align="center">
+							<h:outputText id="display" />
+						</div>
+						<p:commandButton value="Responder"
+							oncomplete="PF('answerDialog').hide()"
+							action="#{clarification.replyIssue}"
+							update="selectIssue , textArea" />
+					</h:panelGrid>
+
+				</p:outputPanel>
+
+			</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

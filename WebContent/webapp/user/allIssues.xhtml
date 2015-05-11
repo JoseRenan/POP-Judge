@@ -9,12 +9,15 @@
 		<p:growl autoUpdate="true" showDetail="false" id="growl" />
 
 		<p:dataTable var="issue" value="#{issuedao.all}" id="tabela">
+			<f:facet name="header">
+          			Todas ás dúvidas
+       		</f:facet>
 			<p:column headerText="ID" width="30">
 				<div align="center">
 					<h:outputText value="#{issue.idClarification}" />
 				</div>
 			</p:column>
-			<p:column headerText="Problema">
+			<p:column headerText="Problema" width="300">
 				<div align="center">
 					<h:outputText value="#{issue.problem.title}" />
 				</div>

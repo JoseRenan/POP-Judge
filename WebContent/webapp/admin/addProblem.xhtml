@@ -17,7 +17,9 @@
 
 				<p:dataTable id="listProblems" var="problems"
 					value="#{problemDAO.all}">
-
+					<f:facet name="header">
+          				Problemas existentes
+       				</f:facet>
 					<p:column headerText="Nome do Problema">
 						<h:outputText value="#{problems.title}" />
 					</p:column>

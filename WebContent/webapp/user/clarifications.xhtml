@@ -12,6 +12,9 @@
 			<div align="center">
 				<p:dataTable id="listProblems" var="problems"
 					value="#{problemDAO.all}" rowIndexVar="rowIndex">
+					<f:facet name="header">
+          				Selecione o problema
+       				</f:facet>
 					<p:column headerText="#" width="50">
 						<div align="center">
 							<h:outputText value="P#{rowIndex+1}" />

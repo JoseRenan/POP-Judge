@@ -10,6 +10,9 @@
 		<div align="center">
 			<p:dataTable var="allSubmissions" value="#{submissionDAO.getAll()}" id="table"
 				style="width:900px;">
+				<f:facet name="header">
+          			Lista de submissões
+       			</f:facet>
 				<p:column headerText="Usuário">
 					<div align="center">
 						<h:outputText value="#{allSubmissions.user.username}" />
