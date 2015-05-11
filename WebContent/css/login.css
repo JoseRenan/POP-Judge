@@ -1,10 +1,15 @@
 @CHARSET "UTF-8";
 
+.geral{
+	min-width: 100%;
+	min-height: 100%;
+}
+
 .right{
 	float: right;
 	min-height: 100%;
 	min-width: 42%;
-	margin-top: 23%;
+	margin-top: 20%;
 }
 
 .left{

@@ -22,31 +22,38 @@ import br.edu.popjudge.domain.User;
 public class Filtro implements Filter{
 	
 	@Override
-	public void doFilter (ServletRequest request, ServletResponse response, FilterChain chain ) throws IOException , ServletException {
+	public void doFilter (ServletRequest request, ServletResponse response, 
+			FilterChain chain ) throws IOException , ServletException {
+		
 		HttpServletRequest req = ( HttpServletRequest ) request ;
 		HttpSession session = req.getSession() ;
+		
 		String username = null;
 		
 		if ((User) session.getAttribute("user") != null)
 			username = ((User) session.getAttribute("user")).getUsername();
 			
+		System.out.println("Requisição:" + req.getRequestURI());
 		
 		if (username != null &&
 				!username.equals("Admin") &&
 		    	((TimerBean.validaHorario() 
-				&& !req.getRequestURI().endsWith("index.xhtml") 
-				&& !req.getRequestURI().endsWith("Judge/")
-				&& !req.getRequestURI().contains("admin"))
-				||(!TimerBean.validaHorario()
-				&& !req.getRequestURI().endsWith("index.xhtml") 
-				&& !req.getRequestURI().endsWith("Judge/")
-				&& !req.getRequestURI().contains("admin")
-				&& !req.getRequestURI().contains("submit") 
-				&& !req.getRequestURI().contains("standings")
-				&& !req.getRequestURI().contains("clarifications")
-				&& !req.getRequestURI().contains("problems"))
-				|| req.getRequestURI().contains("javax.faces.resource"))) {
+		    			&& !req.getRequestURI().endsWith("index.xhtml") 
+		    			&& !req.getRequestURI().endsWith("Judge/")
+		    			&& !req.getRequestURI().contains("admin"))
+		    	||(!TimerBean.validaHorario()
+		    			&& !req.getRequestURI().endsWith("index.xhtml") 
+		    			&& !req.getRequestURI().endsWith("Judge/")
+		    			&& !req.getRequestURI().contains("admin")
+		    			&& !req.getRequestURI().contains("submit") 
+		    			&& !req.getRequestURI().contains("standings")
+		    			&& !req.getRequestURI().contains("clarifications")
+		    			&& !req.getRequestURI().contains("problems"))
+				|| req.getRequestURI().contains("resource"))) {
+			
+			System.out.println("Redirecionado para:" + req.getRequestURI());
 			chain.doFilter( request, response );
+			
 		} else {
 			
 			if(username != null &&
@@ -55,6 +62,8 @@ public class Filtro implements Filter{
 					&& !req.getRequestURI().endsWith("Judge/")
 					&& req.getRequestURI().contains("admin")
 					|| req.getRequestURI().contains("javax.faces.resource"))){
+				
+				System.out.println("Redirecionado para admin:" + req.getRequestURI());
 				chain.doFilter( request, response );
 			} else {
 				
@@ -62,8 +71,10 @@ public class Filtro implements Filter{
 						(req.getRequestURI().endsWith("index.xhtml")
 						|| req.getRequestURI().endsWith("Judge/")
 						|| req.getRequestURI().contains("javax.faces.resource"))){
+					System.out.println("Redirecionado para si mesmo (resources):" + req.getRequestURI());
 					chain.doFilter( request, response );				
 				} else {
+					
 					HttpServletResponse res = ( HttpServletResponse ) response ;
 					
 					if(username == null)

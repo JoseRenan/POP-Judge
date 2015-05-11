@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import br.edu.popjudge.database.dao.UserDAO;
 import br.edu.popjudge.domain.User;
 
 @ManagedBean
+@ViewScoped
 public class UserBean {
 
 	private User user = new User();
@@ -25,33 +27,36 @@ public class UserBean {
 	}
 
 	public String login() throws IOException, SQLException {
+		
+		String redirect = null;
+		
 		UserDAO ud = new UserDAO();
 		User u = ud.get(this.user.getUsername());
 
 		if (u == null || !u.getPassword().equals(this.user.getPassword())) {
-			this.user.setUsername(null);
-			this.user.setPassword(null);
-
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha incorretos", ""));
-			return "";
+			
+			FacesContext.getCurrentInstance().addMessage(
+					null, 
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+							"Usuário ou senha incorretos", ""));
+			return redirect;
 		}
 
 		if (this.user.username.equalsIgnoreCase("Admin")) {
+			
 			logging(u);
-			this.user.setUsername(null);
-			this.user.setPassword(null);
+			
 			return "/webapp/admin/indexAdmin.xhtml?faces-redirect=true";
-
 		}
 
 		if (u.getUsername().equalsIgnoreCase(this.user.username)) {
+			
 			logging(u);
-			this.user.setUsername(null);
-			this.user.setPassword(null);
+			
 			return "/webapp/user/indexUser.xhtml?faces-redirect=true";
 		}
 		
-		return "";
+		return redirect;
 	}
 
 	public void logout() throws IOException {
