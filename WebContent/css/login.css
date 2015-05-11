@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+.right{
+	float: right;
+	min-height: 100%;
+	min-width: 42%;
+	margin-top: 23%;
+}
+
+.left{
+	float: left;
+	min-width: 37%;
+	min-height: 100%;
+	border-right: 1px solid #000;
+	margin-top: 16%;
+	margin-left: 16%;
+}

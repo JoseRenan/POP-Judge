@@ -7,40 +7,36 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>II Maratona POP</title>
+	<title>POPJudge</title>
 	<link href="/POP-Judge/resources/img/icon.png" type="image/x-icon"
 		rel="shortcut icon" />
+	<link rel="stylesheet" type="text/css"
+		href="/POP-Judge/css/login.css" />
 	<style>
-.center {
-	width: 520px;
-	height: 400px;
-	margin-left: -140px; /* metade da largura */
-	margin-top: -100px; /* metade da altura */
-	position: absolute;
-	top: 50%;
-	left: 50%;
-}
 
 body {
 	background: #F8F8FF;
-	font-family: "Lucida Grande", "Lucida Sans Unicode", "Ubuntu", Verdana,
-		sans-serif;
-	line-height: 1.6;
 }
 </style>
 </h:head>
 
 <h:body>
 	<h:form>
-
 		<p:messages id="messages" showDetail="false" autoUpdate="true"
 			closable="true" />
-		<div class="center">
+		
+		<div class="left">
+			<img src="/POP-Judge/resources/img/logo.png" width="400px"/>
+		</div>
+		
+		<div class="right">
 			<h:panelGrid columns="2">
-				<p:outputLabel value="Login: " for="login"/>
-				<p:inputText value="#{userBean.user.username}" id="login" required="true"/>
-				<p:outputLabel value="Senha: " for="senha"/>
-				<p:password value="#{userBean.user.password}" id="senha" required="true"/>
+				<p:outputLabel value="Login: " for="login" />
+				<p:inputText value="#{userBean.user.username}" id="login"
+					required="true" />
+				<p:outputLabel value="Senha: " for="senha" />
+				<p:password value="#{userBean.user.password}" id="senha"
+					required="true" />
 				<div align="center">
 					<p:commandButton value="Entrar" action="#{userBean.login}"
 						icon="ui-icon-check" ajax="false" />
