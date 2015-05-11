@@ -49,9 +49,9 @@ public class ClarificationBean {
 		
 		this.clarification = new Clarification();
 			
-		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Enviado!",""));
-		
 		FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/webapp/user/allIssues.xhtml");
+		
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Enviado!",""));
 	}
 	
 	public void replyIssue() throws SQLException {
