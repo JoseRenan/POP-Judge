@@ -6,72 +6,81 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		<p:button outcome="createProblems" value="Novo Problema" />
-		<h:form id="form">
-			<p:growl autoUpdate="true" showDetail="false" />
+		<div class="margem">
+			<p:button outcome="createProblems" value="Novo Problema" />
+			<h:form id="form">
+				<p:growl autoUpdate="true" showDetail="false" />
 
-			
-			<p:remoteCommand name="removeRC" update=":form:listProblems" actionListener="#{problem.deleteProblem}"/>
-			
-			<p:dataTable id="listProblems" var="problems"
-				value="#{problemDAO.all}">
 
-				<p:column headerText="Nome do Problema">
-					<h:outputText value="#{problems.title}" />
-				</p:column>
+				<p:remoteCommand name="removeRC" update=":form:listProblems"
+					actionListener="#{problem.deleteProblem}" />
 
-				<p:column style="width:80px;text-align: center">
+				<p:dataTable id="listProblems" var="problems"
+					value="#{problemDAO.all}">
 
-					<p:commandButton icon="ui-icon-pencil" title="Editar"
-						update=":form:problemDetail"
-						oncomplete="PF('problemDialog').show()">
-						<f:setPropertyActionListener value="#{problems}"
-							target="#{problem.selectedProblem}" />
-					</p:commandButton>
-				
-					<p:commandButton icon="ui-icon-close" title="Apagar"
-						update=":form:problemDetail2"
-						oncomplete="PF('problemDialog2').show()">
-						<f:setPropertyActionListener value="#{problems}"
-							target="#{problem.selectedProblem}" />
-					</p:commandButton>	
-				</p:column>
+					<p:column headerText="Nome do Problema">
+						<h:outputText value="#{problems.title}" />
+					</p:column>
 
-			</p:dataTable>
-			
-			<p:dialog header="Apagar Problema" widgetVar="problemDialog2"
-				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					<p:column style="width:80px;text-align: center">
 
-				<p:outputPanel id="problemDetail2" style="text-align:center;">
-					<p:panelGrid columns="2"
-						rendered="#{null ne problem.selectedProblem}"
-						columnClasses="label,value">
-						<p:commandButton action="#{problem.deleteProblem}" value="Sim" update=":form:listProblems" onclick="problemDialog.hide()" process="@none" icon="ui-icon-circle-check"/>					
-						<p:commandButton value="Não" update=":form:listProblems" onclick="problemDialog.hide()" process="@none" icon="ui-icon-circle-close"/>
+						<p:commandButton icon="ui-icon-pencil" title="Editar"
+							update=":form:problemDetail"
+							oncomplete="PF('problemDialog').show()">
+							<f:setPropertyActionListener value="#{problems}"
+								target="#{problem.selectedProblem}" />
+						</p:commandButton>
 
-					</p:panelGrid>
-				</p:outputPanel>
-			</p:dialog>
-			
-			<p:dialog header="Editar Problema" widgetVar="problemDialog"
-				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+						<p:commandButton icon="ui-icon-close" title="Apagar"
+							update=":form:problemDetail2"
+							oncomplete="PF('problemDialog2').show()">
+							<f:setPropertyActionListener value="#{problems}"
+								target="#{problem.selectedProblem}" />
+						</p:commandButton>
+					</p:column>
 
-				<p:outputPanel id="problemDetail" style="text-align:center;">
-					<p:panelGrid columns="2"
-						rendered="#{null ne problem.selectedProblem}"
-						columnClasses="label,value">
+				</p:dataTable>
 
-						<p:outputLabel value="Nome:" />
-						<p:inputText value="#{problem.selectedProblem.title}" />
-						<p:outputLabel value="Pontuação" />
-						<p:inputText value="#{problem.selectedProblem.scorePoints}"/>
-						<p:outputLabel value="Tempo Limite" />
-						<p:inputText value="#{problem.selectedProblem.timeLimit}" />
-						<p:commandButton action="#{problem.editProblem}" value="Editar" update=":form:listProblems" onclick="problemDialog.hide()" process="@none"/>
+				<p:dialog header="Apagar Problema" widgetVar="problemDialog2"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 
-					</p:panelGrid>
-				</p:outputPanel>
-			</p:dialog>
-		</h:form>
+					<p:outputPanel id="problemDetail2" style="text-align:center;">
+						<p:panelGrid columns="2"
+							rendered="#{null ne problem.selectedProblem}"
+							columnClasses="label,value">
+							<p:commandButton action="#{problem.deleteProblem}" value="Sim"
+								update=":form:listProblems" onclick="problemDialog.hide()"
+								process="@none" icon="ui-icon-circle-check" />
+							<p:commandButton value="Não" update=":form:listProblems"
+								onclick="problemDialog.hide()" process="@none"
+								icon="ui-icon-circle-close" />
+
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+
+				<p:dialog header="Editar Problema" widgetVar="problemDialog"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+					<p:outputPanel id="problemDetail" style="text-align:center;">
+						<p:panelGrid columns="2"
+							rendered="#{null ne problem.selectedProblem}"
+							columnClasses="label,value">
+
+							<p:outputLabel value="Nome:" />
+							<p:inputText value="#{problem.selectedProblem.title}" />
+							<p:outputLabel value="Pontuação" />
+							<p:inputText value="#{problem.selectedProblem.scorePoints}" />
+							<p:outputLabel value="Tempo Limite" />
+							<p:inputText value="#{problem.selectedProblem.timeLimit}" />
+							<p:commandButton action="#{problem.editProblem}" value="Editar"
+								update=":form:listProblems" onclick="problemDialog.hide()"
+								process="@none" />
+
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
+		</div>
 	</ui:define>
 </ui:composition>

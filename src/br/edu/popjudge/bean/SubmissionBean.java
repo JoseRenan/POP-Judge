@@ -73,11 +73,6 @@ public class SubmissionBean {
 			InputStream in = new BufferedInputStream(this.getUpFile().getInputstream());
 
 			this.submission.setUser((User) session.getAttribute("user"));
-			
-			/*
-			 * Gets user 's id. TODO Isso vai dar merda . Mas vou esperar testar
-			 * pra corrigir .
-			 */
 		
 			this.submission.setDir(this.submission.getUser().getDir() + "/" + this.submission.getIdSubmission());
 			
@@ -112,6 +107,8 @@ public class SubmissionBean {
 				// TODO Falta fazer toda a parte que manipula o ranking
 
 				this.submission = new Submission();
+				
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/webapp/user/mySubmissions.xhtml");
 
 			} catch (SQLException e) {
 				e.printStackTrace();

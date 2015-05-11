@@ -7,43 +7,45 @@
 
 	<ui:define name="content">
 		<p:growl id="growl" autoUpdate="true" />
-		<p:button outcome="mySubmissions" value="Minhas Submissões" />
-		<div align="center">
-			<p:dataTable id="listProblems" var="problems"
-				value="#{problemDAO.all}" rowIndexVar="rowIndex">
-				<p:column headerText="#" width="50">
-					<div align="center">
-						<h:outputText value="P#{rowIndex+1}" />
-					</div>
-				</p:column>
-				<p:column headerText="Problema">
-					<h:outputText value="#{problems.title}" />
-				</p:column>
-				<p:column headerText="Pontuação" width="100">
-					<div align="center">
-						<h:outputText value="#{problems.scorePoints}" />
-					</div>
-				</p:column>
-				<p:column style="width:90px;text-align: center" headerText="Submeter">
-					<p:commandButton icon="ui-icon-circle-arrow-n" title="Submeter"
-						update="problemDetail" oncomplete="PF('problemDialog').show()">
-						<f:setPropertyActionListener value="#{problems}"
-							target="#{submission.selectedProblem}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+		<div class="margem">
+			<p:button outcome="mySubmissions" value="Minhas Submissões" />
+			<div align="center">
+				<p:dataTable id="listProblems" var="problems"
+					value="#{problemDAO.all}" rowIndexVar="rowIndex">
+					<p:column headerText="#" width="50">
+						<div align="center">
+							<h:outputText value="P#{rowIndex+1}" />
+						</div>
+					</p:column>
+					<p:column headerText="Problema">
+						<h:outputText value="#{problems.title}" />
+					</p:column>
+					<p:column headerText="Pontuação" width="100">
+						<div align="center">
+							<h:outputText value="#{problems.scorePoints}" />
+						</div>
+					</p:column>
+					<p:column style="width:90px;text-align: center"
+						headerText="Submeter">
+						<p:commandButton icon="ui-icon-circle-arrow-n" title="Submeter"
+							update="problemDetail" oncomplete="PF('problemDialog').show()">
+							<f:setPropertyActionListener value="#{problems}"
+								target="#{submission.selectedProblem}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
 
-			<p:dialog header="Submeter" widgetVar="problemDialog" modal="true"
-				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:dialog header="Submeter" widgetVar="problemDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
 
-				<p:outputPanel id="problemDetail" style="text-align:center;">
+					<p:outputPanel id="problemDetail" style="text-align:center;">
 						<h:form enctype="multipart/form-data">
 							<p:scrollPanel style="width:400px;height:250px">
 								<div align="center">
 									<h:panelGrid columns="1">
-										<br/>
-										<br/>
-										<br/>
+										<br />
+										<br />
+										<br />
 										<p:outputLabel for="linguagem" value="Linguagem: " />
 										<p:selectOneRadio id="linguagem"
 											value="#{submission.idLanguage}" layout="grid" columns="5"
@@ -60,13 +62,14 @@
 									skinSimple="true" mode="simple" icon="ui-icon-plus"
 									required="true" />
 								<p:commandButton action="#{submission.submit}" value="Enviar"
-									ajax="false" icon="ui-icon-extlink" style="width:106px;" />
+									ajax="false" icon="ui-icon-extlink" style="width:106px;" update="growl"/>
 							</p:scrollPanel>
 						</h:form>
-				</p:outputPanel>
+					</p:outputPanel>
 
-			</p:dialog>
+				</p:dialog>
 
+			</div>
 		</div>
 	</ui:define>
 </ui:composition>
