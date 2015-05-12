@@ -1,15 +1,14 @@
 @CHARSET "UTF-8";
 
 .right{
-	float: right;
 	position: relative;
-	margin-right: 16%;
-	margin-top: 28%;
+	margin-top: 20%;
 }
 
-fieldset {
+.all fieldset {
 	height: 400px;
 	min-height: 400px;
+	max-width: 400px;
 	margin-left: 4%;
 	margin-top: 10%;
 	margin-bottom: 10%;
@@ -22,9 +21,11 @@ fieldset {
 	background-color: #f8feff;
 }
 
-div{}
+.all{
+	width: 100%;	
+}
 
-div fieldset {
+.default fieldset {
 	float: right;
 	width: 300px;
 	min-width: 300px;
@@ -36,12 +37,12 @@ div fieldset {
 	border: #9eb7b6;
 	box-shadow: 5px 4px 3px #e1e1e1;
 	background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.1));
-	background-color: #eaffff;
+	background-color: #d3f2f2;
 }
 
 .left{
 	float: left;
 	position: relative;
-	margin-left: 10%;
+	margin-left: 8%;
 	margin-top: 5%;
 }
