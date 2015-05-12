@@ -22,25 +22,32 @@ body {
 	<h:form>
 		<p:messages id="messages" showDetail="false" autoUpdate="true"
 			closable="true" />
-	
-		<div class="left">
-			<div class="geral"><img src="/POP-Judge/resources/img/logo.png" width="400px" /></div>
-		</div>
-
-		<div class="right">
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Login: " for="login" />
-				<p:inputText value="#{userBean.user.username}" id="login"
-					required="true" />
-				<p:outputLabel value="Senha: " for="senha" />
-				<p:password value="#{userBean.user.password}" id="senha"
-					required="true" />
-				<div align="center">
-					<p:commandButton value="Entrar" action="#{userBean.login}"
-						icon="ui-icon-check" ajax="false" />
-				</div>
-			</h:panelGrid>
-		</div>
+		<fieldset>
+			<div class="left">
+				<h:panelGrid columns="1" style="height: 100%;">
+					<img src="/POP-Judge/resources/img/logo.png" width="500px" />
+				</h:panelGrid>
+			</div>
+			<div>
+				<fieldset>
+					<div class="right">
+						<div align="center">
+							<h:panelGrid columns="1">
+								<p:outputLabel value="Login " for="login" />
+								<p:inputText value="#{userBean.user.username}" id="login"
+									required="true" />
+								<p:outputLabel value="Senha " for="senha" />
+								<p:password value="#{userBean.user.password}" id="senha"
+									required="true" />
+							</h:panelGrid>
+							<br />
+							<p:commandButton value="Entrar" action="#{userBean.login}"
+								icon="ui-icon-check" ajax="false" />
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</fieldset>
 	</h:form>
 </h:body>
 </html>

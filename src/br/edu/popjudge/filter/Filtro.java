@@ -33,7 +33,6 @@ public class Filtro implements Filter{
 		if ((User) session.getAttribute("user") != null)
 			username = ((User) session.getAttribute("user")).getUsername();
 			
-		System.out.println("Requisição:" + req.getRequestURI());
 		
 		if (username != null &&
 				!username.equals("Admin") &&
@@ -51,7 +50,6 @@ public class Filtro implements Filter{
 		    			&& !req.getRequestURI().contains("problems"))
 				|| req.getRequestURI().contains("resource"))) {
 			
-			System.out.println("Redirecionado para:" + req.getRequestURI());
 			chain.doFilter( request, response );
 			
 		} else {
@@ -63,7 +61,6 @@ public class Filtro implements Filter{
 					&& req.getRequestURI().contains("admin")
 					|| req.getRequestURI().contains("javax.faces.resource"))){
 				
-				System.out.println("Redirecionado para admin:" + req.getRequestURI());
 				chain.doFilter( request, response );
 			} else {
 				
@@ -71,7 +68,7 @@ public class Filtro implements Filter{
 						(req.getRequestURI().endsWith("index.xhtml")
 						|| req.getRequestURI().endsWith("Judge/")
 						|| req.getRequestURI().contains("javax.faces.resource"))){
-					System.out.println("Redirecionado para si mesmo (resources):" + req.getRequestURI());
+					
 					chain.doFilter( request, response );				
 				} else {
 					
