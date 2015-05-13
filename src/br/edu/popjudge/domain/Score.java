@@ -1,36 +1,40 @@
 package br.edu.popjudge.domain;
 
 public class Score {
-	private int id_problem;
-	private int score;
+	private int idProblem;
+	private int tries;
+	private int passedTime;
 	
 	public Score() {}
 	
-	public Score(Integer id_problem, Integer score) {
-		this.id_problem = id_problem;
-		this.score = score;
+	public Score(int idProblem, int tries, int passedTime) {
+		super();
+		this.idProblem = idProblem;
+		this.tries = tries;
+		this.passedTime = passedTime;
 	}
 
-	public Integer getId_problem() {
-		return id_problem;
+	public int getIdProblem() {
+		return idProblem;
 	}
 
-	public void setId_problem(Integer id_problem) {
-		this.id_problem = id_problem;
+	public void setIdProblem(int idProblem) {
+		this.idProblem = idProblem;
 	}
 
-	public Integer getScore() {
-		return score;
+	public int getTries() {
+		return tries;
 	}
 
-	public void setScore(Integer score) {
-		this.score = score;
+	public void setTries(int tries) {
+		this.tries = tries;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		Score score = (Score)obj;
-		return score.id_problem == id_problem;
+	public int getPassedTime() {
+		return passedTime;
 	}
 
+	public void setPassedTime(int passedTime) {
+		this.passedTime = passedTime;
+	}
 }

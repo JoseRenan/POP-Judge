@@ -82,20 +82,17 @@ CREATE TABLE SUBMISSION (
 	REFERENCES LANGUAGE(id_language)
 );
 
-CREATE TABLE RANKING ( 
-	username VARCHAR(50) NOT NULL,
-	id_problem INT,
-	score INT DEFAULT 0, -- O Score será a quantidade de pontos obtidos em cada problema.
+CREATE TABLE RANKING (
+	username VARCHAR(50),
+	id_problem INT NOT NULL,
+	tries INT NOT NULL,
+	passed_time TIMESTAMP NOT NULL,
 	
-	PRIMARY KEY (username, id_problem), 
+	PRIMARY KEY(username, id_problem)
 	
 	CONSTRAINT fk_USER_username_RANKING_username
-	FOREIGN KEY (username) 
-	REFERENCES USER(username),
-	
-	CONSTRAINT fk_PROBLEM_id_problem_RANKING_id_problem 
-	FOREIGN KEY (id_problem) 
-	REFERENCES PROBLEM(id_problem)
+	FOREIGN KEY (username)
+	REFERENCES USER(username)
 );
 
 CREATE INDEX username

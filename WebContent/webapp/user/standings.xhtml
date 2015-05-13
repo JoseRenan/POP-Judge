@@ -4,11 +4,34 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<ui:define name="content">
-		
-		
-		    
+
+		<p:dataTable var="userRank" value="#{rankingBean.getRanking()}">
+
+			<p:columnGroup type="header" rowIndexVar="rowIndex">
+				<p:row>
+					<p:column rowspan="2" headerText="Usuário" />
+					<p:column colspan="#{rankingBean.userRank.problemCount()}"
+						headerText="Problemas" />
+				</p:row>
+				<p:row>
+					<ui:repeat value="#{problemDAO.all}" var="all">
+						<p:column headerText="#{all.idProblem}" />
+					</ui:repeat>
+				</p:row>
+			</p:columnGroup>
+
+			<p:column>
+				<h:outputText value="" />
+			</p:column>
+
+			<p:columns value="#" >
+				<h:outputText value="" />
+			</p:columns>
+
+		</p:dataTable>
+
 	</ui:define>
-	
+
 </ui:composition>
