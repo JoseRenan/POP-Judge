@@ -37,10 +37,12 @@ public class Filtro implements Filter{
 		if (username != null &&
 				!username.equals("Admin") &&
 		    	((TimerBean.validaHorario() 
+		    			&& !req.getRequestURI().contains("signUp")
 		    			&& !req.getRequestURI().endsWith("index.xhtml") 
 		    			&& !req.getRequestURI().endsWith("Judge/")
 		    			&& !req.getRequestURI().contains("admin"))
 		    	||(!TimerBean.validaHorario()
+		    			&& !req.getRequestURI().contains("signUp")
 		    			&& !req.getRequestURI().endsWith("index.xhtml") 
 		    			&& !req.getRequestURI().endsWith("Judge/")
 		    			&& !req.getRequestURI().contains("admin")
@@ -58,6 +60,7 @@ public class Filtro implements Filter{
 					username.equals("Admin") &&
 					(!req.getRequestURI().endsWith("index.xhtml") 
 					&& !req.getRequestURI().endsWith("Judge/")
+					&& !req.getRequestURI().contains("signUp")
 					&& req.getRequestURI().contains("admin")
 					|| req.getRequestURI().contains("javax.faces.resource"))){
 				
@@ -67,6 +70,7 @@ public class Filtro implements Filter{
 				if(username == null &&
 						(req.getRequestURI().endsWith("index.xhtml")
 						|| req.getRequestURI().endsWith("Judge/")
+						|| req.getRequestURI().contains("signUp")
 						|| req.getRequestURI().contains("javax.faces.resource"))){
 					
 					chain.doFilter( request, response );				
@@ -85,6 +89,7 @@ public class Filtro implements Filter{
 			}
 
 		}
+		
 	}
 		
 	@Override

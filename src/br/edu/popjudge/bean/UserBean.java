@@ -1,6 +1,7 @@
 package br.edu.popjudge.bean;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
@@ -14,8 +15,12 @@ import br.edu.popjudge.domain.User;
 
 @ManagedBean
 @ViewScoped
-public class UserBean {
+public class UserBean implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private User user = new User();
 
 	public User getUser() {
@@ -87,7 +92,9 @@ public class UserBean {
 
 			this.user.setUsername(null);
 			this.user.setPassword(null);
-
+			
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/");
+			
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO,

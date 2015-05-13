@@ -52,7 +52,7 @@
 										<p:outputLabel for="linguagem" value="Linguagem: " />
 										<p:selectOneRadio id="linguagem"
 											value="#{submission.idLanguage}" layout="grid" columns="5"
-											required="true">
+											required="true" requiredMessage="Selecione a linguagem">
 											<f:selectItem itemLabel="PASCAL" itemValue="4" />
 											<f:selectItem itemLabel="PYTHON" itemValue="5" />
 											<f:selectItem itemLabel="JAVA" itemValue="3" />
@@ -63,7 +63,7 @@
 								</div>
 								<p:fileUpload value="#{submission.upFile}" label="Arquivo"
 									skinSimple="true" mode="simple" icon="ui-icon-plus"
-									required="true" />
+									required="true" requiredMessage="Selecione o arquivo a ser enviado"/>
 								<p:commandButton action="#{submission.submit}" value="Enviar"
 									ajax="false" icon="ui-icon-extlink" style="width:106px;" update="growl"/>
 							</p:scrollPanel>

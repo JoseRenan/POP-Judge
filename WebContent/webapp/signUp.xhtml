@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>POPJudge</title>
+	<link href="/POP-Judge/resources/img/icon.png" type="image/x-icon"
+		rel="shortcut icon" />
+	<style>
+body {
+	background: #F8F8FF;
+}
+
+table {
+	font-size: 12px;
+}
+</style>
+</h:head>
+
+<h:body>
+	<p:growl autoUpdate="true" />
+	<div align="center">
+		<a href="/POP-Judge/"><img src="/POP-Judge/resources/img/logo.png" width="350px" /></a> <br />
+		<br />
+		<h:form id="form">
+
+			<h:panelGrid columns="1" cellpadding="3">
+				<f:facet name="header">
+					<p:outputLabel value="Cadastro" style="font-size: 20px;" />
+				</f:facet>
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Nome Completo" />
+					<p:inputText id="fullName" value="#{userBean.user.fullName}"
+						required="true" requiredMessage="Insira o nome completo"
+						style="width: 350px;"/>
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Cidade" />
+					<p:inputText id="city" value="#{userBean.user.city}"
+						required="true" requiredMessage="Insira a cidade"
+						style="width: 350px;"/>
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<p:outputLabel value="instituição onde estuda" />
+					<p:inputText id="college" value="#{userBean.user.college}"
+						required="false" style="width: 350px;"/>
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Email" />
+					<p:inputText id="email" value="#{userBean.user.email}"
+						required="true" requiredMessage="Insira o email"
+						style="width: 350px;"/>
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Nome de login" />
+					<p:inputText id="login" value="#{userBean.user.username}"
+						required="true" requiredMessage="Insira o nome de login"
+						style="width: 350px;" />
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Senha" />
+					<p:password id="senha" value="#{userBean.user.password}"
+						match="senha2" required="true" requiredMessage="Insira a senha"
+						validatorMessage="As senhas não correspondem"
+						style="width: 350px;"/>
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Digite a senha novamente" />
+					<p:password id="senha2" value="#{userBean.user.password}"
+						required="true" requiredMessage="Digite a senha novamente"
+						style="width: 350px;"/>
+				</h:panelGrid>
+			</h:panelGrid>
+			<br />
+			<p:commandButton value="Finalizar" action="#{userBean.newUser}"
+				icon="ui-icon-circle-check" update="form" />
+		</h:form>
+	</div>
+</h:body>
+</html>

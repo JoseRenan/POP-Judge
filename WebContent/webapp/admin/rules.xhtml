@@ -7,13 +7,14 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<ui:define name="content">
+		<p:growl autoUpdate="true"/>
 		<div align="center">
 			<h:form>
-				<p:outputLabel value="Nome do contest: " />
-				<p:inputText value="#{contest.nome}" />
-				<h:panelGrid columns="1"  cellspacing="30">
+				<p:outputLabel value="Nome do contest: "/> <br/><br/>
+				<p:inputText value="#{contest.nome}" requiredMessage="Digte um nome para o contest" style="width:600px; heigth:35px; font-size:18px;" required="true"/>
+				<h:panelGrid columns="1">
 					<p:outputLabel value="Informações e instruções:" />
-					<pe:ckEditor id="editor" value="#{contest.info}"
+					<pe:ckEditor id="editor" value="#{contest.info}" requiredMessage="Digite as informações do contest"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"/>
 				</h:panelGrid>

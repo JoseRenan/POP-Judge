@@ -12,10 +12,10 @@
 				<h:panelGrid columns="2" cellpading="3">
 					<p:outputLabel for="time1" value="Horário de inicio:" />
 					<p:calendar id="time1" value="#{timer.inicioContestD}"
-						pattern="HH:mm a" timeOnly="true" />
+						pattern="HH:mm a" timeOnly="true" required="true" requiredMessage="Insira a hora de inicio"/>
 					<p:outputLabel for="time2" value="Horário de término:" />
 					<p:calendar id="time2" value="#{timer.fimContestD}"
-						pattern="HH:mm a" timeOnly="true" />
+						pattern="HH:mm a" timeOnly="true" required="true" requiredMessage="Insira a hora de término"/>
 					<br />
 					<br />
 					<div align="center">

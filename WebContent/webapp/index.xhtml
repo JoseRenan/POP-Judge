@@ -21,36 +21,44 @@ body {
 <h:body>
 	<div align="center">
 		<div class="all">
-			<h:form>
-				<p:messages id="messages" showDetail="false" autoUpdate="true"
-					closable="true" />
-				<fieldset>
-					<div class="left">
-						<h:panelGrid columns="1" style="height: 100%;">
-							<img src="/POP-Judge/resources/img/logo.png" width="500px" />
-						</h:panelGrid>
-					</div>
-					<div class="default">
-						<fieldset>
+			<p:growl autoUpdate="true" />
+			<fieldset>
+				<div class="left">
+					<h:panelGrid columns="1" style="height: 100%;">
+						<img src="/POP-Judge/resources/img/logo.png" width="500px" />
+					</h:panelGrid>
+				</div>
+				<div class="default">
+					<fieldset>
 						<div align="center">
 							<div class="right">
+								<h:form>
 									<h:panelGrid columns="1" cellspacing="10">
-										<p:outputLabel value="Login " style="font-weight: bold;"/>
-										<p:inputText value="#{userBean.user.username}" id="login"
-											required="true" style="height: 30px; font-size: 18px;"/> 
-										<p:outputLabel value="Senha " style="height:30px; font-weight: bold; "/>
-										<p:password value="#{userBean.user.password}" id="senha"
-											required="true" style="height: 30px; font-size: 18px;"/>
+										<h:panelGrid columns="1">
+											<p:outputLabel value="Login " style="font-weight: bold;" />
+											<p:inputText value="#{userBean.user.username}" id="login"
+												required="true" requiredMessage="Digite o login"
+												style="height: 30px; font-size: 18px; width: 220px;border-radius: 8px;" />
+										</h:panelGrid>
+										<h:panelGrid columns="1">
+											<p:outputLabel value="Senha "
+												style="height:30px; font-weight: bold; " />
+											<p:password value="#{userBean.user.password}" id="senha"
+												required="true" requiredMessage="Digite uma senha"
+												style="height: 30px; font-size: 18px; width: 220px;border-radius: 8px;" />
+										</h:panelGrid>
 									</h:panelGrid>
 									<br />
 									<p:commandButton value="Entrar" action="#{userBean.login}"
-										icon="ui-icon-check" ajax="false" />
-								</div>
+										icon="ui-icon-check" style="border-radius: 8px;" />
+									<p:button outcome="signUp" value="Sign up"
+										style="border-radius: 8px;" icon="ui-icon-plus" />
+								</h:form>
 							</div>
-						</fieldset>
-					</div>
-				</fieldset>
-			</h:form>
+						</div>
+					</fieldset>
+				</div>
+			</fieldset>
 		</div>
 	</div>
 </h:body>
