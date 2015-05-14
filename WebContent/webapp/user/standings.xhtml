@@ -7,29 +7,26 @@
 
 	<ui:define name="content">
 
-		<p:dataTable var="userRank" value="#{rankingBean.getRanking()}">
-
-			<p:columnGroup type="header" rowIndexVar="rowIndex">
+		<p:dataTable var="rank" value="#{rankingBean.ranking}">
+			<p:columnGroup type="header">
 				<p:row>
-					<p:column rowspan="2" headerText="Usuário" />
-					<p:column colspan="#{rankingBean.userRank.problemCount()}"
-						headerText="Problemas" />
+					<p:column rowspan="2" headerText="Usuários" />
+					<p:column colspan="#{problemDAO.all.size()}" headerText="Problemas" />
 				</p:row>
 				<p:row>
-					<ui:repeat value="#{problemDAO.all}" var="all">
-						<p:column headerText="#{all.idProblem}" />
+					<ui:repeat value="#{problemDAO.all}" var="problemList">
+						<p:column headerText="#{problemList.idProblem}" />
 					</ui:repeat>
 				</p:row>
 			</p:columnGroup>
 
 			<p:column>
-				<h:outputText value="" />
+				<h:outputText value="#{rank.username}" />
 			</p:column>
 
-			<p:columns value="#" >
-				<h:outputText value="" />
+			<p:columns value="#{problemDAO.all}" var="problemList">
+				<h:outputText value="#{rank.problems.get(problemList.idProblem)}" />
 			</p:columns>
-
 		</p:dataTable>
 
 	</ui:define>

@@ -17,7 +17,7 @@
 					<div align="center"><h:outputText value="P#{rowIndex+1}" /></div>
 				</p:column>
 				<p:column headerText="Nome do Problema">
-					<p:commandLink value="#{problems.title}" action="prob.xhtml?faces-redirect=true">
+					<p:commandLink value="#{problems.title}" action="prob.xhtml?faces-redirect=true" >
 						<f:setPropertyActionListener value="#{problems}" target="#{problem.selectedProblem}"/>
 					</p:commandLink>
 				</p:column>
