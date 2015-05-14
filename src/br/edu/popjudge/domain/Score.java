@@ -1,6 +1,7 @@
 package br.edu.popjudge.domain;
 
-public class Score {
+
+public class Score{
 	private int tries;
 	private int passedTime;
 	
@@ -27,4 +28,5 @@ public class Score {
 	public void setPassedTime(int passedTime) {
 		this.passedTime = passedTime;
 	}
+	
 }
