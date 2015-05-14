@@ -1,15 +1,15 @@
 package br.edu.popjudge.domain;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 public class UserRank {
 	private String username;
-	private ArrayList<Score> problems;
+	private Map<Integer, Score> problems;
 	private int sumAccepted;
 	private int sumTime;
 	private int sumTries;
 	
-	public UserRank(String username, ArrayList<Score> problems) {
+	public UserRank(String username, Map<Integer, Score> problems) {
 		super();
 		this.username = username;
 		this.problems = problems;
@@ -24,26 +24,26 @@ public class UserRank {
 	
 	private int calculateSumTries(){
 		int result = 0;
-		for(Score score : this.problems){
-			result += score.getTries();
+		for(Map.Entry<Integer, Score> entry : this.problems.entrySet()){
+			result += entry.getValue().getTries();
 		}
 		return result;
 	}
 	
 	private int calculateSumAccepted(){
 		int result = 0;
-		for(Score score : this.problems){
-			if(score.getTries() > 0)
-				result += score.getTries();
+		for(Map.Entry<Integer, Score> entry : this.problems.entrySet()){
+			if(entry.getValue().getTries() > 0)
+				result += entry.getValue().getTries();
 		}
 		return result;
 	}
 	
 	private int calculateSumTime(){
 		int result = 0;
-		for(Score score : this.problems){
-			if(score.getPassedTime() > 0)
-				result += score.getPassedTime();
+		for(Map.Entry<Integer, Score> entry : this.problems.entrySet()){
+			if(entry.getValue().getPassedTime() > 0)
+				result += entry.getValue().getPassedTime();
 		}
 		return result;
 	}
@@ -84,11 +84,11 @@ public class UserRank {
 		this.sumTime = sumTime;
 	}
 
-	public ArrayList<Score> getProblems() {
+	public Map<Integer, Score> getProblems() {
 		return problems;
 	}
 
-	public void setProblems(ArrayList<Score> problems) {
+	public void setProblems(Map<Integer, Score> problems) {
 		this.problems = problems;
 	}
 
