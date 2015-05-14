@@ -7,8 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 @ManagedBean(name="contest")
 @ApplicationScoped
@@ -90,5 +92,8 @@ public class ContestBean {
 		gravarArq.printf("%s", this.info);
 		
 		gravarArq.close();
+		
+		FacesMessage message = new FacesMessage("Informaões prévias salvas", "");
+		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 }

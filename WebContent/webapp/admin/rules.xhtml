@@ -7,37 +7,39 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<ui:define name="content">
-		<p:growl autoUpdate="true"/>
-		<div align="center" >
-			<h:form>
-				<p:outputLabel value="Nome do Contest: "/> <br/><br/>
-				<p:inputText value="#{contest.nome}" requiredMessage="Digte um nome para o contest" style="width:600px; heigth:35px; font-size:18px;" required="true"/>
-				<h:panelGrid columns="1">
-					<p:outputLabel value="Informações e instruções:" />
-					<pe:ckEditor id="editor" value="#{contest.info}" requiredMessage="Digite as informações do contest"
-								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
-		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"/>
-				</h:panelGrid>
-				<p:commandButton value="Enviar" actionListener="#{contest.salvar}" />
-
-			</h:form>
-		</div>
+		<p:growl autoUpdate="true" />
 		<div align="center">
 			<h:form>
-				<h:panelGrid columns="2" cellpading="3">
-					<p:outputLabel for="time1" value="Horário de inicio:" />
-					<p:calendar id="time1" value="#{timer.inicioContestD}"
-						pattern="HH:mm a" timeOnly="true" required="true" requiredMessage="Insira a hora de inicio"/>
-					<p:outputLabel for="time2" value="Horário de término:" />
-					<p:calendar id="time2" value="#{timer.fimContestD}"
-						pattern="HH:mm a" timeOnly="true" required="true" requiredMessage="Insira a hora de término"/>
-					<br />
-					<br />
-					<div align="center">
-						<p:commandButton value="Definir" action="#{timer.criaContest}"
-							ajax="false" />
-					</div>
+				<p:outputLabel value="Nome do Contest: " />
+				<br />
+				<br />
+				<p:inputText value="#{contest.nome}"
+					requiredMessage="Digte um nome para o contest"
+					style="width:600px; heigth:35px; font-size:18px;" required="true" />
+
+				<h:panelGrid columns="2" cellpadding="30">
+					<h:panelGrid columns="1">
+						<p:outputLabel value="Horário de inicio:" />
+						<p:calendar id="time1" value="#{timer.inicioContestD}"
+							pattern="HH:mm a" timeOnly="true" required="true"
+							requiredMessage="Insira a hora de inicio" />
+					</h:panelGrid>
+					<h:panelGrid columns="1">
+						<p:outputLabel value="Horário de término:" />
+						<p:calendar id="time2" value="#{timer.fimContestD}"
+							pattern="HH:mm a" timeOnly="true" required="true"
+							requiredMessage="Insira a hora de término" />
+					</h:panelGrid>
 				</h:panelGrid>
+
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Informações e instruções:" />
+					<pe:ckEditor id="editor" value="#{contest.info}"
+						requiredMessage="Digite as informações do contest"
+						toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
+		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]" />
+				</h:panelGrid>
+				<p:commandButton value="Enviar" actionListener="#{contest.salvar}" action="#{timer.criaContest}"/>
 			</h:form>
 		</div>
 	</ui:define>
