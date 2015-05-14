@@ -5,61 +5,64 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>POPJudge</title>
-	<link href="/POP-Judge/resources/img/icon.png" type="image/x-icon"
-		rel="shortcut icon" />
-	<link rel="stylesheet" type="text/css" href="/POP-Judge/css/login.css" />
-	<style>
-body {
-	background: #F8F8FF;
-}
-</style>
-</h:head>
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>POPJudge</title>
+		<link href="/POP-Judge/resources/img/icon.png" type="image/x-icon"
+			rel="shortcut icon" />
+		<link rel="stylesheet" type="text/css" href="/POP-Judge/css/login.css" />
+		<style>
+			body {
+				background: #F8F8FF;
+			}
+			
+			.button {
+				border-radius: 8px;
+				width: 40%;
+			}
+		</style>
+	</h:head>
 
-<h:body>
-	<div align="center">
-		<div class="all">
-			<p:growl autoUpdate="true" />
-			<fieldset>
-				<div class="left">
-					<h:panelGrid columns="1" style="height: 100%;">
-						<img src="/POP-Judge/resources/img/logo.png" width="500px" />
-					</h:panelGrid>
-				</div>
-				<div class="default">
-					<fieldset>
-						<div align="center">
-							<div class="right">
-								<h:form>
-									<h:panelGrid columns="1" cellspacing="10">
-										<h:panelGrid columns="1">
-											<p:outputLabel value="Login " style="font-weight: bold;" />
-											<p:inputText value="#{userBean.user.username}" id="login"
-												required="true" requiredMessage="Digite o login"
-												style="height: 30px; font-size: 18px; width: 235px;border-radius: 8px;" />
+	<h:body>
+		<div align="center">
+			<div class="all">
+				<p:growl autoUpdate="true" />
+				<fieldset>
+					<div class="left">
+						<h:panelGrid columns="1" style="height: 100%;">
+							<img src="/POP-Judge/resources/img/logo.png" width="500px" />
+						</h:panelGrid>
+					</div>
+					<div class="default">
+						<fieldset>
+							<div align="center">
+								<div class="right">
+									<h:form>
+										<h:panelGrid columns="1" cellspacing="10">
+											<h:panelGrid columns="1">
+												<p:outputLabel value="Login" style="font-weight: bold;" />
+												<p:inputText value="#{userBean.user.username}" id="login"
+													required="true" requiredMessage="Digite o login"
+													style="height: 30px; font-size: 18px; width: 235px;border-radius: 8px;" />
+											</h:panelGrid>
+											<h:panelGrid columns="1">
+												<p:outputLabel value="Senha"
+													style="height:30px; font-weight: bold; " />
+												<p:password value="#{userBean.user.password}" id="senha"
+													required="true" requiredMessage="Digite uma senha"
+													style="height: 30px; font-size: 18px; width: 235px;border-radius: 8px;" />
+											</h:panelGrid>
 										</h:panelGrid>
-										<h:panelGrid columns="1">
-											<p:outputLabel value="Senha "
-												style="height:30px; font-weight: bold; " />
-											<p:password value="#{userBean.user.password}" id="senha"
-												required="true" requiredMessage="Digite uma senha"
-												style="height: 30px; font-size: 18px; width: 235px;border-radius: 8px;" />
-										</h:panelGrid>
-									</h:panelGrid>
-									<br />
-									<p:commandButton value="Sign in" action="#{userBean.login}"
-										icon="ui-icon-check" style="border-radius: 8px;" />
-									<p:button outcome="signUp" value="Sign up"
-										style="border-radius: 8px;" icon="ui-icon-plus" />
-								</h:form>
+										<br />
+										<p:commandButton class = "button" value="Sign In" action="#{userBean.login}" />
+										<p:button class = "button" outcome="signUp" value="Sign Up"/>
+									</h:form>
+								</div>
 							</div>
-						</div>
-					</fieldset>
-				</div>
-			</fieldset>
+						</fieldset>
+					</div>
+				</fieldset>
+			</div>
 		</div>
-	</div>
-</h:body>
+	</h:body>
 </html>

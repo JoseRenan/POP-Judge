@@ -28,7 +28,7 @@
 						<h:outputText value="#{allSubmissions.language.name}" />
 					</div>
 				</p:column>
-				<p:column headerText="Veredito" width="160">
+				<p:column headerText="Veredicto" width="160">
 					<div align="center">
 						<h:outputText value="#{allSubmissions.veredict}"
 							styleClass="#{allSubmissions.veredict eq 'Accepted' ? 'AC' : (allSubmissions.veredict eq 'Time Limit Exceeded' ? 'TLE' : (allSubmissions.veredict eq 'Compilation Error' ? 'CE' : (allSubmissions.veredict eq 'Wrong Answer' ? 'WA' : 'SE')))}" />

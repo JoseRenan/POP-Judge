@@ -3,27 +3,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
 	<ui:define name="content">
-		<p:growl id="growl" showDetail="false" />
+		<p:growl autoUpdate="true"/>
 		<div align="center">
-			<h:form>
-				<h:panelGrid columns="2" cellpading="3">
-					<p:outputLabel for="time1" value="Horário de inicio:" />
-					<p:calendar id="time1" value="#{timer.inicioContestD}"
-						pattern="HH:mm a" timeOnly="true" required="true" requiredMessage="Insira a hora de inicio"/>
-					<p:outputLabel for="time2" value="Horário de término:" />
-					<p:calendar id="time2" value="#{timer.fimContestD}"
-						pattern="HH:mm a" timeOnly="true" required="true" requiredMessage="Insira a hora de término"/>
-					<br />
-					<br />
-					<div align="center">
-						<p:commandButton value="Definir" action="#{timer.criaContest}"
-							ajax="false" />
-					</div>
-				</h:panelGrid>
-			</h:form>
+			<h1>Página do Administrador</h1>
+			<h2>Adicionar Instruções para Criação e Gerenciamento de um Contest</h2>
 		</div>
 	</ui:define>
 </ui:composition>
