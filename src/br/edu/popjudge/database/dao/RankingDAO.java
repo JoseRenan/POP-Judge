@@ -5,15 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.faces.bean.ManagedBean;
 
 import br.edu.popjudge.bean.TimerBean;
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.Score;
 import br.edu.popjudge.domain.UserRank;
 
+@ManagedBean
 public class RankingDAO implements Dao<UserRank> {
 	private Connection connection;
 	private ArrayList<UserRank> all = null;
@@ -55,25 +57,7 @@ public class RankingDAO implements Dao<UserRank> {
 			while (rs.next()) {
 				all.add(this.get(rs.getString("username")));
 			}
-			all.sort(new Comparator<UserRank>() {
 
-				@Override
-				public int compare(UserRank o1, UserRank o2) {
-					if (o1.getSumAccepted() > o2.getSumAccepted())
-						return 1;
-					else if(o1.getSumAccepted() < o2.getSumAccepted())
-						return -1;
-					else if(o1.getSumTries() < o2.getSumTries())
-						return 1;
-					else if(o1.getSumTries() > o2.getSumTries())
-						return -1;
-					else if(o1.getSumTime() < o2.getSumTime())
-						return 1;
-					else if(o2.getSumTime() > o2.getSumTime())
-						return -1;
-					return 0;
-				}
-			});
 			rs.close();
 			stmt.close();
 			connection.close();
