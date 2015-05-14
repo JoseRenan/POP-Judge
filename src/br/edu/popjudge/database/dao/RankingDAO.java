@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import br.edu.popjudge.bean.TimerBean;
 import br.edu.popjudge.database.ConnectionFactory;
@@ -17,24 +19,21 @@ public class RankingDAO implements Dao<UserRank> {
 	
 	@Override
 	public void insert(UserRank value) throws SQLException {
-		connection = new ConnectionFactory().getConnection();
-		
-		String sql = "insert into RANKING(username, id_problem, tries, passed_time) values (?, ?, ?, ?)";
-		PreparedStatement stmt = connection.prepareStatement(sql);
-		
-		value.getProblems().removeAll(this.get(value.getUsername()).getProblems());
-		
-		stmt.setString(1, value.getUsername());
-		
-		for (Score p : value.getProblems()) {
-			stmt.setInt(2, p.getIdProblem());
-			stmt.setInt(3, p.getTries());
-			stmt.setInt(4, p.getPassedTime());
-			stmt.execute();
+		if(this.get(value.getUsername()) != null){
+			connection = new ConnectionFactory().getConnection();
+			String sql = "insert into RANKING(username, id_problem, tries, passed_time) values (?, ?, ?, ?)";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			
+			stmt.setString(1, value.getUsername());
+			
+			for(Map.Entry<Integer, Score> entry : value.getProblems().entrySet()){
+				stmt.setInt(2, entry.getKey());
+				stmt.setInt(3, entry.getValue().getTries());
+				stmt.setInt(4, entry.getValue().getPassedTime());
+				stmt.execute();
+			}
+			stmt.close();
 		}
-		
-		value.setProblems(this.get(value.getUsername()).getProblems());
-		stmt.close();
 		
 		connection.close();
 	}
@@ -75,10 +74,10 @@ public class RankingDAO implements Dao<UserRank> {
 		ResultSet rs = stmt.executeQuery();
 		UserRank ur = new UserRank();
 		ur.setUsername(username);
-		ArrayList<Score> problems = new ArrayList<Score>();
+		Map<Integer, Score> problems = new HashMap<Integer, Score>();
 		
 		while (rs.next()) {
-			problems.add(new Score(rs.getInt("id_problem"), rs.getInt("tries"), rs.getInt("passed_time")));
+			problems.put(rs.getInt("id_problem"), new Score( rs.getInt("tries"), rs.getInt("passed_time")));
 		}
 		
 		ur.setProblems(problems);
@@ -106,10 +105,10 @@ public class RankingDAO implements Dao<UserRank> {
 		
 		stmt.setString(3, value.getUsername());
 		
-		for (Score s : value.getProblems()) {
-			stmt.setInt(1, s.getTries());
-			stmt.setInt(2, s.getPassedTime());
-			stmt.setInt(4, s.getIdProblem());
+		for(Map.Entry<Integer, Score> entry : value.getProblems().entrySet()){
+			stmt.setInt(1, entry.getValue().getTries());
+			stmt.setInt(2, entry.getValue().getPassedTime());
+			stmt.setInt(4, entry.getKey());
 			stmt.execute();
 		}
 		
