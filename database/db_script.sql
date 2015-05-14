@@ -88,7 +88,7 @@ CREATE TABLE RANKING (
 	tries INT NOT NULL,
 	passed_time TIMESTAMP NOT NULL,
 	
-	PRIMARY KEY(username, id_problem)
+	PRIMARY KEY(username, id_problem),
 	
 	CONSTRAINT fk_USER_username_RANKING_username
 	FOREIGN KEY (username)
