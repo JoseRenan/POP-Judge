@@ -15,7 +15,7 @@
 				</p:row>
 				<p:row>
 					<ui:repeat value="#{problemDAO.all}" var="problemList">
-						<p:column headerText="#{problemList.idProblem}"/>
+						<p:column headerText="#{problemList.idProblem}" />
 					</ui:repeat>
 				</p:row>
 			</p:columnGroup>
@@ -25,7 +25,7 @@
 			</p:column>
 
 			<p:columns value="#{problemDAO.all}" var="problemList">
-				<h:outputText value="#{rank.problems.get(problemList.idProblem)}" />
+				<h:outputText value="#{rank.problems.get(problemList.idProblem).tries}" />
 			</p:columns>
 		</p:dataTable>
 
