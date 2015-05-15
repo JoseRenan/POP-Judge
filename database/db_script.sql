@@ -104,10 +104,4 @@ INSERT INTO LANGUAGE VALUES(3, 'Java');
 INSERT INTO LANGUAGE VALUES(4, 'Pascal');
 INSERT INTO LANGUAGE VALUES(5, 'Python');
 
-INSERT INTO PROBLEM (id_problem, title, score_points, time_limit, dir) VALUES (1, "P1", 500, 1000, '/home/gustavo/POPJudge/problems/p1');
-INSERT INTO PROBLEM (id_problem, title, score_points, time_limit, dir) VALUES (2, "P2", 500, 1000, '/home/gustavo/POPJudge/problems/p2');
-INSERT INTO PROBLEM (id_problem, title, score_points, time_limit, dir) VALUES (3, "P3", 500, 1000, '/home/gustavo/POPJudge/problems/p3');
-INSERT INTO PROBLEM (id_problem, title, score_points, time_limit, dir) VALUES (4, "P4", 500, 1000, '/home/gustavo/POPJudge/problems/p4');
-INSERT INTO PROBLEM (id_problem, title, score_points, time_limit, dir) VALUES (5, "P5", 500, 1000, '/home/gustavo/POPJudge/problems/p5');
-
 INSERT INTO USER(id_user, username, password, email, full_name, city, college, dir) VALUES(0, 'Admin', 'admin123', '', '', '', '', '');
