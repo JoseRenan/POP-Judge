@@ -1,9 +1,16 @@
 package br.edu.popjudge.domain;
 
+import java.io.Serializable;
+
 /* Each user has a directory that records 
  * all of your submissions*/
 
-public class User {
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public int idUser;
 	public String username;
 	public String password;

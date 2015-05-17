@@ -5,12 +5,39 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
-	
+
 	<ui:define name="content">
-		<p:growl autoUpdate="true"/>
+		<p:growl autoUpdate="true" />
 		<div align="center">
-			<h1>Página do Administrador</h1>
-			<h2>Adicionar Instruções para Criação e Gerenciamento de um Contest</h2>
+			<h1>Bem vindo ao POPJudge!</h1>
+		</div>
+		<div class="margem">
+			<h3>Como criar um contest?</h3>
+			
+			<p align="justify">Para criar um contest é bem simples.
+				Primeiramente insira as questões, para inserir as questões vá em
+				Configurar Contest > Gerenciar Problemas > Novo Problema e preencha
+				o formulário. Depois de todas as questões inseridas, é hora de
+				definir as informações do contest, como o nome do contest, hora de
+				inicio, término e as informações para os participantes, como o que
+				eles podem ou não fazer, regras gerais, entre outras informações.
+				Para isso, vá em Configurar Contest > Informações e preencha o
+				formulário com o que se pede. Assim que chegar no horário de inicio
+				definido, o contest iniciará automaticamente, a mesma coisa
+				acontecerá com o término. Os participantes só conseguirão ter acesso
+				aos problemas e as demais funcionalidades do contest enquanto o
+				contest estiver acontecendo ou seja, entre o período definido
+				anteriormente.</p>
+				
+			<h3>O que fazer depois do contest ter iniciado?</h3>
+			
+			<p align="justify">Quando o contest for iniciado, os
+				participantes poderão tirar dúvidas com o administrador, para que
+				você possa responder essas dúvidas, basta ir em Acompanhar Contest >
+				Responder Dúvidas, selecione a dúvida qual deseja responder e digite
+				a respectiva resposta. Pode-se acompanhar todas as submissões em
+				tempo real pela tela de administrador e tambem o ranking, basta ir
+				em Acompanhar Contest e escolher o que quer acompanhar.</p>
 		</div>
 	</ui:define>
 </ui:composition>
