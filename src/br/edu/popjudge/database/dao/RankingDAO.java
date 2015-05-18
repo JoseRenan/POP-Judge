@@ -33,7 +33,7 @@ public class RankingDAO implements Dao<UserRank> {
 					.entrySet()) {
 				stmt.setInt(2, entry.getKey());
 				stmt.setInt(3, entry.getValue().getTries());
-				stmt.setInt(4, entry.getValue().getPassedTime());
+				stmt.setLong(4, entry.getValue().getPassedTime());
 				stmt.execute();
 			}
 			stmt.close();
@@ -82,7 +82,7 @@ public class RankingDAO implements Dao<UserRank> {
 
 		while (rs.next()) {
 			problems.put(rs.getInt("id_problem"), new Score(rs.getInt("tries"),
-					rs.getInt("passed_time")));
+					rs.getLong("passed_time")));
 		}
 
 		ur.setProblems(problems);
@@ -113,7 +113,7 @@ public class RankingDAO implements Dao<UserRank> {
 
 		for (Map.Entry<Integer, Score> entry : value.getProblems().entrySet()) {
 			stmt.setInt(1, entry.getValue().getTries());
-			stmt.setInt(2, entry.getValue().getPassedTime());
+			stmt.setLong(2, entry.getValue().getPassedTime());
 			stmt.setInt(4, entry.getKey());
 			stmt.execute();
 		}
