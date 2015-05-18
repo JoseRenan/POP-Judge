@@ -2,8 +2,10 @@ package br.edu.popjudge.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.TreeMap;
 
+import br.edu.popjudge.bean.TimerBean;
 import br.edu.popjudge.database.dao.ProblemDAO;
 import br.edu.popjudge.database.dao.RankingDAO;
 import br.edu.popjudge.database.dao.UserDAO;
@@ -15,7 +17,7 @@ import br.edu.popjudge.domain.UserRank;
 import br.edu.popjudge.domain.Veredict;
 
 public class RankingService {
-	
+
 	public void insertUser(User user) {
 		ProblemDAO problemDao = new ProblemDAO();
 		RankingDAO rankingDao = new RankingDAO();
@@ -58,21 +60,28 @@ public class RankingService {
 			e.printStackTrace();
 		}
 	}
-	
-	public void insertSubmission(Submission submission){
+
+	public void insertSubmission(Submission submission) {
 		RankingDAO rankingDao = new RankingDAO();
 		UserRank userRank;
-		
+
 		try {
 			userRank = rankingDao.get(submission.getUser().getUsername());
-			Score score = userRank.getProblems().get(submission.getProblem().getIdProblem());
-			
-			if(submission.getVeredict().equals(Veredict.ACCEPTED_ANSWER))
-				score.setPassedTime(submission.getTimestamp().getTime());
-			score.setTries(score.getTries() + 1);
-			userRank.getProblems().put(submission.getProblem().getIdProblem(), score);
-			rankingDao.update(userRank);
-			
+			Score score = userRank.getProblems().get(
+					submission.getProblem().getIdProblem());
+			if (score.getPassedTime() == 0) {
+				if (submission.getVeredict().equals(
+						Veredict.ACCEPTED_ANSWER.getRotulo1()))
+					score.setPassedTime(TimerBean.currentMoment());
+				else
+					score.setTries(score.getTries() + 1);
+
+				userRank.getProblems().put(
+						submission.getProblem().getIdProblem(), score);
+
+				rankingDao.update(userRank);
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
