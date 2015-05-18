@@ -1,5 +1,6 @@
 package br.edu.popjudge.bean;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,7 +13,11 @@ import br.edu.popjudge.domain.UserRank;
 
 @ManagedBean
 @ViewScoped
-public class RankingBean {
+public class RankingBean implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private UserRank userRank;
 
 	public UserRank getUserRank() {

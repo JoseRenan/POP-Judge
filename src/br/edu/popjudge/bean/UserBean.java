@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import br.edu.popjudge.database.dao.UserDAO;
 import br.edu.popjudge.domain.User;
+import br.edu.popjudge.service.RankingService;
 
 @ManagedBean
 @ViewScoped
@@ -88,8 +89,9 @@ public class UserBean implements Serializable{
 			user.setDir(home + "/POPJudge/users/" + this.user.getUsername());
 			UserDAO ud = new UserDAO();
 			ud.insert(user);
-			//TODO adicionar o bichin na tabela ranking.
-
+			RankingService rankingService = new RankingService();
+			rankingService.insertUser(this.user);
+			
 			this.user.setUsername(null);
 			this.user.setPassword(null);
 			

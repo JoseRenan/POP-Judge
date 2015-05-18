@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import br.edu.popjudge.database.dao.ProblemDAO;
 import br.edu.popjudge.domain.Problem;
+import br.edu.popjudge.service.RankingService;
 
 @ManagedBean(name = "problem")
 @ViewScoped
@@ -74,7 +75,10 @@ public class ProblemBean {
 																this.problem.getScorePoints());
 		
 		ProblemDAO pd = new ProblemDAO();
+		RankingService rs = new RankingService();
 		pd.insert(this.problem);
+		rs.insertProblem(this.problem);
+		
 		FacesMessage message = new FacesMessage("Criado com sucesso", "");
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		
