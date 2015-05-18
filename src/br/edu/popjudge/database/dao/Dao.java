@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public interface Dao<T> {
 	
+	//TODO Colocar pra essa classe sempre retornar um inteiro (a chave gerada?)
 	public void insert (T value) throws SQLException;
 
     public ArrayList<T> getAll() throws SQLException;

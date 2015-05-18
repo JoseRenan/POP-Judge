@@ -74,10 +74,10 @@ public class ProblemBean {
 																this.problem.getTimeLimit() + "\n" +
 																this.problem.getScorePoints());
 		
-		ProblemDAO pd = new ProblemDAO();
-		RankingService rs = new RankingService();
-		pd.insert(this.problem);
-		rs.insertProblem(this.problem);
+		ProblemDAO problemDao = new ProblemDAO();
+		RankingService rankingService = new RankingService();
+		problem.setIdProblem(problemDao.insertGet(this.problem));
+		rankingService.insertProblem(this.problem);
 		
 		FacesMessage message = new FacesMessage("Criado com sucesso", "");
 		FacesContext.getCurrentInstance().addMessage(null, message);

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.concurrent.locks.StampedLock;
 
 import javax.faces.bean.ManagedBean;
 
@@ -20,12 +21,15 @@ public class ProblemDAO implements Dao<Problem> {
 
 	@Override
 	public void insert(Problem value) throws SQLException {
+
+	}
+	public int insertGet(Problem value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 
 		String sql = "INSERT INTO PROBLEM(id_problem, title, score_points, "
 				+ "time_limit, dir) VALUES(0, ?, ?, ?, ?)";
 
-		PreparedStatement statement = connection.prepareStatement(sql);
+		PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
 		try {
 			statement.setString(1, value.getTitle());
@@ -43,11 +47,16 @@ public class ProblemDAO implements Dao<Problem> {
 			e.printStackTrace();
 		}
 		statement.setString(4, value.getDir().getAbsolutePath());
-
 		statement.execute();
-
+		
+		ResultSet resultSet = statement.getGeneratedKeys();
+		resultSet.next();
+		int generatedKey = resultSet.getInt(1);
+		
 		statement.close();
 		connection.close();
+		
+		return generatedKey;
 	}
 
 	@Override

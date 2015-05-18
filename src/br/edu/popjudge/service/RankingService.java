@@ -15,6 +15,7 @@ import br.edu.popjudge.domain.UserRank;
 import br.edu.popjudge.domain.Veredict;
 
 public class RankingService {
+	
 	public void insertUser(User user) {
 		ProblemDAO problemDao = new ProblemDAO();
 		RankingDAO rankingDao = new RankingDAO();
