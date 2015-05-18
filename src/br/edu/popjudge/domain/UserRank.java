@@ -6,7 +6,7 @@ public class UserRank {
 	private String username;
 	private Map<Integer, Score> problems;
 	private int sumAccepted;
-	private int sumTime;
+	private long sumTime;
 	private int sumTries;
 	
 	public UserRank(String username, Map<Integer, Score> problems) {
@@ -39,8 +39,8 @@ public class UserRank {
 		return result;
 	}
 	
-	private int calculateSumTime(){
-		int result = 0;
+	private long calculateSumTime(){
+		long result = 0;
 		for(Map.Entry<Integer, Score> entry : this.problems.entrySet()){
 			if(entry.getValue().getPassedTime() > 0)
 				result += entry.getValue().getPassedTime();
@@ -76,11 +76,11 @@ public class UserRank {
 		return username;
 	}
 
-	public int getSumTime() {
+	public long getSumTime() {
 		return sumTime;
 	}
 
-	public void setSumTime(int sumTime) {
+	public void setSumTime(long sumTime) {
 		this.sumTime = sumTime;
 	}
 

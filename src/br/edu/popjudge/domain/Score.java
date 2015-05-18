@@ -1,13 +1,14 @@
 package br.edu.popjudge.domain;
 
 
+
 public class Score{
 	private int tries;
-	private int passedTime;
+	private long passedTime;
 	
 	public Score() {}
 	
-	public Score(int tries, int passedTime) {
+	public Score(int tries, long passedTime) {
 		super();
 		this.tries = tries;
 		this.passedTime = passedTime;
@@ -21,11 +22,11 @@ public class Score{
 		this.tries = tries;
 	}
 
-	public int getPassedTime() {
+	public long getPassedTime() {
 		return passedTime;
 	}
 
-	public void setPassedTime(int passedTime) {
+	public void setPassedTime(long passedTime) {
 		this.passedTime = passedTime;
 	}
 	

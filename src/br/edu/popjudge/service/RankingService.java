@@ -9,8 +9,10 @@ import br.edu.popjudge.database.dao.RankingDAO;
 import br.edu.popjudge.database.dao.UserDAO;
 import br.edu.popjudge.domain.Problem;
 import br.edu.popjudge.domain.Score;
+import br.edu.popjudge.domain.Submission;
 import br.edu.popjudge.domain.User;
 import br.edu.popjudge.domain.UserRank;
+import br.edu.popjudge.domain.Veredict;
 
 public class RankingService {
 	public void insertUser(User user) {
@@ -39,13 +41,14 @@ public class RankingService {
 	public void insertProblem(Problem problem) {
 		RankingDAO rankingDao = new RankingDAO();
 		UserDAO userDao = new UserDAO();
-		
+
 		ArrayList<User> listUsers;
 		UserRank userRankAux = new UserRank("", new TreeMap<Integer, Score>());
 
 		try {
 			listUsers = userDao.getAll();
-			userRankAux.getProblems().put(problem.getIdProblem(), new Score(0, 0));
+			userRankAux.getProblems().put(problem.getIdProblem(),
+					new Score(0, 0));
 			for (User user : listUsers) {
 				userRankAux.setUsername(user.getUsername());
 				rankingDao.insert(userRankAux);
@@ -53,6 +56,24 @@ public class RankingService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+	}
+	
+	public void insertSubmission(Submission submission){
+		RankingDAO rankingDao = new RankingDAO();
+		UserRank userRank;
+		
+		try {
+			userRank = rankingDao.get(submission.getUser().getUsername());
+			Score score = userRank.getProblems().get(submission.getProblem().getIdProblem());
+			
+			if(submission.getVeredict().equals(Veredict.ACCEPTED_ANSWER))
+				score.setPassedTime(submission.getTimestamp().getTime());
+			score.setTries(score.getTries() + 1);
+			userRank.getProblems().put(submission.getProblem().getIdProblem(), score);
+			rankingDao.update(userRank);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -22,6 +22,7 @@ import br.edu.popjudge.database.dao.SubmissionDAO;
 import br.edu.popjudge.domain.Problem;
 import br.edu.popjudge.domain.Submission;
 import br.edu.popjudge.domain.User;
+import br.edu.popjudge.service.RankingService;
 
 @ManagedBean(name = "submission")
 @ViewScoped
@@ -104,7 +105,8 @@ public class SubmissionBean {
 
 				sbmdao.insert(this.submission);
 
-				// TODO Falta fazer toda a parte que manipula o ranking
+				RankingService rs = new RankingService();
+				rs.insertSubmission(submission);
 
 				this.submission = new Submission();
 				

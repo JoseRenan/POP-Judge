@@ -87,10 +87,11 @@ public class UserBean implements Serializable{
 		try {
 			String home = System.getProperty("user.home");
 			user.setDir(home + "/POPJudge/users/" + this.user.getUsername());
+			
 			UserDAO ud = new UserDAO();
 			ud.insert(user);
-			RankingService rankingService = new RankingService();
-			rankingService.insertUser(this.user);
+			RankingService rs = new RankingService();
+			rs.insertUser(this.user);
 			
 			this.user.setUsername(null);
 			this.user.setPassword(null);
