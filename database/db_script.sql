@@ -86,7 +86,7 @@ CREATE TABLE RANKING (
 	username VARCHAR(50),
 	id_problem INT NOT NULL,
 	tries INT NOT NULL,
-	passed_time TIMESTAMP NOT NULL,
+	passed_time BIGINT NOT NULL,
 	
 	PRIMARY KEY(username, id_problem),
 	

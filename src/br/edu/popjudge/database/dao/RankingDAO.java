@@ -17,13 +17,12 @@ import br.edu.popjudge.domain.UserRank;
 
 @ManagedBean
 public class RankingDAO implements Dao<UserRank> {
-	private Connection connection;
 	private ArrayList<UserRank> all = null;
 
 	@Override
 	public void insert(UserRank value) throws SQLException {
 		if (this.get(value.getUsername()) != null) {
-			connection = new ConnectionFactory().getConnection();
+			Connection connection = new ConnectionFactory().getConnection();
 			String sql = "insert into RANKING(username, id_problem, tries, passed_time) values (?, ?, ?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -37,9 +36,9 @@ public class RankingDAO implements Dao<UserRank> {
 				stmt.execute();
 			}
 			stmt.close();
+			connection.close();
 		}
 
-		connection.close();
 	}
 
 	@Override
@@ -47,7 +46,7 @@ public class RankingDAO implements Dao<UserRank> {
 		boolean rankBlinded = new TimerBean().rankBlinded();
 
 		if (!rankBlinded || all == null) {
-			connection = new ConnectionFactory().getConnection();
+			Connection connection = new ConnectionFactory().getConnection();
 			this.all = new ArrayList<UserRank>();
 
 			String sql = "select * from RANKING group by(username)";
@@ -68,8 +67,10 @@ public class RankingDAO implements Dao<UserRank> {
 	}
 
 	public UserRank get(String username) throws SQLException {
-		connection = new ConnectionFactory().getConnection();
-
+		Connection connection = new ConnectionFactory().getConnection();
+		if(connection == null){
+			System.out.println("A PORRA DA CONEXÃO TÁ NULA");
+		}
 		String sql = "select * from RANKING where username = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -86,7 +87,7 @@ public class RankingDAO implements Dao<UserRank> {
 		}
 
 		ur.setProblems(problems);
-
+		connection.close();
 		return ur;
 	}
 
@@ -104,7 +105,7 @@ public class RankingDAO implements Dao<UserRank> {
 
 	@Override
 	public void update(UserRank value) throws SQLException {
-		connection = new ConnectionFactory().getConnection();
+		Connection connection = new ConnectionFactory().getConnection();
 
 		String sql = "update RANKING set tries = ?, passed_time = ? where username = ? and id_problem = ? limit 1";
 		PreparedStatement stmt = connection.prepareStatement(sql);

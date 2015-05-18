@@ -98,15 +98,15 @@ public class SubmissionBean {
 				this.submission.setLanguage(ld.get(idLanguage));
 				this.submission.setProblem(selectedProblem);
 				
-				Judge j = new Judge();
-				this.submission.setVeredict((j.judge(this.submission).getRotulo1()));
+				Judge judge = new Judge();
+				this.submission.setVeredict((judge.judge(this.submission).getRotulo1()));
 
 				SubmissionDAO sbmdao = new SubmissionDAO();
 
 				sbmdao.insert(this.submission);
 
-				RankingService rs = new RankingService();
-				rs.insertSubmission(submission);
+				RankingService rankingService = new RankingService();
+				rankingService.insertSubmission(submission);
 
 				this.submission = new Submission();
 				

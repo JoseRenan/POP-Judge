@@ -7,7 +7,7 @@
 
 	<ui:define name="content">
 
-		<p:dataTable var="rank" value="#{rankingBean.ranking}">
+		<p:dataTable var="rank" value="#{rankingBean.getRanking()}">
 			<p:columnGroup type="header">
 				<p:row>
 					<p:column rowspan="2" headerText="Usuários" />
@@ -25,7 +25,7 @@
 			</p:column>
 
 			<p:columns value="#{problemDAO.all}" var="problemList">
-				<h:outputText value="#{rank.problems.get(problemList.idProblem).tries}" />
+				<h:outputText value="#{rank.problems.get(problemList.idProblem).passedTime eq '0'? rank.problems.get(problemList.idProblem).tries: rank.problems.get(problemList.idProblem).passedTime}" />
 			</p:columns>
 		</p:dataTable>
 
