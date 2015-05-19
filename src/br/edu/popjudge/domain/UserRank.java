@@ -13,9 +13,9 @@ public class UserRank {
 		super();
 		this.username = username;
 		this.problems = problems;
-		this.setSumAccepted(this.calculateSumAccepted());
-		this.setSumTime(this.calculateSumTime());
-		this.setSumTries(this.calculateSumTries());
+		this.setSumAccepted();
+		this.setSumTime();
+		this.setSumTries();
 	}
 	
 	public int problemsCount(){
@@ -25,7 +25,7 @@ public class UserRank {
 	private int calculateSumTries(){
 		int result = 0;
 		for(Map.Entry<Integer, Score> entry : this.problems.entrySet()){
-			result += entry.getValue().getTries();
+			result += Math.abs(entry.getValue().getTries());
 		}
 		return result;
 	}
@@ -33,8 +33,8 @@ public class UserRank {
 	private int calculateSumAccepted(){
 		int result = 0;
 		for(Map.Entry<Integer, Score> entry : this.problems.entrySet()){
-			if(entry.getValue().getTries() > 0)
-				result += entry.getValue().getTries();
+			if(entry.getValue().getPassedTime() > 0)
+				result++;
 		}
 		return result;
 	}
@@ -56,16 +56,16 @@ public class UserRank {
 		return sumTries;
 	}
 
-	public void setSumTries(int sumTries) {
-		this.sumTries = sumTries;
+	public void setSumTries() {
+		this.sumTries = calculateSumTries();
 	}
 
 	public int getSumAccepted() {
 		return sumAccepted;
 	}
 
-	public void setSumAccepted(int sumAccepted) {
-		this.sumAccepted = sumAccepted;
+	public void setSumAccepted() {
+		this.sumAccepted = calculateSumAccepted();
 	}
 
 	public void setUsername(String username) {
@@ -80,8 +80,8 @@ public class UserRank {
 		return sumTime;
 	}
 
-	public void setSumTime(long sumTime) {
-		this.sumTime = sumTime;
+	public void setSumTime() {
+		this.sumTime = calculateSumTime();
 	}
 
 	public Map<Integer, Score> getProblems() {

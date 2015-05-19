@@ -2,7 +2,6 @@ package br.edu.popjudge.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.TreeMap;
 
 import br.edu.popjudge.bean.TimerBean;
@@ -74,7 +73,7 @@ public class RankingService {
 						Veredict.ACCEPTED_ANSWER.getRotulo1()))
 					score.setPassedTime(TimerBean.currentMoment());
 				else
-					score.setTries(score.getTries() + 1);
+					score.setTries(score.getTries() - 1);
 
 				userRank.getProblems().put(
 						submission.getProblem().getIdProblem(), score);

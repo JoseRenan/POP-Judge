@@ -77,8 +77,7 @@ public class RankingDAO implements Dao<UserRank> {
 		stmt.setString(1, username);
 
 		ResultSet rs = stmt.executeQuery();
-		UserRank ur = new UserRank();
-		ur.setUsername(username);
+		
 		Map<Integer, Score> problems = new TreeMap<Integer, Score>();
 
 		while (rs.next()) {
@@ -86,7 +85,10 @@ public class RankingDAO implements Dao<UserRank> {
 					rs.getLong("passed_time")));
 		}
 
-		ur.setProblems(problems);
+		UserRank ur = new UserRank(username, problems);
+		
+		rs.close();
+		stmt.close();
 		connection.close();
 		return ur;
 	}
