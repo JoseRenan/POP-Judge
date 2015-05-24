@@ -1,6 +1,7 @@
 package br.edu.popjudge.bean;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
@@ -16,8 +17,12 @@ import br.edu.popjudge.domain.User;
 
 @ManagedBean(name = "clarification")
 @ViewScoped
-public class ClarificationBean {
+public class ClarificationBean implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Clarification clarification = new Clarification();
 	private Problem selectedProblem = new Problem();
 	

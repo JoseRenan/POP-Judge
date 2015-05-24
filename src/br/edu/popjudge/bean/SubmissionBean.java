@@ -26,7 +26,7 @@ import br.edu.popjudge.service.RankingService;
 
 @ManagedBean(name = "submission")
 @ViewScoped
-public class SubmissionBean {
+public class SubmissionBean{
 
 	private Submission submission = new Submission();
 	private UploadedFile upFile;

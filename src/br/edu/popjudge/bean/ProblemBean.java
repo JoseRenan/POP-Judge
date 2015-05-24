@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
@@ -18,8 +19,12 @@ import br.edu.popjudge.service.RankingService;
 
 @ManagedBean(name = "problem")
 @ViewScoped
-public class ProblemBean {
+public class ProblemBean implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Problem problem = new Problem();
 	private Problem selectedProblem;
 
