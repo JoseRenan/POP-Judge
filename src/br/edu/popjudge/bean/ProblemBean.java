@@ -1,8 +1,11 @@
 package br.edu.popjudge.bean;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -12,6 +15,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.model.UploadedFile;
 
 import br.edu.popjudge.database.dao.ProblemDAO;
 import br.edu.popjudge.domain.Problem;
@@ -28,7 +33,8 @@ public class ProblemBean implements Serializable{
 	
 	private Problem problem = new Problem();
 	private Problem selectedProblem;
-
+	private UploadedFile testcases;	
+	
 	public Problem getProblem() {
 		return problem;
 	}
@@ -37,6 +43,14 @@ public class ProblemBean implements Serializable{
 		this.problem = problem;
 	}
 	
+	public UploadedFile getTestcases() {
+		return testcases;
+	}
+
+	public void setTestcases(UploadedFile testcases) {
+		this.testcases = testcases;
+	}
+
 	public Problem getSelectedProblem() {
 		return selectedProblem;
 	}
@@ -50,7 +64,8 @@ public class ProblemBean implements Serializable{
 
 	public String createProblem() throws SQLException, IOException {
 		String home = System.getProperty("user.home");
-		this.problem.setDir(new File(home + "/POPJudge/problems/"+ this.problem.getTitle()));
+		
+		this.problem.setDir(new File(home + "/POPJudge/problems/" + this.problem.getIdProblem()));
 		
 		new File (this.problem.getDir() + "/" + "description.txt").getParentFile().mkdirs();
         new File (this.problem.getDir() + "/" + "inputDescription.txt").getParentFile().mkdirs();
@@ -80,6 +95,23 @@ public class ProblemBean implements Serializable{
 																this.problem.getTimeLimit() + "\n" +
 																this.problem.getScorePoints());
 		
+		InputStream in = new BufferedInputStream(this.getTestcases().getInputstream());
+	
+		File file = new File(this.problem.getDir() + "/TestCases/" + this.getTestcases().getFileName());
+
+		if (!file.getParentFile().exists())
+			file.getParentFile().mkdirs();// Creates the directories if they don't exists.
+		
+		FileOutputStream fos = new FileOutputStream(file);
+		
+		while (in.available() != 0) {// Writes the content in the user's file.
+			fos.write(in.read());
+		}
+		
+		fos.close();
+		
+		Runtime.getRuntime().exec("unzip " + this.problem.getDir() + "/TestCases/" + this.getTestcases().getFileName() + " -d " + this.problem.getDir() + "/TestCases/");
+		
 		ProblemDAO problemDao = new ProblemDAO();
 		RankingService rankingService = new RankingService();
 		problem.setIdProblem(problemDao.insertGet(this.problem));
@@ -88,7 +120,7 @@ public class ProblemBean implements Serializable{
 		FacesMessage message = new FacesMessage("Criado com sucesso", "");
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		
-		return "addProblem";
+		return "addProblem.xhtml?faces-redirect=true";
 	}
 	
 	private static void createFiles(String dir, String content) throws IOException{

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -26,8 +27,12 @@ import br.edu.popjudge.service.RankingService;
 
 @ManagedBean(name = "submission")
 @ViewScoped
-public class SubmissionBean{
+public class SubmissionBean implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7086813068237158227L;
 	private Submission submission = new Submission();
 	private UploadedFile upFile;
 	private int idLanguage;

@@ -4,8 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Problem {
+public class Problem implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8568517894722249243L;
 	private int idProblem;
 	private int scorePoints;
 	private String title;
