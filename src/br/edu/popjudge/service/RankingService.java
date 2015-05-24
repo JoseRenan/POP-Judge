@@ -73,12 +73,11 @@ public class RankingService {
 						Veredict.ACCEPTED_ANSWER.getRotulo1())){
 					
 					score.setPassedTime(TimerBean.currentMoment());
-					score.setTries(score.getTries() - 1);
-					score.setTries(Math.abs(score.getTries()));
+					score.setTries(score.getTries() + 1);
 					
 				}
 				else
-					score.setTries(score.getTries() - 1);
+					score.setTries(score.getTries() + 1);
 
 				userRank.getProblems().put(
 						submission.getProblem().getIdProblem(), score);

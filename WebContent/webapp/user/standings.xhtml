@@ -35,9 +35,9 @@
 			<p:columns value="#{problemDAO.all}" var="problemList" width="50">
 				<div align="center">
 					<div
-						class="#{rank.problems.get(problemList.idProblem).tries eq 0? 'gray' : (rank.problems.get(problemList.idProblem).tries gt 0? 'blue' : 'orange')}">
+						class="#{rank.problems.get(problemList.idProblem).passedTime gt 0? 'blue' : (rank.problems.get(problemList.idProblem).tries ne 0? 'orange' : 'gray')}">
 						<h:outputText
-							value="#{rank.problems.get(problemList.idProblem).tries gt 0? '+' : ''}" />
+							value="#{rank.problems.get(problemList.idProblem).passedTime gt 0? '+' : (rank.problems.get(problemList.idProblem).tries ne 0? '-' : '')}" />
 						<h:outputText
 							value="#{rank.problems.get(problemList.idProblem).tries}" />
 					</div>

@@ -40,9 +40,9 @@ public class RankingBean implements Serializable {
 					return -1;
 				else if (o1.getSumAccepted() < o2.getSumAccepted())
 					return 1;
-				else if (Math.abs(o1.getSumTries()) < Math.abs(o2.getSumTries()))
+				else if (o1.getSumTries() < o2.getSumTries())
 					return -1;
-				else if (Math.abs(o1.getSumTries()) > Math.abs(o2.getSumTries()))
+				else if (o1.getSumTries() > o2.getSumTries())
 					return 1;
 				else if (o1.getSumTime() < o2.getSumTime())
 					return -1;

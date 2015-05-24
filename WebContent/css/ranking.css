@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 .orange {
-	width: 30px;
+	width: 40px;
 	color: #FFFFFF;
 	background: #ff8523;
 	border-bottom: #ff6300 solid 3px;
@@ -9,7 +9,7 @@
 }
 
 .gray {
-	width: 30px;
+	width: 40px;
 	color: #FFFFFF;
 	background: #969696;
 	border-bottom: #7f7f7f solid 3px;
@@ -17,7 +17,7 @@
 }
 
 .blue {
-	width: 30px;
+	width: 40px;
 	color: #FFFFFF;
 	background: #008be0;
 	border-bottom: #0151ff solid 3px;
