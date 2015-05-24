@@ -24,7 +24,8 @@ public class ProblemBean implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3184756054376147958L;
+	
 	private Problem problem = new Problem();
 	private Problem selectedProblem;
 

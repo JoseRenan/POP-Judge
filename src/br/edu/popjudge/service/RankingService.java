@@ -2,6 +2,7 @@ package br.edu.popjudge.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.TreeMap;
 
 import br.edu.popjudge.bean.TimerBean;
@@ -59,7 +60,33 @@ public class RankingService {
 			e.printStackTrace();
 		}
 	}
+	
+	public ArrayList<UserRank> getRanking() throws SQLException {
 
+		ArrayList<UserRank> list = new RankingDAO().getAll();
+
+		list.sort(new Comparator<UserRank>() {
+
+			@Override
+			public int compare(UserRank o1, UserRank o2) {
+				if (o1.getSumAccepted() > o2.getSumAccepted())
+					return -1;
+				else if (o1.getSumAccepted() < o2.getSumAccepted())
+					return 1;
+				else if (o1.getSumTries() < o2.getSumTries())
+					return -1;
+				else if (o1.getSumTries() > o2.getSumTries())
+					return 1;
+				else if (o1.getSumTime() < o2.getSumTime())
+					return -1;
+				else if (o1.getSumTime() > o2.getSumTime())
+					return 1;
+				return 0;
+			}
+		});
+		return list;
+	}
+	
 	public void insertSubmission(Submission submission) {
 		RankingDAO rankingDao = new RankingDAO();
 		UserRank userRank;

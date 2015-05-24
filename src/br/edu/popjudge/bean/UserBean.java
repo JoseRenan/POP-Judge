@@ -18,10 +18,12 @@ import br.edu.popjudge.service.RankingService;
 @ViewScoped
 public class UserBean implements Serializable{
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3808221606065195943L;
+	
 	private User user = new User();
 
 	public User getUser() {

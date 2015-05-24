@@ -22,7 +22,8 @@ public class ClarificationBean implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6773135895849541447L;
+	
 	private Clarification clarification = new Clarification();
 	private Problem selectedProblem = new Problem();
 	
