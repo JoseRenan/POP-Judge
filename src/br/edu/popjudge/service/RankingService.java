@@ -70,8 +70,13 @@ public class RankingService {
 					submission.getProblem().getIdProblem());
 			if (score.getPassedTime() == 0) {
 				if (submission.getVeredict().equals(
-						Veredict.ACCEPTED_ANSWER.getRotulo1()))
+						Veredict.ACCEPTED_ANSWER.getRotulo1())){
+					
 					score.setPassedTime(TimerBean.currentMoment());
+					score.setTries(score.getTries() - 1);
+					score.setTries(Math.abs(score.getTries()));
+					
+				}
 				else
 					score.setTries(score.getTries() - 1);
 

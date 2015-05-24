@@ -7,18 +7,26 @@
 
 	<ui:define name="content">
 
-		<p:dataTable var="rank" value="#{rankingBean.getRanking()}">
+		<p:dataTable var="rank" value="#{rankingBean.getRanking()}" rowIndexVar="rowIndex">
 			<p:columnGroup type="header">
 				<p:row>
-					<p:column rowspan="2" headerText="Usuários" width="500"/>
-					<p:column colspan="#{problemDAO.all.size()}" headerText="Problemas" width="500"/>
+					<p:column rowspan="2" headerText="#" width="10" />
+					<p:column rowspan="2" headerText="Usuários" width="300" />
+					<p:column colspan="#{problemDAO.all.size()}" headerText="Problemas"
+						width="500" />
 				</p:row>
 				<p:row>
 					<ui:repeat value="#{problemDAO.all}" var="problemList">
-						<p:column headerText="#{problemList.idProblem}" width="50"/>
+						<p:column headerText="P#{problemList.idProblem}" width="50" />
 					</ui:repeat>
 				</p:row>
 			</p:columnGroup>
+
+			<p:column width="10">
+				<div align="center">
+					<h:outputText value="#{rowIndex+1}" />
+				</div>
+			</p:column>
 
 			<p:column>
 				<h:outputText value="#{rank.username}" />
@@ -26,14 +34,18 @@
 
 			<p:columns value="#{problemDAO.all}" var="problemList" width="50">
 				<div align="center">
-					<div class="#{rank.problems.get(problemList.idProblem).tries eq 0? 'VOID' : 'AC'}">
-					<h:outputText
-						value="#{rank.problems.get(problemList.idProblem).tries}"/>
+					<div
+						class="#{rank.problems.get(problemList.idProblem).tries eq 0? 'gray' : (rank.problems.get(problemList.idProblem).tries gt 0? 'blue' : 'orange')}">
+						<h:outputText
+							value="#{rank.problems.get(problemList.idProblem).tries gt 0? '+' : ''}" />
+						<h:outputText
+							value="#{rank.problems.get(problemList.idProblem).tries}" />
 					</div>
 				</div>
 				<div align="center">
 					<h:outputText
-						value="#{rank.problems.get(problemList.idProblem).passedTime ne 0? rank.problems.get(problemList.idProblem).passedTime : '-'}" />
+						value="#{rank.problems.get(problemList.idProblem).passedTime ne 0? rank.problems.get(problemList.idProblem).passedTime : '-'}"
+						style="font-size:12px;" />
 				</div>
 			</p:columns>
 		</p:dataTable>

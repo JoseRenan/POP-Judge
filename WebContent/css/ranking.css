@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 
-.ER {
+.orange {
 	width: 30px;
 	color: #FFFFFF;
 	background: #ff8523;
@@ -8,7 +8,7 @@
 	border-radius: 3px;
 }
 
-.VOID {
+.gray {
 	width: 30px;
 	color: #FFFFFF;
 	background: #969696;
@@ -16,7 +16,7 @@
 	border-radius: 3px;
 }
 
-.AC {
+.blue {
 	width: 30px;
 	color: #FFFFFF;
 	background: #008be0;
