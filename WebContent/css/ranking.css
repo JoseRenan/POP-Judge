@@ -23,3 +23,11 @@
 	border-bottom: #0151ff solid 3px;
 	border-radius: 3px;
 }
+
+.ui-datatable .ui-datatable-data .even td {
+	background-color: #f3f3f3;
+}
+
+.ui-datatable .ui-datatable-data .odd td {
+	background-color: #FFFFFF;
+}
