@@ -64,8 +64,17 @@ public class ProblemBean implements Serializable{
 
 	public String createProblem() throws SQLException, IOException {
 		String home = System.getProperty("user.home");
-		
+
+		ProblemDAO problemDao = new ProblemDAO();
+		this.problem.setDir(new File(""));
+
+		problem.setIdProblem(problemDao.insertGet(this.problem));
 		this.problem.setDir(new File(home + "/POPJudge/problems/" + this.problem.getIdProblem()));
+		problemDao.update(this.problem);
+		
+		RankingService rankingService = new RankingService();
+		rankingService.insertProblem(this.problem);
+		
 		
 		new File (this.problem.getDir() + "/" + "description.txt").getParentFile().mkdirs();
         new File (this.problem.getDir() + "/" + "inputDescription.txt").getParentFile().mkdirs();
@@ -112,10 +121,6 @@ public class ProblemBean implements Serializable{
 		
 		Runtime.getRuntime().exec("unzip " + this.problem.getDir() + "/TestCases/" + this.getTestcases().getFileName() + " -d " + this.problem.getDir() + "/TestCases/");
 		
-		ProblemDAO problemDao = new ProblemDAO();
-		RankingService rankingService = new RankingService();
-		problem.setIdProblem(problemDao.insertGet(this.problem));
-		rankingService.insertProblem(this.problem);
 		
 		FacesMessage message = new FacesMessage("Criado com sucesso", "");
 		FacesContext.getCurrentInstance().addMessage(null, message);
