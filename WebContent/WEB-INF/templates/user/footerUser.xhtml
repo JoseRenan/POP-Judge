@@ -9,9 +9,8 @@
   <h:form>
     <div align="center">
       <h:outputText value="Tempo restante: "/>
-      <h:outputText id="hora" value="#{timer.horaRestante}" styleClass="#{timer.minRestante le 30 and timer.horaRestante le 0 ? 'WA' : null}"/>
-      <h:outputText id="divisor" value=":" styleClass="#{timer.minRestante le 30 and timer.horaRestante le 0?  'WA' : null}"/>
-      <h:outputText id="minuto" value="#{timer.minRestante}" styleClass="#{timer.minRestante le 30 and timer.horaRestante le 0 ? 'WA' : null}"/>
+      <h:outputText id="hora" value="#{timer.horaRestante}h " styleClass="#{timer.minRestante le 30 and timer.horaRestante le 0 ? 'WA' : null}"/>
+      <h:outputText id="minuto" value="#{timer.minRestante}min" styleClass="#{timer.minRestante le 30 and timer.horaRestante le 0 ? 'WA' : null}"/>
     </div>
     <p:poll interval="1" listener="#{timer.getHoraRestante}" update="hora" />
     <p:poll interval="1" listener="#{timer.getMinRestante}" update="minuto" />

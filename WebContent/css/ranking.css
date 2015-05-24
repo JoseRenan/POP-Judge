@@ -1,13 +1,25 @@
 @CHARSET "UTF-8";
 
-.green {
-	background-color: #b8fdb8;
+.ER {
+	width: 30px;
+	color: #FFFFFF;
+	background: #ff8523;
+	border-bottom: #ff6300 solid 3px;
+	border-radius: 3px;
 }
 
-.darkGreen{
-	background-color: #97ff97;
+.VOID {
+	width: 30px;
+	color: #FFFFFF;
+	background: #969696;
+	border-bottom: #7f7f7f solid 3px;
+	border-radius: 3px;
 }
-   		
-.red {
-	background-color: #ff8d8d;
+
+.AC {
+	width: 30px;
+	color: #FFFFFF;
+	background: #008be0;
+	border-bottom: #0151ff solid 3px;
+	border-radius: 3px;
 }
