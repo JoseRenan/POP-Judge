@@ -10,7 +10,7 @@ import javax.faces.bean.ViewScoped;
 import br.edu.popjudge.domain.UserRank;
 import br.edu.popjudge.service.RankingService;
 
-@ManagedBean
+@ManagedBean (name = "rankingBean")
 @ViewScoped
 public class RankingBean implements Serializable {
 

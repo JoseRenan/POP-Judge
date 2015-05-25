@@ -15,7 +15,7 @@ import br.edu.popjudge.database.dao.UserDAO;
 import br.edu.popjudge.domain.User;
 import br.edu.popjudge.service.RankingService;
 
-@ManagedBean
+@ManagedBean (name = "userBean")
 @ViewScoped
 public class UserBean implements Serializable{
 	
