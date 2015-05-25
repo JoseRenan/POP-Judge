@@ -1,5 +1,6 @@
 package br.edu.popjudge.bean;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -17,11 +18,7 @@ import br.edu.popjudge.service.RankingService;
 @ManagedBean
 @ViewScoped
 public class UserBean implements Serializable{
-
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3808221606065195943L;
 	
 	private User user = new User();
@@ -92,6 +89,10 @@ public class UserBean implements Serializable{
 			
 			UserDAO userDao = new UserDAO();
 			userDao.insert(user);
+			
+			File userDirectory = new File(this.user.getDir());
+			userDirectory.mkdirs();
+			
 			RankingService rankingService = new RankingService();
 			rankingService.insertUser(this.user);
 			

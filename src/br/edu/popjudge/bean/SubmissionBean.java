@@ -23,15 +23,13 @@ import br.edu.popjudge.database.dao.SubmissionDAO;
 import br.edu.popjudge.domain.Problem;
 import br.edu.popjudge.domain.Submission;
 import br.edu.popjudge.domain.User;
+import br.edu.popjudge.domain.Veredict;
 import br.edu.popjudge.service.RankingService;
 
 @ManagedBean(name = "submission")
 @ViewScoped
 public class SubmissionBean implements Serializable{
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -7086813068237158227L;
 	private Submission submission = new Submission();
 	private UploadedFile upFile;
@@ -71,22 +69,35 @@ public class SubmissionBean implements Serializable{
 	}
 
 	public void submit() throws IOException, SQLException {
-		if (this.getUpFile() != null) {
-				
+		if (this.getUpFile() != null) {				
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 
 			InputStream in = new BufferedInputStream(this.getUpFile().getInputstream());
-
+			
 			this.submission.setUser((User) session.getAttribute("user"));
-		
+			this.submission.setFile(new File(""));
+			
+			LanguageDAO languageDAO = new LanguageDAO();
+			
+			this.submission.setTimestamp(new Timestamp(System.currentTimeMillis()));
+			this.submission.setLanguage(languageDAO.get(idLanguage));
+			this.submission.setProblem(selectedProblem);
+			
+			this.submission.setVeredict(Veredict.SUBMISSION_ERROR.getRotulo1());
+
+			SubmissionDAO submissionDAO = new SubmissionDAO();
+			
+			/*Inserts the current submission on database with SubmissionError Verdict*/
+			this.submission.setIdSubmission(submissionDAO.insertAndGetKey(this.submission));
+			
 			this.submission.setDir(this.submission.getUser().getDir() + "/" + this.submission.getIdSubmission());
+			
+			File submissionDirectory = new File(this.submission.getDir());
+			submissionDirectory.mkdirs();
 			
 			File file = new File(this.submission.getDir() + "/" + this.getUpFile().getFileName());
 			this.submission.setFile(file);
-
-			if (!file.getParentFile().exists())
-				file.getParentFile().mkdirs();// Creates the directories if they don't exists.
 			
 			FileOutputStream fos = new FileOutputStream(file);
 			
@@ -97,18 +108,15 @@ public class SubmissionBean implements Serializable{
 			fos.close();
 
 			try {
-				LanguageDAO ld = new LanguageDAO();
-				
+				/*Update the current submission on database with your right verdict*/
 				this.submission.setTimestamp(new Timestamp(System.currentTimeMillis()));
-				this.submission.setLanguage(ld.get(idLanguage));
+				this.submission.setLanguage(languageDAO.get(idLanguage));
 				this.submission.setProblem(selectedProblem);
 				
 				Judge judge = new Judge();
 				this.submission.setVeredict((judge.judge(this.submission).getRotulo1()));
 
-				SubmissionDAO sbmdao = new SubmissionDAO();
-
-				sbmdao.insert(this.submission);
+				submissionDAO.update(this.submission);
 
 				RankingService rankingService = new RankingService();
 				rankingService.insertSubmission(submission);
@@ -116,7 +124,6 @@ public class SubmissionBean implements Serializable{
 				this.submission = new Submission();
 				
 				FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/webapp/user/mySubmissions.xhtml");
-
 			} catch (SQLException e) {
 				e.printStackTrace();
 				FacesMessage message = new FacesMessage(
