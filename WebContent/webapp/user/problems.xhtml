@@ -13,17 +13,17 @@
 				<f:facet name="header">
           			Problemas
        			</f:facet>
-				<p:column headerText="#" width="50">
+				<p:column width="50">
 					<div align="center"><h:outputText value="P#{rowIndex+1}" /></div>
 				</p:column>
-				<p:column headerText="Nome do Problema">
+				<p:column>
 					<p:commandLink value="#{problems.title}" action="prob.xhtml?faces-redirect=true" >
 						<f:setPropertyActionListener value="#{problems}" target="#{problem.selectedProblem}"/>
 					</p:commandLink>
 				</p:column>
-				<p:column headerText="Pontuação" width="100">
+				<!--<p:column headerText="Pontuação" width="100">
 					<div align="center"><h:outputText value="#{problems.scorePoints}" /></div>
-				</p:column>
+				</p:column>-->
 			</p:dataTable>
 		</h:form>
 		</div>
