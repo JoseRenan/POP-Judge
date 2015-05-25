@@ -10,16 +10,14 @@
 		<p:growl autoUpdate="true" showDetail="false"/>
 		<h:form id="form" enctype="multipart/form-data">
 			<div align="center">
-				<h:panelGrid columns="5" cellspacing="10">
+				<h:panelGrid columns="4" cellspacing="10">
 					<p:outputLabel value="Título:" for="title" />
-					<p:outputLabel value="Tempo Limite (ms): " for="timeLimit" />
-					<p:outputLabel value="Pontuação:" for="scorePoints" />
+					<p:outputLabel value="Tempo Limite (ms): " for="timeLimit" />				
 					<p:outputLabel value="Autor:" for="author" />
 					<p:outputLabel value="Universidade:" for="university" />
+					
 					<p:inputText value="#{problem.problem.title}" id="title" />
-					<p:inputText value="#{problem.problem.timeLimit}" id="timeLimit" />
-					<p:inputText value="#{problem.problem.scorePoints}"
-						id="scorePoints" />
+					<p:inputText value="#{problem.problem.timeLimit}" id="timeLimit" />				
 					<p:inputText value="#{problem.problem.author}" id="author" />
 					<p:inputText value="#{problem.problem.university}" id="university" />
 				</h:panelGrid>
