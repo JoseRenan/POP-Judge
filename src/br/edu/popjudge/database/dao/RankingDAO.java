@@ -125,4 +125,18 @@ public class RankingDAO implements Dao<UserRank> {
 		stmt.close();
 		connection.close();
 	}
+
+	@Override
+	public void truncate() throws SQLException {
+		Connection connection = new ConnectionFactory().getConnection();
+
+		String sql = "truncate table RANKING";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.execute();
+		statement.close();
+		
+		connection.close();
+		
+	}
 }

@@ -174,9 +174,25 @@ public class SubmissionDAO implements Dao<Submission> {
 	}
 
 	@Override
+	@Deprecated
 	public boolean delete(int id) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void deleteByProblem(int idProblem) throws SQLException {
+
+		connection = new ConnectionFactory().getConnection();
+
+		String sql = String.format("DELETE FROM SUBMISSION WHERE id_problem = %d", idProblem);
+
+		Statement statement = connection.createStatement();
+
+		statement.execute(sql);
+		
+		statement.close();
+		connection.close();
+
 	}
 
 	@Override
@@ -199,6 +215,19 @@ public class SubmissionDAO implements Dao<Submission> {
 		statement.execute();
 
 		statement.close();
+		connection.close();
+	}
+
+	@Override
+	public void truncate() throws SQLException {
+		connection = new ConnectionFactory().getConnection();
+
+		String sql = "truncate table SUBMISSION";
+
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.execute();
+		statement.close();
+
 		connection.close();
 	}
 }

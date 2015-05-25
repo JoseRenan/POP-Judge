@@ -18,7 +18,9 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.UploadedFile;
 
+import br.edu.popjudge.database.dao.ClarificationDAO;
 import br.edu.popjudge.database.dao.ProblemDAO;
+import br.edu.popjudge.database.dao.SubmissionDAO;
 import br.edu.popjudge.domain.Problem;
 import br.edu.popjudge.service.RankingService;
 
@@ -145,9 +147,16 @@ public class ProblemBean implements Serializable{
 	}
 	
 	public void deleteProblem() throws SQLException {
+		ClarificationDAO cd = new ClarificationDAO();
+		cd.deleteByProblem(this.selectedProblem.getIdProblem());
+		
+		SubmissionDAO sd = new SubmissionDAO();
+		sd.deleteByProblem(this.selectedProblem.getIdProblem());
+		
 		ProblemDAO pd = new ProblemDAO();
 		pd.delete(this.selectedProblem.getIdProblem());
-		FacesMessage message = new FacesMessage("Apagado com sucesso", "");
+		
+		FacesMessage message = new FacesMessage("Excluído com sucesso", "");
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 }

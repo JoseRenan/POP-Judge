@@ -39,8 +39,20 @@
 						toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]" />
 				</h:panelGrid>
-				<p:commandButton value="Enviar" actionListener="#{contest.salvar}" action="#{timer.criaContest}"/>
+				<p:commandButton value="Enviar" actionListener="#{contest.salvar}"
+					action="#{timer.criaContest}" />
 			</h:form>
+
+			<h:form>
+				<br/>
+				<p:separator/>
+				<br/>
+				<p:commandButton actionListener="#{contest.deleteContest}" value="Apagar Contest"/>
+				<p> <br/>OBS: Apagando o contest você estará excluindo todos os
+					usuários, submissões, ranking e clarifications.</p>
+				<br/>
+			</h:form>
+
 		</div>
 	</ui:define>
 </ui:composition>
