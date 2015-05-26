@@ -175,7 +175,7 @@ public class ProblemBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 
-	public void deleteProblem() throws SQLException {
+	public void deleteProblem() throws SQLException, IOException {
 		ClarificationDAO cd = new ClarificationDAO();
 		cd.deleteByProblem(this.selectedProblem.getIdProblem());
 
@@ -187,6 +187,8 @@ public class ProblemBean implements Serializable {
 		
 		RankingService rs = new RankingService();
 		rs.deleteProblem(this.selectedProblem);
+		
+		Runtime.getRuntime().exec("rm -r " + this.selectedProblem.getDir().getAbsolutePath());
 		
 		FacesMessage message = new FacesMessage("Excluído com sucesso", "");
 		FacesContext.getCurrentInstance().addMessage(null, message);
