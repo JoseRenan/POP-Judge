@@ -27,7 +27,7 @@
 	</h:head>
 
 <h:body>
-	<p:growl autoUpdate="true" />
+	<p:growl id="growl" autoUpdate="true" />
 	<div align="center">
 		<a href="/POP-Judge/"><img src="/POP-Judge/resources/img/logo.png" width="200px" /></a> <br />
 		<br />
@@ -76,7 +76,7 @@
 			</h:panelGrid>
 			<br />
 			<p:commandButton value="Enviar" action="#{userBean.newUser}"
-				icon="ui-icon-circle-check" update="form" />
+				icon="ui-icon-circle-check" update="form , growl" ajax="false"/>
 		</h:form>
 	</div>
 </h:body>

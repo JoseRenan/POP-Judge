@@ -30,6 +30,8 @@
 				<p:menuitem value="Responder Dúvidas"
 					url="/webapp/admin/answers.xhtml" icon="ui-icon-comment" />
 			</p:submenu>
+			<p:menuitem value="Configurações de Administrador"
+					url="/webapp/admin/config.xhtml" icon="ui-icon-gear" />
 			<f:facet name="options">
 				<p:outputLabel value="#{user.username}" style="margin-right:10px" />
 				<p:commandButton value="Logout" actionListener="#{userBean.logout}"

@@ -3,6 +3,8 @@ package br.edu.popjudge.bean;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
@@ -31,13 +33,13 @@ public class UserBean implements Serializable{
 		this.user = user;
 	}
 
-	public String login() throws IOException, SQLException {
+	public String login() throws IOException, SQLException, NoSuchAlgorithmException {
 		
 		String redirect = null;
 		
 		UserDAO ud = new UserDAO();
 		User u = ud.get(this.user.getUsername());
-
+		
 		if (u == null || !u.getPassword().equals(this.user.getPassword())) {
 			
 			FacesContext.getCurrentInstance().addMessage(
@@ -82,8 +84,9 @@ public class UserBean implements Serializable{
 		session.invalidate();
 	}
 
-	public void newUser() throws SQLException, IOException {
+	public void newUser() throws SQLException, IOException, NoSuchAlgorithmException {
 		try {
+			
 			String home = System.getProperty("user.home");
 			user.setDir(home + "/POPJudge/users/" + this.user.getUsername());
 			
@@ -95,9 +98,6 @@ public class UserBean implements Serializable{
 			
 			RankingService rankingService = new RankingService();
 			rankingService.insertUser(this.user);
-			
-			this.user.setUsername(null);
-			this.user.setPassword(null);
 			
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/");
 			
@@ -114,14 +114,17 @@ public class UserBean implements Serializable{
 		}
 	}
 
-	public void changePassword() throws SQLException {
+	public void changePassword() throws SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext()
 				.getSession(true);
+		
 		User u = (User) session.getAttribute("user");
+		
 		u.setPassword(this.user.getPassword());
 		UserDAO ud = new UserDAO();
 		ud.update(u);
+		
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO,
