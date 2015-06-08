@@ -10,6 +10,9 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.sql.SQLException;
 
+import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.core.ZipFile;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -146,11 +149,18 @@ public class ProblemBean implements Serializable {
 		}
 
 		fos.close();
-
-		Runtime.getRuntime().exec(
-				"unzip " + this.problem.getDir() + "/TestCases/"
-						+ this.getTestcases().getFileName() + " -d "
-						+ this.problem.getDir() + "/TestCases/");
+		
+		String filePath = this.problem.getDir() + "/TestCases/"
+				+ this.getTestcases().getFileName();
+		
+		String destination = this.problem.getDir() + "/TestCases/";
+		
+		try {
+			ZipFile zipFile = new ZipFile(filePath);
+			zipFile.extractAll(destination);
+		} catch (ZipException e) {
+			e.printStackTrace();
+		}
 
 		FacesMessage message = new FacesMessage("Criado com sucesso", "");
 		FacesContext.getCurrentInstance().addMessage(null, message);
