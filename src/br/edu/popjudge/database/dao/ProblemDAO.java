@@ -14,7 +14,7 @@ import javax.faces.bean.ManagedBean;
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.Problem;
 
-@ManagedBean
+@ManagedBean (name = "problemDAO")
 public class ProblemDAO implements Dao<Problem> {
 	private Connection connection;
 
