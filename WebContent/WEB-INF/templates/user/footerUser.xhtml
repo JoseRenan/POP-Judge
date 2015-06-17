@@ -5,11 +5,9 @@
         xmlns:p="http://primefaces.org/ui"
         xmlns:pe="http://primefaces.org/ui/extensions">
   
-
-  <p:separator/>
   <h:form>
     <div align="center">
-      <pe:timer timeout="#{timer.horaRestante * 3600 + timer.minRestante * 60}" format="HH:mm:ss" autoStart="true" forward="false"/>
+      <pe:timer timeout="#{timer.segRestante}" format="HH:mm:ss" autoStart="true" forward="false"/>
     </div>
   </h:form>
   

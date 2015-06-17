@@ -10,7 +10,6 @@ import java.util.TreeMap;
 
 import javax.faces.bean.ManagedBean;
 
-import br.edu.popjudge.bean.TimerBean;
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.Score;
 import br.edu.popjudge.domain.UserRank;
@@ -43,9 +42,8 @@ public class RankingDAO implements Dao<UserRank> {
 
 	@Override
 	public ArrayList<UserRank> getAll() throws SQLException {
-		boolean rankBlinded = new TimerBean().rankBlinded();
 
-		if (!rankBlinded || all == null) {
+		if (all == null) {
 			Connection connection = new ConnectionFactory().getConnection();
 			this.all = new ArrayList<UserRank>();
 
