@@ -10,7 +10,6 @@ import java.util.TreeMap;
 
 import javax.faces.bean.ManagedBean;
 
-import br.edu.popjudge.bean.TimerBean;
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.Score;
 import br.edu.popjudge.domain.UserRank;
@@ -43,9 +42,8 @@ public class RankingDAO implements Dao<UserRank> {
 
 	@Override
 	public ArrayList<UserRank> getAll() throws SQLException {
-		boolean rankBlinded = new TimerBean().rankBlinded();
 
-		if (!rankBlinded || all == null) {
+		if (all == null) {
 			Connection connection = new ConnectionFactory().getConnection();
 			this.all = new ArrayList<UserRank>();
 
@@ -68,7 +66,7 @@ public class RankingDAO implements Dao<UserRank> {
 
 	public UserRank get(String username) throws SQLException {
 		Connection connection = new ConnectionFactory().getConnection();
-		if(connection == null){
+		if (connection == null) {
 			System.out.println("A PORRA DA CONEXÃO TÁ NULA");
 		}
 		String sql = "select * from RANKING where username = ?";
@@ -77,7 +75,7 @@ public class RankingDAO implements Dao<UserRank> {
 		stmt.setString(1, username);
 
 		ResultSet rs = stmt.executeQuery();
-		
+
 		Map<Integer, Score> problems = new TreeMap<Integer, Score>();
 
 		while (rs.next()) {
@@ -86,7 +84,7 @@ public class RankingDAO implements Dao<UserRank> {
 		}
 
 		UserRank ur = new UserRank(username, problems);
-		
+
 		rs.close();
 		stmt.close();
 		connection.close();
@@ -102,6 +100,13 @@ public class RankingDAO implements Dao<UserRank> {
 
 	@Override
 	public boolean delete(int id) throws SQLException {
+		Connection connection = new ConnectionFactory().getConnection();
+		String sql = "delete from RANKING where id_problem = ?";
+		
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setInt(1, id);
+		
+		stmt.execute();
 		return false;
 	}
 
@@ -124,5 +129,19 @@ public class RankingDAO implements Dao<UserRank> {
 		value.setProblems(this.get(value.getUsername()).getProblems());
 		stmt.close();
 		connection.close();
+	}
+
+	@Override
+	public void truncate() throws SQLException {
+		Connection connection = new ConnectionFactory().getConnection();
+
+		String sql = "truncate table RANKING";
+
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.execute();
+		statement.close();
+
+		connection.close();
+
 	}
 }

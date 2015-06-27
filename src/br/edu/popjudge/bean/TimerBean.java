@@ -13,8 +13,7 @@ import br.edu.popjudge.control.SubmissionIdGenerator;
 @ManagedBean(name="timer")
 @ApplicationScoped
 public class TimerBean {
-	private int horaRestante;
-	private int minRestante;
+	private int segRestante;
 	private Date inicioContestD;
 	private Date fimContestD;
 	private static Calendar inicioContest = Calendar.getInstance();
@@ -67,12 +66,6 @@ public class TimerBean {
 		this.inicioContestD = inicioContestD;
 	}
 	
-	public boolean rankBlinded(){
-		if (this.getMinRestante() <= 15 && this.getHoraRestante() == 0)
-			return true;
-		return false;
-	}
-	
 	public Date getFimContestD() {
 		return fimContestD;
 	}
@@ -80,40 +73,35 @@ public class TimerBean {
 	public void setFimContestD(Date fimContestD) {
 		this.fimContestD = fimContestD;
 	}
-	
-	public int getMinRestante() {
-		Calendar c = Calendar.getInstance();
-		if (c.get(Calendar.HOUR_OF_DAY) < inicioContest.get(Calendar.HOUR_OF_DAY) || (c.get(Calendar.HOUR_OF_DAY) == inicioContest.get(Calendar.HOUR_OF_DAY) && c.get(Calendar.MINUTE) < inicioContest.get(Calendar.MINUTE)))
-			this.minRestante = ((inicioContest.get(Calendar.MINUTE) + (inicioContest.get(Calendar.HOUR_OF_DAY) * 60)) - (c.get(Calendar.MINUTE) + (c.get(Calendar.HOUR_OF_DAY) * 60))) % 60;
-		else
-			if (c.get(Calendar.HOUR_OF_DAY) > fimContest.get(Calendar.HOUR_OF_DAY) || (c.get(Calendar.HOUR_OF_DAY) == fimContest.get(Calendar.HOUR_OF_DAY) && c.get(Calendar.MINUTE) >= fimContest.get(Calendar.MINUTE)))
-				this.minRestante = 0;
-			else
-				this.minRestante = ((fimContest.get(Calendar.MINUTE) + (fimContest.get(Calendar.HOUR_OF_DAY) * 60)) - (c.get(Calendar.MINUTE) + (c.get(Calendar.HOUR_OF_DAY) * 60))) % 60;
-		
-		return this.minRestante;
-	}
 
-	public void setMinRestante(int minRestante) {
-		this.minRestante = minRestante;
-	}
-
-	public int getHoraRestante() {
+	public int getSegRestante() {
 		Calendar c = Calendar.getInstance();
 		
-		if (c.get(Calendar.HOUR_OF_DAY) < inicioContest.get(Calendar.HOUR_OF_DAY) || (c.get(Calendar.HOUR_OF_DAY) == inicioContest.get(Calendar.HOUR_OF_DAY) && c.get(Calendar.MINUTE) < inicioContest.get(Calendar.MINUTE)))
-			this.horaRestante = ((inicioContest.get(Calendar.MINUTE) + (inicioContest.get(Calendar.HOUR_OF_DAY) * 60)) - (c.get(Calendar.MINUTE) + (c.get(Calendar.HOUR_OF_DAY) * 60))) / 60;
-		else
-			if (c.get(Calendar.HOUR_OF_DAY) > fimContest.get(Calendar.HOUR_OF_DAY) || (c.get(Calendar.HOUR_OF_DAY) == fimContest.get(Calendar.HOUR_OF_DAY) && c.get(Calendar.MINUTE) >= fimContest.get(Calendar.MINUTE)))
-				this.horaRestante = 0;
-			else
-				this.horaRestante = ((fimContest.get(Calendar.MINUTE) + (fimContest.get(Calendar.HOUR_OF_DAY) * 60)) - (c.get(Calendar.MINUTE) + (c.get(Calendar.HOUR_OF_DAY) * 60))) / 60;
+		int beginInSeconds = (inicioContest.get(Calendar.HOUR) * 3600) + 
+							 (inicioContest.get(Calendar.MINUTE) * 60) +
+							 (inicioContest.get(Calendar.SECOND));
 		
-		return this.horaRestante;
+		int currentInSeconds = (c.get(Calendar.HOUR) * 3600) + 
+				 			   (c.get(Calendar.MINUTE) * 60) +
+				 			   (c.get(Calendar.SECOND));
+		
+		int endInSeconds = (fimContest.get(Calendar.HOUR) * 3600) + 
+	 			   		   (fimContest.get(Calendar.MINUTE) * 60) +
+	 			           (fimContest.get(Calendar.SECOND));
+		
+		if(beginInSeconds <= currentInSeconds && endInSeconds > currentInSeconds)
+			segRestante = endInSeconds - currentInSeconds;
+		
+		else if (beginInSeconds > currentInSeconds)
+			segRestante = beginInSeconds - currentInSeconds;
+		else
+			segRestante = 0;
+		
+		return segRestante;
 	}
 
-	public void setHoraRestante(int horaRestante) {
-		this.horaRestante = horaRestante;
+	public void setSegRestante(int segRestante) {
+		this.segRestante = segRestante;
 	}
 
 	public static int totalTimeContest() {

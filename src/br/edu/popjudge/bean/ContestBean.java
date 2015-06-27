@@ -6,11 +6,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+
+import br.edu.popjudge.database.dao.ClarificationDAO;
+import br.edu.popjudge.database.dao.RankingDAO;
+import br.edu.popjudge.database.dao.SubmissionDAO;
+import br.edu.popjudge.database.dao.UserDAO;
 
 @ManagedBean(name="contest")
 @ApplicationScoped
@@ -95,5 +101,12 @@ public class ContestBean {
 		
 		FacesMessage message = new FacesMessage("Informaões prévias salvas", "");
 		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+	
+	public void deleteContest() throws SQLException {
+		new RankingDAO().truncate();
+		new SubmissionDAO().truncate();
+		new ClarificationDAO().truncate();
+		new UserDAO().truncate();
 	}
 }

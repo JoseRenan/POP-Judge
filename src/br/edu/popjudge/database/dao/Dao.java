@@ -15,4 +15,6 @@ public interface Dao<T> {
     public boolean delete (int id) throws SQLException;
 
     public void update(T value) throws SQLException;
+    
+    public void truncate() throws SQLException;
 }

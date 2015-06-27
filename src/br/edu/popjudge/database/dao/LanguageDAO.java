@@ -118,4 +118,11 @@ public class LanguageDAO implements Dao<Language> {
 		connection.close();
 	}
 
+	@Override
+	@Deprecated
+	public void truncate() throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

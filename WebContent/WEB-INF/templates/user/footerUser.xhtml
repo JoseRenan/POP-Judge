@@ -1,19 +1,16 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:p="http://primefaces.org/ui">
-  
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
-  <p:separator/>
-  <h:form>
-    <div align="center">
-      <h:outputText value="Tempo restante: "/>
-      <h:outputText id="hora" value="#{timer.horaRestante}h " styleClass="#{timer.minRestante le 30 and timer.horaRestante le 0 ? 'WA' : null}"/>
-      <h:outputText id="minuto" value="#{timer.minRestante}min" styleClass="#{timer.minRestante le 30 and timer.horaRestante le 0 ? 'WA' : null}"/>
-    </div>
-    <p:poll interval="1" listener="#{timer.getHoraRestante}" update="hora" />
-    <p:poll interval="1" listener="#{timer.getMinRestante}" update="minuto" />
-  </h:form>
-  
+	<h:form>
+		<div align="center">
+			<pe:timer timeout="#{timer.segRestante}" format="HH:mm:ss"
+				autoStart="true" forward="false"
+				ontimercomplete="window.location.reload()"/>
+		</div>
+	</h:form>
+
 </ui:composition>

@@ -18,6 +18,15 @@ import br.edu.popjudge.domain.Veredict;
 
 public class RankingService {
 
+	public void deleteProblem(Problem problem){
+		RankingDAO rankingDao = new RankingDAO();
+		try {
+			rankingDao.delete(problem.getIdProblem());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+	}
+	
 	public void insertUser(User user) {
 		ProblemDAO problemDao = new ProblemDAO();
 		RankingDAO rankingDao = new RankingDAO();
