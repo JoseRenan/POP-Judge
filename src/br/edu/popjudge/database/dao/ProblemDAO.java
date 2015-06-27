@@ -14,13 +14,14 @@ import javax.faces.bean.ManagedBean;
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.Problem;
 
-@ManagedBean
+@ManagedBean (name = "problemDAO")
 public class ProblemDAO implements Dao<Problem> {
 	private Connection connection;
 
 	@Override
+	@Deprecated
 	public void insert(Problem value) throws SQLException {
-
+		//TODO concertar o método insertGet...
 	}
 	public int insertGet(Problem value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
@@ -157,5 +158,17 @@ public class ProblemDAO implements Dao<Problem> {
 
 		statement.close();
 		connection.close();
+	}
+	@Override
+	public void truncate() throws SQLException {
+		connection = new ConnectionFactory().getConnection();
+
+		String sql = "truncate table PROBLEM";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.execute();
+		statement.close();
+		
+		connection.close();		
 	}
 }

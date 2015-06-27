@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -5,40 +6,46 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title><ui:insert name="title">POPJudge</ui:insert></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" type="text/css" href="/POP-Judge/css/header.css" />
-	<link rel="stylesheet" type="text/css" href="/POP-Judge/css/veredict.css" />
-	<link rel="stylesheet" type="text/css" href="/POP-Judge/css/ranking.css" />
-	<link rel="stylesheet" type="text/css"
-		href="/POP-Judge/css/problem.css" />
-	<link rel="stylesheet" type="text/css" href="/POP-Judge/css/footer.css" />
-	<link rel="stylesheet" type="text/css"
-		href="/POP-Judge/css/default.css" />
-	<link href="/POP-Judge/resources/img/icon.png" type="image/x-icon"
-		rel="shortcut icon" />
-</h:head>
+<f:view contentType="text/html; charset=UTF-8">
+	<h:head>
+		<title><ui:insert name="title">POPJudge</ui:insert></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css"
+			href="/POP-Judge/css/header.css" />
+		<link rel="stylesheet" type="text/css"
+			href="/POP-Judge/css/veredict.css" />
+		<link rel="stylesheet" type="text/css"
+			href="/POP-Judge/css/ranking.css" />
+		<link rel="stylesheet" type="text/css"
+			href="/POP-Judge/css/problem.css" />
+		<link rel="stylesheet" type="text/css"
+			href="/POP-Judge/css/footer.css" />
+		<link rel="stylesheet" type="text/css"
+			href="/POP-Judge/css/default.css" />
+		<link href="/POP-Judge/resources/img/icon.png" type="image/x-icon"
+			rel="shortcut icon" />
+	</h:head>
 
-<h:body>
+	<h:body>
 
-	<ui:insert name="header">
-		<ui:include src="/WEB-INF/templates/user/headerUser.xhtml" />
-	</ui:insert>
-
-
-
-	<ui:insert name="content">
-
-	</ui:insert>
-	<br/><br/>
-	<div class="footer">
-		<ui:insert name="footer">
-			
-			<ui:include src="/WEB-INF/templates/user/footerUser.xhtml" />
+		<ui:insert name="header">
+			<ui:include src="/WEB-INF/templates/user/headerUser.xhtml" />
 		</ui:insert>
-	</div>
 
-</h:body>
 
+
+		<ui:insert name="content">
+
+		</ui:insert>
+		<br />
+		<br />
+		<div class="footer">
+			<ui:insert name="footer">
+
+				<ui:include src="/WEB-INF/templates/user/footerUser.xhtml" />
+			</ui:insert>
+		</div>
+
+	</h:body>
+</f:view>
 </html>

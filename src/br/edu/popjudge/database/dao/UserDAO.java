@@ -160,4 +160,17 @@ public class UserDAO implements Dao<User> {
 		statement.close();
 		connection.close();
 	}
+
+	@Override
+	public void truncate() throws SQLException {
+		connection = new ConnectionFactory().getConnection();
+
+		String sql = "delete from USER where username <> 'Admin'";
+			
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.execute();
+		statement.close();
+		
+		connection.close();
+	}
 }

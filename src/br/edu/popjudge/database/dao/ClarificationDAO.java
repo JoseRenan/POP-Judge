@@ -161,4 +161,31 @@ public class ClarificationDAO implements Dao<Clarification> {
 		statement.close();
 		connection.close();
 	}
+
+	@Override
+	public void truncate() throws SQLException {
+		connection = new ConnectionFactory().getConnection();
+
+		String sql = "truncate table CLARIFICATION";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.execute();
+		statement.close();
+		
+		connection.close();
+		
+	}
+
+	public void deleteByProblem(int idProblem) throws SQLException {
+		connection = new ConnectionFactory().getConnection();
+
+		String sql = String.format("DELETE FROM CLARIFICATION WHERE id_problem = %d", idProblem);
+
+		Statement statement = connection.createStatement();
+
+		statement.execute(sql);
+		
+		statement.close();
+		connection.close();	
+	}
 }

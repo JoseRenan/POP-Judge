@@ -16,10 +16,10 @@
 					<p:outputLabel value="Autor:" for="author" />
 					<p:outputLabel value="Universidade:" for="university" />
 					
-					<p:inputText value="#{problem.problem.title}" id="title" />
-					<p:inputText value="#{problem.problem.timeLimit}" id="timeLimit" />				
-					<p:inputText value="#{problem.problem.author}" id="author" />
-					<p:inputText value="#{problem.problem.university}" id="university" />
+					<p:inputText value="#{problem.problem.title}" id="title" required="true" requiredMessage="Digite o título do problema"/>
+					<p:inputText value="#{problem.problem.timeLimit}" id="timeLimit" required="true" requiredMessage="Digite o tempo limite do problema"/>				
+					<p:inputText value="#{problem.problem.author}" id="author" required="true" requiredMessage="Digite o autor do problema"/>
+					<p:inputText value="#{problem.problem.university}" id="university" required="true" requiredMessage="Digite a universidade em que o autor estuda"/>
 				</h:panelGrid>
 				<p:fieldset legend="Descrição" toggleable="true" toggleSpeed="500" collapsed="true" style="width:850px">
 					<h:panelGrid columns="1" cellspacing="10">
@@ -27,17 +27,17 @@
 						<pe:ckEditor id="description" value="#{problem.problem.description}"
 							toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 	        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
-							width="850px" />
+							width="850px" required="true" requiredMessage="Digite a descrição do problema"/>
 						<p:outputLabel value="Entrada:"/>
 						<pe:ckEditor id="input" value="#{problem.problem.inputDescription}"
 							toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 	        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
-							width="850px" />
+							width="850px" required="true" requiredMessage="Digite a entrada do problema"/>
 						<p:outputLabel value="Saída:"/>
 						<pe:ckEditor id="output" value="#{problem.problem.outputDescription}"
 							toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 	        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
-							width="850px" />
+							width="850px" required="true" requiredMessage="Digite a saída do problema"/>
 					</h:panelGrid>
 				</p:fieldset>
 				<p:fieldset legend="Casos de teste (Exemplos)" toggleable="true" toggleSpeed="500" collapsed="true" style="width:850px">
@@ -47,12 +47,12 @@
 							<pe:ckEditor id="inputSample1" value="#{problem.problem.inputSample1}"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
-								width="800px" />
+								width="800px" required="true" requiredMessage="Digite o exemplo de entrada 1"/>
 							<p:outputLabel value="Saída 1:"/>
 							<pe:ckEditor id="outputSample1" value="#{problem.problem.outputSample1}"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
-								width="800px" />
+								width="800px" required="true" requiredMessage="Digite o exemplo de saída 1"/>
 						</h:panelGrid>
 					</p:fieldset>
 					<p:fieldset legend="Casos de teste 2" toggleable="true" toggleSpeed="500" collapsed="true" style="width:800px">

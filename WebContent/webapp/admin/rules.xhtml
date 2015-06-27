@@ -39,8 +39,40 @@
 						toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]" />
 				</h:panelGrid>
-				<p:commandButton value="Enviar" actionListener="#{contest.salvar}" action="#{timer.criaContest}"/>
+				<p:commandButton value="Enviar" actionListener="#{contest.salvar}"
+					action="#{timer.criaContest}" />
 			</h:form>
+
+			<h:form>
+				<br />
+				<p:separator />
+				<br />
+				<p:commandButton onclick="PF('contestDialog').show()"
+					value="Apagar Contest" />
+				<p>
+					<br />OBS: Apagando o contest você estará excluindo todos os
+					usuários, submissões, ranking e clarifications.
+				</p>
+				<br />
+			</h:form>
+
 		</div>
+
+		<p:dialog header="Apagar contest" widgetVar="contestDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			<h:form>
+				<p:outputPanel id="contestDetail" style="text-align:center;">
+
+					<p:panelGrid columns="2" columnClasses="label,value">
+						<p:commandButton actionListener="#{contest.deleteContest}"
+							value="Sim" onclick="contestDialog.hide()" process="@none"
+							icon="ui-icon-circle-check" />
+						<p:commandButton value="Não" onclick="contestDialog.hide()"
+							process="@none" icon="ui-icon-circle-close" />
+
+					</p:panelGrid>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
