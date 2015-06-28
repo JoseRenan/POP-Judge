@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import br.edu.popjudge.database.dao.UserDAO;
 import br.edu.popjudge.domain.User;
 import br.edu.popjudge.service.RankingService;
+import br.edu.popjudge.service.UserService;
 
 @ManagedBean (name = "userBean")
 @ViewScoped
@@ -33,55 +34,25 @@ public class UserBean implements Serializable{
 		this.user = user;
 	}
 
-	public String login() throws IOException, SQLException, NoSuchAlgorithmException {
+	public String login(){
+		UserService service = new UserService();
 		
-		String redirect = null;
-		
-		UserDAO ud = new UserDAO();
-		User u = ud.get(this.user.getUsername());
-		
-		if (u == null || !u.getPassword().equals(this.user.getPassword())) {
-			
-			FacesContext.getCurrentInstance().addMessage(
-					null, 
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-							"Usuário ou senha incorretos", ""));
-			return redirect;
-		}
-
-		if (this.user.username.equalsIgnoreCase("Admin")) {
-			
-			logging(u);
-			
-			return "/webapp/admin/indexAdmin.xhtml?faces-redirect=true";
-		}
-
-		if (u.getUsername().equalsIgnoreCase(this.user.username)) {
-			
-			logging(u);
-			
-			return "/webapp/user/indexUser.xhtml?faces-redirect=true";
+		if (!service.login(this.user)){
+			GenericBean.setMessage("Usuário ou senha incorretos", FacesMessage.SEVERITY_ERROR);
+			return null;
 		}
 		
-		return redirect;
+		return "index.xhtml?faces-redirect=true";
 	}
 
-	public void logout() throws IOException {
-		invalidateSession();
-		FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/");
-	}
-	
-	private static void logging (User u) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) context
-				.getExternalContext().getSession(true);
-		session.setAttribute("user", u);
-	}
-	
-	private static void invalidateSession() {
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		session.removeAttribute("user");
-		session.invalidate();
+	public String logout(){
+		
+		UserService service = new UserService();
+		
+		service.logout();
+		
+		return "index.xhtml?faces-redirect=true";
+		
 	}
 
 	public void newUser() throws SQLException, IOException, NoSuchAlgorithmException {
