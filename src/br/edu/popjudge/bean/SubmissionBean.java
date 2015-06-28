@@ -1,13 +1,9 @@
 package br.edu.popjudge.bean;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,19 +13,21 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.UploadedFile;
 
-import br.edu.popjudge.control.Judge;
-import br.edu.popjudge.database.dao.LanguageDAO;
-import br.edu.popjudge.database.dao.SubmissionDAO;
+import br.edu.popjudge.control.Util;
 import br.edu.popjudge.domain.Problem;
 import br.edu.popjudge.domain.Submission;
 import br.edu.popjudge.domain.User;
-import br.edu.popjudge.domain.Veredict;
-import br.edu.popjudge.service.RankingService;
+import br.edu.popjudge.service.SubmissionService;
 
 @ManagedBean(name = "submission")
 @ViewScoped
-public class SubmissionBean implements Serializable{
-	
+public class SubmissionBean implements Serializable {
+	/**
+	 * The interface between the services and the view.
+	 * @author rerissondaniel
+	 * @author gugaribeiro
+	 * @author joserenan
+	 * */
 	private static final long serialVersionUID = -7086813068237158227L;
 	private Submission submission = new Submission();
 	private UploadedFile upFile;
@@ -68,63 +66,32 @@ public class SubmissionBean implements Serializable{
 		this.selectedProblem = selectedProblem;
 	}
 
-	public void submit() throws IOException, SQLException {
-		if (this.getUpFile() != null) {				
+	public void submit() {
+		if (this.getUpFile() != null) {
 			FacesContext context = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+			HttpSession session = (HttpSession) context.getExternalContext()
+					.getSession(true);
 
-			InputStream in = new BufferedInputStream(this.getUpFile().getInputstream());
-			
 			this.submission.setUser((User) session.getAttribute("user"));
 			this.submission.setFile(new File(""));
-			
-			LanguageDAO languageDAO = new LanguageDAO();
-			
-			this.submission.setTimestamp(new Timestamp(System.currentTimeMillis()));
-			this.submission.setLanguage(languageDAO.get(idLanguage));
 			this.submission.setProblem(selectedProblem);
-			
-			this.submission.setVeredict(Veredict.SUBMISSION_ERROR.getRotulo1());
-
-			SubmissionDAO submissionDAO = new SubmissionDAO();
-			
-			/*Inserts the current submission on database with SubmissionError Verdict*/
-			this.submission.setIdSubmission(submissionDAO.insertAndGetKey(this.submission));
-			
-			this.submission.setDir(this.submission.getUser().getDir() + "/" + this.submission.getIdSubmission());
-			
-			File submissionDirectory = new File(this.submission.getDir());
-			submissionDirectory.mkdirs();
-			
-			File file = new File(this.submission.getDir() + "/" + this.getUpFile().getFileName());
-			this.submission.setFile(file);
-			
-			FileOutputStream fos = new FileOutputStream(file);
-			
-			while (in.available() != 0) {// Writes the content in the user's file.
-				fos.write(in.read());
-			}
-			
-			fos.close();
+			this.submission.setIdSubmission(0);
+			/* Configures the submission with the data available */
 
 			try {
-				/*Update the current submission on database with your right verdict*/
-				this.submission.setTimestamp(new Timestamp(System.currentTimeMillis()));
-				this.submission.setLanguage(languageDAO.get(idLanguage));
-				this.submission.setProblem(selectedProblem);
+				SubmissionService submissionService = new SubmissionService();
+
+				submissionService.configSubmission(submission, idLanguage);
+				this.submission.setFile(Util.generateSubmissionFile(this.submission.getDir(), upFile));
 				
-				Judge judge = new Judge();
-				this.submission.setVeredict((judge.judge(this.submission).getRotulo1()));
-
-				submissionDAO.update(this.submission);
-
-				RankingService rankingService = new RankingService();
-				rankingService.insertSubmission(submission);
-
-				this.submission = new Submission();
+				if(submissionService.isSubmissionOk(submission))
+					submissionService.submit(submission);
 				
-				FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/webapp/user/mySubmissions.xhtml");
-			} catch (SQLException e) {
+				submission = new Submission();
+
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect("/POP-Judge/webapp/user/mySubmissions.xhtml");
+			} catch (SQLException | IOException e) {
 				e.printStackTrace();
 				FacesMessage message = new FacesMessage(
 						"Não entre em pânico.\nAfaste-se do computador e chame os admins.\n Tem algo MUITO errado.",
