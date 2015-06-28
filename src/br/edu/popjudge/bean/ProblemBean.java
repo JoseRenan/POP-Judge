@@ -9,9 +9,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.sql.SQLException;
-
-import net.lingala.zip4j.exception.ZipException;
-import net.lingala.zip4j.core.ZipFile;
+import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -19,15 +17,19 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+
 import org.primefaces.model.UploadedFile;
 
 import br.edu.popjudge.database.dao.ClarificationDAO;
 import br.edu.popjudge.database.dao.ProblemDAO;
 import br.edu.popjudge.database.dao.SubmissionDAO;
 import br.edu.popjudge.domain.Problem;
+import br.edu.popjudge.service.ProblemService;
 import br.edu.popjudge.service.RankingService;
 
-@ManagedBean(name = "problem")
+@ManagedBean(name = "problemBean")
 @ViewScoped
 public class ProblemBean implements Serializable {
 
@@ -74,7 +76,7 @@ public class ProblemBean implements Serializable {
 		ProblemDAO problemDao = new ProblemDAO();
 		this.problem.setDir(new File(""));
 
-		problem.setIdProblem(problemDao.insertGet(this.problem));
+		problem.setIdProblem(problemDao.insert(this.problem));
 		this.problem.setDir(new File(home + "/POPJudge/problems/"
 				+ this.problem.getIdProblem()));
 		problemDao.update(this.problem);
@@ -149,12 +151,12 @@ public class ProblemBean implements Serializable {
 		}
 
 		fos.close();
-		
+
 		String filePath = this.problem.getDir() + "/TestCases/"
 				+ this.getTestcases().getFileName();
-		
+
 		String destination = this.problem.getDir() + "/TestCases/";
-		
+
 		try {
 			ZipFile zipFile = new ZipFile(filePath);
 			zipFile.extractAll(destination);
@@ -181,8 +183,23 @@ public class ProblemBean implements Serializable {
 	public void editProblem() throws SQLException {
 		ProblemDAO pd = new ProblemDAO();
 		pd.update(this.selectedProblem);
+		
 		FacesMessage message = new FacesMessage("Editado com sucesso", "");
 		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+
+	public ArrayList<Problem> getProblems() {
+		ProblemService problemService = new ProblemService();
+		try {
+			return problemService.getProblems();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			FacesMessage message = new FacesMessage(
+					"Houve uma falha na comunicação com o banco de dados, tente novamente "
+							+ "ou chame os administradores.", "");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return new ArrayList<Problem>();
+		}
 	}
 
 	public void deleteProblem() throws SQLException, IOException {
@@ -194,12 +211,13 @@ public class ProblemBean implements Serializable {
 
 		ProblemDAO pd = new ProblemDAO();
 		pd.delete(this.selectedProblem.getIdProblem());
-		
+
 		RankingService rs = new RankingService();
 		rs.deleteProblem(this.selectedProblem);
-		
-		Runtime.getRuntime().exec("rm -r " + this.selectedProblem.getDir().getAbsolutePath());
-		
+
+		Runtime.getRuntime().exec(
+				"rm -r " + this.selectedProblem.getDir().getAbsolutePath());
+
 		FacesMessage message = new FacesMessage("Excluído com sucesso", "");
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}

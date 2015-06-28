@@ -17,14 +17,14 @@ public class UserDAO implements Dao<User> {
 	private Connection connection;
 	
 	@Override
-	public void insert(User value) throws SQLException {
+	public int insert(User value) throws SQLException {
 		connection = new ConnectionFactory().getConnection();
 		
 		String sql = "INSERT INTO USER(id_user, username, password, email, "
 				+ "full_name, city, college, dir)"
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		
-		PreparedStatement statement = connection.prepareStatement(sql);
+		PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		
 		statement.setInt(1, 0);
 		statement.setString(2, value.getUsername());
@@ -37,8 +37,18 @@ public class UserDAO implements Dao<User> {
 		
 		statement.execute();
 		
+		ResultSet resultSet = statement.getGeneratedKeys();
+		int key = 0;
+
+		if (resultSet.next()) {
+			key = resultSet.getInt(1);
+		}
+		
+		resultSet.close();
 		statement.close();
 		connection.close();
+		
+		return key;
 	}
 
 	@Override

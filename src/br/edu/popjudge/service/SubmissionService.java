@@ -3,6 +3,7 @@ package br.edu.popjudge.service;
 import java.io.File;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import br.edu.popjudge.control.Judge;
 import br.edu.popjudge.database.dao.LanguageDAO;
@@ -67,7 +68,7 @@ public class SubmissionService {
 		submission.setVeredict(Veredict.SUBMISSION_ERROR.getRotulo1());
 
 		SubmissionDAO submissionDAO = new SubmissionDAO();
-		submission.setIdSubmission(submissionDAO.insertAndGetKey(submission));
+		submission.setIdSubmission(submissionDAO.insert(submission));
 
 		submission.setDir(submission.getUser().getDir() + "/"
 				+ submission.getIdSubmission());
@@ -95,5 +96,15 @@ public class SubmissionService {
 
 		RankingService rankingService = new RankingService();
 		rankingService.insertSubmission(submission);
+	}
+	
+	public ArrayList<Submission> getSubmissionsByUser(int idUser) throws SQLException{
+		SubmissionDAO submissionDao = new SubmissionDAO();
+		return submissionDao.getByUser(idUser);
+	}
+	
+	public ArrayList<Submission> getSubmissions() throws SQLException{
+		SubmissionDAO submissionDao = new SubmissionDAO();
+		return submissionDao.getAll();
 	}
 }

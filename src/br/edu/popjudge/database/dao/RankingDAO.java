@@ -16,10 +16,9 @@ import br.edu.popjudge.domain.UserRank;
 
 @ManagedBean
 public class RankingDAO implements Dao<UserRank> {
-	private ArrayList<UserRank> all = null;
 
 	@Override
-	public void insert(UserRank value) throws SQLException {
+	public int insert(UserRank value) throws SQLException {
 		if (this.get(value.getUsername()) != null) {
 			Connection connection = new ConnectionFactory().getConnection();
 			String sql = "insert into RANKING(username, id_problem, tries, passed_time) values (?, ?, ?, ?)";
@@ -38,56 +37,54 @@ public class RankingDAO implements Dao<UserRank> {
 			connection.close();
 		}
 
+		return 0;
+
 	}
 
 	@Override
 	public ArrayList<UserRank> getAll() throws SQLException {
+		Connection connection = new ConnectionFactory().getConnection();
+		ArrayList<UserRank> all = new ArrayList<UserRank>();
 
-		if (all == null) {
-			Connection connection = new ConnectionFactory().getConnection();
-			this.all = new ArrayList<UserRank>();
+		String sql = "select * from RANKING group by(username)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet resultSet = stmt.executeQuery();
 
-			String sql = "select * from RANKING group by(username)";
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery();
-
-			while (rs.next()) {
-				all.add(this.get(rs.getString("username")));
-			}
-
-			rs.close();
-			stmt.close();
-			connection.close();
-
+		while (resultSet.next()) {
+			all.add(this.get(resultSet.getString("username")));
 		}
+
+		resultSet.close();
+		stmt.close();
+		connection.close();
 
 		return all;
 	}
 
 	public UserRank get(String username) throws SQLException {
 		Connection connection = new ConnectionFactory().getConnection();
-		if (connection == null) {
-			System.out.println("A PORRA DA CONEXÃO TÁ NULA");
-		}
 		String sql = "select * from RANKING where username = ?";
-		PreparedStatement stmt = connection.prepareStatement(sql);
+		PreparedStatement statement = connection.prepareStatement(sql);
 
-		stmt.setString(1, username);
+		statement.setString(1, username);
 
-		ResultSet rs = stmt.executeQuery();
+		ResultSet resultSet = statement.executeQuery();
 
 		Map<Integer, Score> problems = new TreeMap<Integer, Score>();
 
-		while (rs.next()) {
-			problems.put(rs.getInt("id_problem"), new Score(rs.getInt("tries"),
-					rs.getLong("passed_time")));
+		while (resultSet.next()) {
+			problems.put(
+					resultSet.getInt("id_problem"),
+					new Score(resultSet.getInt("tries"), resultSet
+							.getLong("passed_time")));
 		}
 
 		UserRank ur = new UserRank(username, problems);
 
-		rs.close();
-		stmt.close();
+		resultSet.close();
+		statement.close();
 		connection.close();
+
 		return ur;
 	}
 
@@ -99,14 +96,14 @@ public class RankingDAO implements Dao<UserRank> {
 	}
 
 	@Override
-	public boolean delete(int id) throws SQLException {
+	public boolean delete(int idProblem) throws SQLException {
 		Connection connection = new ConnectionFactory().getConnection();
 		String sql = "delete from RANKING where id_problem = ?";
-		
-		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setInt(1, id);
-		
-		stmt.execute();
+
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setInt(1, idProblem);
+
+		statement.execute();
 		return false;
 	}
 
@@ -115,19 +112,19 @@ public class RankingDAO implements Dao<UserRank> {
 		Connection connection = new ConnectionFactory().getConnection();
 
 		String sql = "update RANKING set tries = ?, passed_time = ? where username = ? and id_problem = ? limit 1";
-		PreparedStatement stmt = connection.prepareStatement(sql);
+		PreparedStatement statement = connection.prepareStatement(sql);
 
-		stmt.setString(3, value.getUsername());
+		statement.setString(3, value.getUsername());
 
 		for (Map.Entry<Integer, Score> entry : value.getProblems().entrySet()) {
-			stmt.setInt(1, entry.getValue().getTries());
-			stmt.setLong(2, entry.getValue().getPassedTime());
-			stmt.setInt(4, entry.getKey());
-			stmt.execute();
+			statement.setInt(1, entry.getValue().getTries());
+			statement.setLong(2, entry.getValue().getPassedTime());
+			statement.setInt(4, entry.getKey());
+			statement.execute();
 		}
 
 		value.setProblems(this.get(value.getUsername()).getProblems());
-		stmt.close();
+		statement.close();
 		connection.close();
 	}
 
@@ -139,8 +136,8 @@ public class RankingDAO implements Dao<UserRank> {
 
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.execute();
-		statement.close();
 
+		statement.close();
 		connection.close();
 
 	}

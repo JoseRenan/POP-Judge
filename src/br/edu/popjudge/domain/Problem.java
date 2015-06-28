@@ -355,7 +355,9 @@ public class Problem implements Serializable{
 	}
 
 	public long getTimeLimit() throws IOException {
-		
+		/////////////////////////
+		return timeLimit;
+		/*
 		File file = new File (this.getDir() + "/header.txt");        
         
 		if (!file.exists()) {
@@ -378,6 +380,7 @@ public class Problem implements Serializable{
 		buffRead.close();
 		
 		return timeLimit;
+		*/																																																																																																																
 	}
 
 	public void setTimeLimit(long timeLimit) {

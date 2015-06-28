@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -19,11 +20,12 @@ import br.edu.popjudge.domain.Submission;
 import br.edu.popjudge.domain.User;
 import br.edu.popjudge.service.SubmissionService;
 
-@ManagedBean(name = "submission")
+@ManagedBean(name = "submissionBean")
 @ViewScoped
 public class SubmissionBean implements Serializable {
 	/**
 	 * The interface between the services and the view.
+	 * 
 	 * @author rerissondaniel
 	 * @author gugaribeiro
 	 * @author joserenan
@@ -66,6 +68,37 @@ public class SubmissionBean implements Serializable {
 		this.selectedProblem = selectedProblem;
 	}
 
+	public ArrayList<Submission> getMySubmissions() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext()
+				.getSession(true);
+
+		int idUser = ((User) session.getAttribute("user")).getIdUser();
+		SubmissionService submissionService = new SubmissionService();
+		try {
+			return submissionService.getSubmissionsByUser(idUser);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			GenericBean.setMessage(
+					"Houve uma falha na comunicação com o banco de dados, "
+							+ "tente novamente ou chame os administradores.", FacesMessage.SEVERITY_FATAL);
+
+			return new ArrayList<Submission>();
+		}
+	}
+
+	public ArrayList<Submission> getSubmissions() {
+		SubmissionService submissionService = new SubmissionService();
+		try {
+			return submissionService.getSubmissions();
+		} catch (SQLException e) {
+			GenericBean.setMessage(
+					"Houve uma falha na comunicação com o banco de dados, "
+							+ "tente novamente ou chame os administradores.", FacesMessage.SEVERITY_FATAL);
+			return new ArrayList<Submission>();
+		}
+	}
+
 	public void submit() {
 		if (this.getUpFile() != null) {
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -82,21 +115,21 @@ public class SubmissionBean implements Serializable {
 				SubmissionService submissionService = new SubmissionService();
 
 				submissionService.configSubmission(submission, idLanguage);
-				this.submission.setFile(Util.generateSubmissionFile(this.submission.getDir(), upFile));
-				
-				if(submissionService.isSubmissionOk(submission))
+				this.submission.setFile(Util.generateSubmissionFile(
+						this.submission.getDir(), upFile));
+
+				if (submissionService.isSubmissionOk(submission))
 					submissionService.submit(submission);
-				
+
 				submission = new Submission();
 
 				FacesContext.getCurrentInstance().getExternalContext()
 						.redirect("/POP-Judge/webapp/user/mySubmissions.xhtml");
 			} catch (SQLException | IOException e) {
 				e.printStackTrace();
-				FacesMessage message = new FacesMessage(
-						"Não entre em pânico.\nAfaste-se do computador e chame os admins.\n Tem algo MUITO errado.",
-						"");
-				FacesContext.getCurrentInstance().addMessage(null, message);
+				GenericBean.setMessage(
+						"Houve uma falha na comunicação com o banco de dados, "
+								+ "tente novamente ou chame os administradores.", FacesMessage.SEVERITY_FATAL);
 			}
 			FacesMessage message = new FacesMessage("Enviado com sucesso", "");
 			FacesContext.getCurrentInstance().addMessage(null, message);

@@ -8,42 +8,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
-
 import br.edu.popjudge.database.ConnectionFactory;
 import br.edu.popjudge.domain.Submission;
-import br.edu.popjudge.domain.User;
 
-@ManagedBean
 public class SubmissionDAO implements Dao<Submission> {
-	Connection connection;
 
 	@Override
-	public void insert(Submission value) throws SQLException {
-		connection = new ConnectionFactory().getConnection();
-
-		String sql = "INSERT INTO SUBMISSION(id_submission, id_user, id_problem, "
-				+ "id_language, file_name, time_submission, veredict) VALUES(0, ?, ?, ?, ?, ?, ?)";
-
-		PreparedStatement statement = connection.prepareStatement(sql);
-
-		statement.setInt(1, value.getUser().getIdUser());
-		statement.setInt(2, value.getProblem().getIdProblem());
-		statement.setInt(3, value.getLanguage().getIdLanguage());
-		statement.setString(5, value.getTimestamp().toString());
-		statement.setString(4, value.getFile().getAbsolutePath());
-		statement.setString(6, value.getVeredict());
-
-		statement.execute();
-
-		statement.close();
-		connection.close();
-	}
-
-	public int insertAndGetKey(Submission value) throws SQLException {
-		connection = new ConnectionFactory().getConnection();
+	public int insert(Submission value) throws SQLException {
+		Connection connection = new ConnectionFactory().getConnection();
 
 		String sql = "INSERT INTO SUBMISSION(id_submission, id_user, id_problem, "
 				+ "id_language, file_name, time_submission, veredict) VALUES(0, ?, ?, ?, ?, ?, ?)";
@@ -66,13 +38,17 @@ public class SubmissionDAO implements Dao<Submission> {
 		if (resultSet.next()) {
 			key = resultSet.getInt(1);
 		}
-
+		
+		resultSet.close();
+		statement.close();
+		connection.close();
+		
 		return key;
 	}
 
 	@Override
 	public ArrayList<Submission> getAll() throws SQLException {
-		connection = new ConnectionFactory().getConnection();
+		Connection connection = new ConnectionFactory().getConnection();
 
 		String sql = "SELECT * FROM SUBMISSION ORDER BY time_submission DESC";
 
@@ -102,16 +78,9 @@ public class SubmissionDAO implements Dao<Submission> {
 		return list;
 	}
 
-	public ArrayList<Submission> getMySubmissions() throws SQLException {
-		connection = new ConnectionFactory().getConnection();
-
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) context.getExternalContext()
-				.getSession(true);
-
-		int id = ((User) session.getAttribute("user")).getIdUser();
-
-		String sql = "SELECT * FROM SUBMISSION WHERE id_user = " + id
+	public ArrayList<Submission> getByUser(int idUser) throws SQLException {
+		Connection connection = new ConnectionFactory().getConnection();
+		String sql = "SELECT * FROM SUBMISSION WHERE id_user = " + idUser
 				+ " ORDER BY time_submission DESC";
 
 		Statement statement = connection.createStatement();
@@ -141,11 +110,11 @@ public class SubmissionDAO implements Dao<Submission> {
 	}
 
 	@Override
-	public Submission get(int id) throws SQLException {
-		connection = new ConnectionFactory().getConnection();
+	public Submission get(int idSubmission) throws SQLException {
+		Connection connection = new ConnectionFactory().getConnection();
 
 		String sql = String.format(
-				"SELECT * FROM SUBMISSION WHERE id_submission = %d", id);
+				"SELECT * FROM SUBMISSION WHERE id_submission = %d", idSubmission);
 
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
@@ -182,7 +151,7 @@ public class SubmissionDAO implements Dao<Submission> {
 
 	public void deleteByProblem(int idProblem) throws SQLException {
 
-		connection = new ConnectionFactory().getConnection();
+		Connection connection = new ConnectionFactory().getConnection();
 
 		String sql = String.format("DELETE FROM SUBMISSION WHERE id_problem = %d", idProblem);
 
@@ -197,7 +166,7 @@ public class SubmissionDAO implements Dao<Submission> {
 
 	@Override
 	public void update(Submission value) throws SQLException {
-		connection = new ConnectionFactory().getConnection();
+		Connection connection = new ConnectionFactory().getConnection();
 
 		String sql = "UPDATE SUBMISSION SET id_user = ?, id_problem = ?, id_language = ?, file_name = ?, "
 				+ "time_submission = ?, veredict = ? WHERE id_submission = ?";
@@ -220,7 +189,7 @@ public class SubmissionDAO implements Dao<Submission> {
 
 	@Override
 	public void truncate() throws SQLException {
-		connection = new ConnectionFactory().getConnection();
+		Connection connection = new ConnectionFactory().getConnection();
 
 		String sql = "truncate table SUBMISSION";
 
