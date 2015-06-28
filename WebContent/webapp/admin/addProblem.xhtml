@@ -13,10 +13,10 @@
 
 
 				<p:remoteCommand name="removeRC" update=":form:listProblems"
-					actionListener="#{problem.deleteProblem}" />
+					actionListener="#{problemBean.deleteProblem}" />
 
 				<p:dataTable id="listProblems" var="problems"
-					value="#{problemDAO.all}">
+					value="#{problemBean.getProblems()}">
 					<f:facet name="header">
           				Problemas existentes
        				</f:facet>
@@ -30,14 +30,14 @@
 							update=":form:problemDetail"
 							oncomplete="PF('problemDialog').show()">
 							<f:setPropertyActionListener value="#{problems}"
-								target="#{problem.selectedProblem}" />
+								target="#{problemBean.selectedProblem}" />
 						</p:commandButton>
 
 						<p:commandButton icon="ui-icon-close" title="Apagar"
 							update=":form:problemDetail2"
 							oncomplete="PF('problemDialog2').show()">
 							<f:setPropertyActionListener value="#{problems}"
-								target="#{problem.selectedProblem}" />
+								target="#{problemBean.selectedProblem}" />
 						</p:commandButton>
 					</p:column>
 
@@ -48,9 +48,9 @@
 
 					<p:outputPanel id="problemDetail2" style="text-align:center;">
 						<p:panelGrid columns="2"
-							rendered="#{null ne problem.selectedProblem}"
+							rendered="#{null ne problemBean.selectedProblem}"
 							columnClasses="label,value">
-							<p:commandButton action="#{problem.deleteProblem}" value="Sim"
+							<p:commandButton action="#{problemBean.deleteProblem}" value="Sim"
 								update=":form:listProblems" onclick="problemDialog.hide()"
 								process="@none" icon="ui-icon-circle-check" />
 							<p:commandButton value="Não" update=":form:listProblems"
@@ -66,16 +66,16 @@
 
 					<p:outputPanel id="problemDetail" style="text-align:center;">
 						<p:panelGrid columns="2"
-							rendered="#{null ne problem.selectedProblem}"
+							rendered="#{null ne problemBean.selectedProblem}"
 							columnClasses="label,value">
 
 							<p:outputLabel value="Nome:" />
-							<p:inputText value="#{problem.selectedProblem.title}" />
+							<p:inputText value="#{problemBean.selectedProblem.title}" />
 							<p:outputLabel value="Pontuação" />
-							<p:inputText value="#{problem.selectedProblem.scorePoints}" />
+							<p:inputText value="#{problemBean.selectedProblem.scorePoints}" />
 							<p:outputLabel value="Tempo Limite" />
-							<p:inputText value="#{problem.selectedProblem.timeLimit}" />
-							<p:commandButton action="#{problem.editProblem}" value="Editar"
+							<p:inputText value="#{problemBean.selectedProblem.timeLimit}" />
+							<p:commandButton action="#{problemBean.editProblem}" value="Editar"
 								update=":form:listProblems" onclick="problemDialog.hide()"
 								process="@none" />
 

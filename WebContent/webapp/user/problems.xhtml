@@ -9,7 +9,7 @@
 		<div class="margem">
 		<h:form>
 			<p:dataTable id="listProblems" var="problems"
-				value="#{problemDAO.all}" rowIndexVar="rowIndex">
+				value="#{problemBean.getProblems()}" rowIndexVar="rowIndex">
 				<f:facet name="header">
           			Problemas
        			</f:facet>
@@ -18,7 +18,7 @@
 				</p:column>
 				<p:column>
 					<p:commandLink value="#{problems.title}" action="prob.xhtml?faces-redirect=true" >
-						<f:setPropertyActionListener value="#{problems}" target="#{problem.selectedProblem}"/>
+						<f:setPropertyActionListener value="#{problems}" target="#{problemBean.selectedProblem}"/>
 					</p:commandLink>
 				</p:column>
 				<!--<p:column headerText="Pontuação" width="100">

@@ -16,25 +16,25 @@
 					<p:outputLabel value="Autor:" for="author" />
 					<p:outputLabel value="Universidade:" for="university" />
 					
-					<p:inputText value="#{problem.problem.title}" id="title" required="true" requiredMessage="Digite o título do problema"/>
-					<p:inputText value="#{problem.problem.timeLimit}" id="timeLimit" required="true" requiredMessage="Digite o tempo limite do problema"/>				
-					<p:inputText value="#{problem.problem.author}" id="author" required="true" requiredMessage="Digite o autor do problema"/>
-					<p:inputText value="#{problem.problem.university}" id="university" required="true" requiredMessage="Digite a universidade em que o autor estuda"/>
+					<p:inputText value="#{problemBean.problem.title}" id="title" required="true" requiredMessage="Digite o título do problema"/>
+					<p:inputText value="#{problemBean.problem.timeLimit}" id="timeLimit" required="true" requiredMessage="Digite o tempo limite do problema"/>				
+					<p:inputText value="#{problemBean.problem.author}" id="author" required="true" requiredMessage="Digite o autor do problema"/>
+					<p:inputText value="#{problemBean.problem.university}" id="university" required="true" requiredMessage="Digite a universidade em que o autor estuda"/>
 				</h:panelGrid>
 				<p:fieldset legend="Descrição" toggleable="true" toggleSpeed="500" collapsed="true" style="width:850px">
 					<h:panelGrid columns="1" cellspacing="10">
 						<p:outputLabel value="Descrição:"/>
-						<pe:ckEditor id="description" value="#{problem.problem.description}"
+						<pe:ckEditor id="description" value="#{problemBean.problem.description}"
 							toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 	        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 							width="850px" required="true" requiredMessage="Digite a descrição do problema"/>
 						<p:outputLabel value="Entrada:"/>
-						<pe:ckEditor id="input" value="#{problem.problem.inputDescription}"
+						<pe:ckEditor id="input" value="#{problemBean.problem.inputDescription}"
 							toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 	        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 							width="850px" required="true" requiredMessage="Digite a entrada do problema"/>
 						<p:outputLabel value="Saída:"/>
-						<pe:ckEditor id="output" value="#{problem.problem.outputDescription}"
+						<pe:ckEditor id="output" value="#{problemBean.problem.outputDescription}"
 							toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 	        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 							width="850px" required="true" requiredMessage="Digite a saída do problema"/>
@@ -44,12 +44,12 @@
 					<p:fieldset legend="Casos de teste 1" toggleable="true" toggleSpeed="500" collapsed="true" style="width:800px">
 						<h:panelGrid columns="1" cellspacing="5">
 							<p:outputLabel value="Entrada 1:"/>
-							<pe:ckEditor id="inputSample1" value="#{problem.problem.inputSample1}"
+							<pe:ckEditor id="inputSample1" value="#{problemBean.problem.inputSample1}"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 								width="800px" required="true" requiredMessage="Digite o exemplo de entrada 1"/>
 							<p:outputLabel value="Saída 1:"/>
-							<pe:ckEditor id="outputSample1" value="#{problem.problem.outputSample1}"
+							<pe:ckEditor id="outputSample1" value="#{problemBean.problem.outputSample1}"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 								width="800px" required="true" requiredMessage="Digite o exemplo de saída 1"/>
@@ -58,12 +58,12 @@
 					<p:fieldset legend="Casos de teste 2" toggleable="true" toggleSpeed="500" collapsed="true" style="width:800px">
 						<h:panelGrid columns="1" cellspacing="5">
 							<p:outputLabel value="Entrada 2:"/>
-							<pe:ckEditor id="inputSample2" value="#{problem.problem.inputSample2}"
+							<pe:ckEditor id="inputSample2" value="#{problemBean.problem.inputSample2}"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 								width="800px" />
 							<p:outputLabel value="Saída 2:"/>
-							<pe:ckEditor id="outputSample2" value="#{problem.problem.outputSample2}"
+							<pe:ckEditor id="outputSample2" value="#{problemBean.problem.outputSample2}"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 								width="800px" />
@@ -72,12 +72,12 @@
 					<p:fieldset legend="Casos de teste 3" toggleable="true" toggleSpeed="500" collapsed="true" style="width:800px">
 						<h:panelGrid columns="1" cellspacing="5">
 							<p:outputLabel value="Entrada 3:"/>
-							<pe:ckEditor id="inputSample3" value="#{problem.problem.inputSample3}"
+							<pe:ckEditor id="inputSample3" value="#{problemBean.problem.inputSample3}"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 								width="800px" />
 							<p:outputLabel value="Saída 3:"/>
-							<pe:ckEditor id="outputSample3" value="#{problem.problem.outputSample3}"
+							<pe:ckEditor id="outputSample3" value="#{problemBean.problem.outputSample3}"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 								width="800px" />
@@ -86,17 +86,17 @@
 				</p:fieldset>
 				<h:panelGrid columns="1" cellspacing="5">
 					<p:outputLabel value="Observações:"/>
-					<pe:ckEditor id="notes" value="#{problem.problem.notes}"
+					<pe:ckEditor id="notes" value="#{problemBean.problem.notes}"
 								toolbar="[['Source'],['Cut','Copy','Paste','PasteText','-','Undo','Redo'],[ 'Find','Replace','-','SelectAll','-', 
 		        					'Bold','Italic','Underline','Strike','Subscript','Superscript','-'],['NumberedList','BulletedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink' ,'Image','HorizontalRule','Smiley'],['Styles','Format','Font','FontSize' , 'TextColor','BGColor' ,'Maximize',]]"
 								width="850px" height="60px"/>
 				</h:panelGrid>
 				
-				<p:fileUpload value="#{problem.testcases}" label="Casos de teste"
+				<p:fileUpload value="#{problemBean.testcases}" label="Casos de teste"
 									skinSimple="true" mode="simple" icon="ui-icon-plus"
 									required="true" requiredMessage="Selecione o arquivo a ser enviado"/>
 				
-				<p:commandButton value="Salvar" action="#{problem.createProblem}" icon="ui-icon-disk" update="form" ajax="false"/>
+				<p:commandButton value="Salvar" action="#{problemBean.createProblem}" icon="ui-icon-disk" update="form" ajax="false"/>
 			</div>
 		</h:form>
 		<br/>

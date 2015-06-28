@@ -8,7 +8,7 @@
 	<ui:define name="content">
 		<p:growl id="growl" autoUpdate="true" />
 		<div class="margem">
-			<p:dataTable var="allSubmissions" value="#{submissionDAO.getMySubmissions()}" id="table"
+			<p:dataTable var="allSubmissions" value="#{submissionBean.getMySubmissions()}" id="table"
 				style="width:850px;">
 				<f:facet name="header">
           			Suas Submissões

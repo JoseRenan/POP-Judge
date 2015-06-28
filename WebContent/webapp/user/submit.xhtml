@@ -11,7 +11,7 @@
 			<p:button outcome="mySubmissions" value="Minhas Submissões" />
 			<div align="center">
 				<p:dataTable id="listProblems" var="problems"
-					value="#{problemDAO.all}" rowIndexVar="rowIndex">
+					value="#{problemBean.getProblems()}" rowIndexVar="rowIndex">
 					<f:facet name="header">
           				Selecione o problema
        				</f:facet>
@@ -29,7 +29,7 @@
 						<p:commandButton icon="ui-icon-circle-arrow-n" title="Submeter"
 							update="problemDetail" oncomplete="PF('problemDialog').show()">
 							<f:setPropertyActionListener value="#{problems}"
-								target="#{submission.selectedProblem}" />
+								target="#{submissionBean.selectedProblem}" />
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
@@ -47,7 +47,7 @@
 										<br />
 										<p:outputLabel for="linguagem" value="Linguagem: " />
 										<p:selectOneRadio id="linguagem"
-											value="#{submission.idLanguage}" layout="grid" columns="5"
+											value="#{submissionBean.idLanguage}" layout="grid" columns="5"
 											required="true" requiredMessage="Selecione a linguagem">
 											<f:selectItem itemLabel="PASCAL" itemValue="4" />
 											<f:selectItem itemLabel="PYTHON" itemValue="5" />
@@ -57,10 +57,10 @@
 										</p:selectOneRadio>
 									</h:panelGrid>
 								</div>
-								<p:fileUpload value="#{submission.upFile}" label="Arquivo"
+								<p:fileUpload value="#{submissionBean.upFile}" label="Arquivo"
 									skinSimple="true" mode="simple" icon="ui-icon-plus"
 									required="true" requiredMessage="Selecione o arquivo a ser enviado"/>
-								<p:commandButton action="#{submission.submit}" value="Enviar"
+								<p:commandButton action="#{submissionBean.submit}" value="Enviar"
 									ajax="false" icon="ui-icon-extlink" style="width:106px;" update="growl"/>
 							</p:scrollPanel>
 						</h:form>

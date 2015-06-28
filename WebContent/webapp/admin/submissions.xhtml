@@ -8,7 +8,7 @@
 
 	<ui:define name="content">
 		<div align="center">
-			<p:dataTable var="allSubmissions" value="#{submissionDAO.getAll()}" id="table"
+			<p:dataTable var="allSubmissions" value="#{submissionBean.getSubmissions()}" id="table"
 				style="width:900px;">
 				<f:facet name="header">
           			Lista de submissões

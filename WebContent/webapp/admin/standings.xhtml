@@ -11,11 +11,11 @@
 				<p:row>
 					<p:column rowspan="2" headerText="#" width="10" />
 					<p:column rowspan="2" headerText="Usuários" width="300" />
-					<p:column colspan="#{problemDAO.all.size()}" headerText="Problemas"
+					<p:column colspan="#{problemBean.getProblems().size()}" headerText="Problemas"
 						width="500" />
 				</p:row>
 				<p:row>
-					<ui:repeat value="#{problemDAO.all}" var="problemList" varStatus="probIndex">
+					<ui:repeat value="#{problemBean.getProblems().size()}" var="problemList" varStatus="probIndex">
 						<p:column headerText="P#{probIndex.index+1}" width="50"/>
 					</ui:repeat>
 				</p:row>
@@ -31,7 +31,7 @@
 				<h:outputText value="#{rank.username}" />
 			</p:column>
 
-			<p:columns value="#{problemDAO.all}" var="problemList" width="50">
+			<p:columns value="#{problemBean.getProblems()}" var="problemList" width="50">
 				<div align="center">
 					<div
 						class="#{rank.problems.get(problemList.idProblem).passedTime gt 0? 'blue' : (rank.problems.get(problemList.idProblem).tries ne 0? 'orange' : 'gray')}">
