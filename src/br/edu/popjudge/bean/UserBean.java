@@ -38,8 +38,9 @@ public class UserBean implements Serializable{
 		UserService service = new UserService();
 		
 		if (!service.login(this.user)){
+			this.user.setPassword("");
 			GenericBean.setMessage("Usuário ou senha incorretos", FacesMessage.SEVERITY_ERROR);
-			return null;
+			return "";
 		}
 		
 		return "index.xhtml?faces-redirect=true";
@@ -48,11 +49,9 @@ public class UserBean implements Serializable{
 	public String logout(){
 		
 		UserService service = new UserService();
-		
 		service.logout();
 		
-		return "index.xhtml?faces-redirect=true";
-		
+		return "indexUser.xhtml?faces-redirect=true";
 	}
 
 	public void newUser() throws SQLException, IOException, NoSuchAlgorithmException {
