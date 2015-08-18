@@ -1,5 +1,6 @@
 package br.edu.popjudge.bean;
 
+import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -30,6 +31,14 @@ public class GenericBean {
 				.getExternalContext().getSession(false);
 		session.invalidate();
 	}
+	
+	public static void redirectPage(String path){
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void setMessage(String clientID, String summary, String key,
 			Severity severity) {
@@ -54,8 +63,7 @@ public class GenericBean {
 
 		try {
 
-			ResourceBundle bundle = ResourceBundle.getBundle("i18n.messages",
-					fc.getViewRoot().getLocale());
+			ResourceBundle bundle = ResourceBundle.getBundle("i18n.messages", fc.getViewRoot().getLocale());
 			text = bundle.getString(key);
 
 		} catch (Exception e) {

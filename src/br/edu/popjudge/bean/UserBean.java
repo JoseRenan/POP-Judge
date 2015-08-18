@@ -1,17 +1,12 @@
 package br.edu.popjudge.bean;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
 import br.edu.popjudge.database.dao.UserDAO;
 import br.edu.popjudge.domain.User;
@@ -34,27 +29,29 @@ public class UserBean implements Serializable{
 		this.user = user;
 	}
 
-	public String login(){
+	public void login(){
 		UserService service = new UserService();
 		
 		if (!service.login(this.user)){
 			this.user.setPassword("");
 			GenericBean.setMessage("Usuário ou senha incorretos", FacesMessage.SEVERITY_ERROR);
-			return "";
+		} else {
+			GenericBean.redirectPage("/POP-Judge/");
 		}
-		
-		return "index.xhtml?faces-redirect=true";
 	}
 
-	public String logout(){
+	public void logout(){
 		
 		UserService service = new UserService();
 		service.logout();
 		
-		return "indexUser.xhtml?faces-redirect=true";
+		GenericBean.redirectPage("/POP-Judge/");
 	}
-
-	public void newUser() throws SQLException, IOException, NoSuchAlgorithmException {
+	
+	
+	//TODO - Método ainda não passado para o UserService pois o cadastro agora não é mais feito apenas com usuário e senha, 
+	//precisamos tratar melhor os erros e mensagens lançadas
+	public void newUser(){
 		try {
 			
 			String home = System.getProperty("user.home");
@@ -69,36 +66,28 @@ public class UserBean implements Serializable{
 			RankingService rankingService = new RankingService();
 			rankingService.insertUser(this.user);
 			
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/POP-Judge/");
+			GenericBean.setMessage("Usuário criado com sucesso", FacesMessage.SEVERITY_INFO);
 			
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Usuário criado com sucesso", ""));
+			GenericBean.redirectPage("/POP-Judge/");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Nome de login já utilizado", ""));
+			GenericBean.setMessage("Nome de login já utilizado", FacesMessage.SEVERITY_ERROR);
 		}
 	}
 
-	public void changePassword() throws SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) context.getExternalContext()
-				.getSession(true);
+	public void changePassword() {
 		
-		User u = (User) session.getAttribute("user");
+		User user = (User) GenericBean.getSessionValue("user");
 		
-		u.setPassword(this.user.getPassword());
-		UserDAO ud = new UserDAO();
-		ud.update(u);
+		user.setPassword(this.user.getPassword());
 		
-		FacesContext.getCurrentInstance().addMessage(
-				null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Senha modificada com sucesso", ""));
+		UserService service = new UserService();
+		service.updateUser(user);
+		
+		this.user = new User();
+		
+		GenericBean.setMessage("Senha modificada com sucesso", FacesMessage.SEVERITY_INFO);
 	}
 
 }

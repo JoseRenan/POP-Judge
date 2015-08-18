@@ -35,4 +35,15 @@ public class UserService {
 		GenericBean.invalidateSession();
 	}
 	
+	public void updateUser(User user){
+		
+		UserDAO userDAO = new UserDAO();
+		
+		try {
+			userDAO.update(user);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

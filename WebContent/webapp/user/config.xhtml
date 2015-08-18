@@ -7,7 +7,7 @@
 
 	<ui:define name="content">
 		<div align="center">
-			<h:form>
+			<h:form id="form">
 				<p:growl id="growl" showDetail="false" />
 				<h:panelGrid columns="2">
 					<p:outputLabel for="senha" value="Nova senha: " />
@@ -17,7 +17,7 @@
 					<p:password id="senha2" value="#{userBean.user.password}" required="true" requiredMessage="Repita a senha a senha"/>
 					<p:commandButton value="Mudar"
 						actionListener="#{userBean.changePassword}" icon="ui-icon-refresh"
-						update="growl" />
+						update="growl,form" />
 				</h:panelGrid>
 			</h:form>
 		</div>

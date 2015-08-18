@@ -37,7 +37,7 @@
 						<fieldset>
 							<div align="center">
 								<div class="right">
-									<h:form>
+									<h:form id="form">
 										<h:panelGrid columns="1" cellspacing="10">
 											<h:panelGrid columns="1">
 												<p:outputLabel value="Login" style="font-weight: bold;" />
@@ -54,7 +54,7 @@
 											</h:panelGrid>
 										</h:panelGrid>
 										<br />
-										<p:commandButton styleClass="button" value="Entrar" action="#{userBean.login}" />
+										<p:commandButton styleClass="button" value="Entrar" action="#{userBean.login}" update="form"/>
 										<p:button styleClass="button" outcome="signUp" value="Cadastro"/>
 									</h:form>
 								</div>
